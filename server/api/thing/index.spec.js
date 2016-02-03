@@ -2,6 +2,8 @@
 
 var proxyquire = require('proxyquire').noPreserveCache();
 
+var assert = require('chai').assert;
+
 var thingCtrlStub = {
   index: 'thingCtrl.index',
   show: 'thingCtrl.show',
@@ -91,7 +93,12 @@ describe('Thing API Router:', function() {
         .withArgs('/:id', 'thingCtrl.destroy')
         .should.have.been.calledOnce;
     });
+  });
 
+  describe('BOOOOM', function() {
+    it('ONE SHOULD BE ONE', function() {
+      assert(true === false, "true === true");
+    });
   });
 
 });
