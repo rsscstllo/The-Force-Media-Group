@@ -95,10 +95,4 @@ describe('Thing API Router:', function() {
     });
   });
 
-  describe('BOOOOM', function() {
-    it('ONE SHOULD BE ONE', function() {
-      assert(true === false, "true === true");
-    });
-  });
-
 });
