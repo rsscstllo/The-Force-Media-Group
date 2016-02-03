@@ -2,8 +2,6 @@
 
 var proxyquire = require('proxyquire').noPreserveCache();
 
-var assert = require('chai').assert;
-
 var thingCtrlStub = {
   index: 'thingCtrl.index',
   show: 'thingCtrl.show',
