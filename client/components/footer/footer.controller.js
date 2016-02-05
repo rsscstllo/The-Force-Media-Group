@@ -6,10 +6,6 @@
 
   class FooterController {
 
-    onYtEvent(payload) {
-
-    }
-
   }
 
   angular.module('fmgApp')
