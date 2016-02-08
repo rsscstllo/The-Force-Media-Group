@@ -6,7 +6,19 @@ class NavbarController {
     {
     'title': 'Home',
     'state': 'main'
-    }];
+  }, {
+	'title': 'About Me',
+	'state': 'bio'
+  }, {
+	'title': 'Blog',
+	'state': 'blog'
+  }, {
+	'title': 'Booking',
+	'state': 'booking'
+  }, {
+	'title': 'Store',
+	'state': 'store'
+  }];
 
   isCollapsed = true;
   //end-non-standard

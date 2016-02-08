@@ -56,11 +56,15 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
 
 // Component styles are injected through grunt
 // injector
-@import 'admin/admin';
-@import 'main/main';
-@import 'signupheader/signupheader';
-@import 'youtube/youtube';
-@import '../components/footer/footer';
-@import '../components/modal/modal';
-@import '../components/oauth-buttons/oauth-buttons';
+@import 'admin/admin.scss';
+@import 'bio/bio.scss';
+@import 'blog/blog.scss';
+@import 'booking/booking.scss';
+@import 'main/main.scss';
+@import 'signupheader/signupheader.scss';
+@import 'store/store.scss';
+@import 'youtube/youtube.scss';
+@import '../components/footer/footer.scss';
+@import '../components/modal/modal.scss';
+@import '../components/oauth-buttons/oauth-buttons.scss';
 // endinjector
