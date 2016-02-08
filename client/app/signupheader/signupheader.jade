@@ -1,0 +1,39 @@
+
+#signupNavContainer.col-xs-12.skyBlueBackground
+  form#signupContainer.col-xs-5.form-inline
+    label(for="signupEmailBox" style="margin-top:8px; text-align:center").col-xs-4.control-label.labelNoFormat
+      | Get Video Updates
+    input(placeholder="(111) 111-1111" ng-model="ctrl.phoneNumber" ng-bind="ctrl.phoneNumber | tel")#signupEmailBox.col-xs-6.form-control
+    label(style="margin-top:5px;padding-left:5px;").labelNoFormat
+      | {{ctrl.phoneNumber | tel}}
+    button.btn.btn-xs.btn-default#subscribeButton(ng-click="ctrl.createContact()")
+      | Subscribe
+
+  .col-xs-2
+
+  .col-xs-5
+    table(style="float:right")
+      tr
+        td.clickable
+          a(href="https://www.facebook.com/jarmone1")
+            img(src="../assets/images/facebook_circle.png").socialMediaIcon.clickable
+
+        td.iconSpacer
+
+        td.clickable
+          a(href="https://www.youtube.com/channel/UCBWT4QoCrNRuH54uhL4-B3Q")
+            img(src="../assets/images/youtube_circle.png").socialMediaIcon.clickable
+
+        td.iconSpacer
+
+        td.clickable
+          a(href="http://www.twitter.com")
+            img(src="../assets/images/twitter_circle.png").socialMediaIcon.clickable
+
+        td.iconSpacer
+
+        td.clickable
+          a(href="https://www.linkedin.com")
+            img(src="../assets/images/linkdin_circle.png").socialMediaIcon.clickable
+
+        td.iconSpacer

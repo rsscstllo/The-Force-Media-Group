@@ -15,6 +15,45 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
   padding: 0.2em 0;
 }
 
+.deepSeaBackground {
+  background-color:#094d74;
+}
+.deepSeaColor {
+  color: #094d74;
+}
+
+.skyBlueBackground {
+  background-color: #759cd8;
+}
+
+.skyBlueColor {
+  color: #759cd8;
+}
+
+.crestBackground {
+  background-color: #9cb9d1;
+}
+
+.crestColor {
+  color: #9cb9d1;
+}
+
+.sadDayBackground {
+  background-color: #cfdaec;
+}
+
+.sadDayColor {
+  color: #cfdaec;
+}
+
+.cloudyBackground {
+  background-color: #eef0f6;
+}
+
+.cloudyColor {
+  color: #eef0f6;
+}
+
 // Component styles are injected through grunt
 // injector
 @import 'admin/admin.scss';
@@ -22,7 +61,9 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
 @import 'blog/blog.scss';
 @import 'booking/booking.scss';
 @import 'main/main.scss';
+@import 'signupheader/signupheader.scss';
 @import 'store/store.scss';
+@import 'youtube/youtube.scss';
 @import '../components/footer/footer.scss';
 @import '../components/modal/modal.scss';
 @import '../components/oauth-buttons/oauth-buttons.scss';

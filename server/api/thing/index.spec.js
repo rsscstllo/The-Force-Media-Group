@@ -91,7 +91,6 @@ describe('Thing API Router:', function() {
         .withArgs('/:id', 'thingCtrl.destroy')
         .should.have.been.calledOnce;
     });
-
   });
 
 });

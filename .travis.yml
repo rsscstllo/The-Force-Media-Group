@@ -6,7 +6,8 @@ matrix:
   allow_failures:
     - node_js: 5.1.1
 before_script:
-  - npm install -g bower grunt-cli
+  - npm install -g bower grunt-cli gulp
   - gem install sass
   - bower install
 services: mongodb
+script: npm run test
