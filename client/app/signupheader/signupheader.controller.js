@@ -11,7 +11,7 @@
     constructor(SignUp) {
       console.log('constructor');
       this.SignUp = SignUp;
-      this.phoneNumber = 8138922442;
+      this.phoneNumber = undefined;
     }
 
 
@@ -19,12 +19,10 @@
       var SignUp = this.SignUp;
       var phoneNumber = this.phoneNumber;
       SignUp.createContact(phoneNumber).success(function(data) {
-        console.log('create contact');
         console.log(data);
 
         if(!data.Response.Errors) {
           SignUp.sendConfirmationMessage(phoneNumber).success(function (data) {
-            console.log('send confirmation text');
             console.log(data);
           });
         }

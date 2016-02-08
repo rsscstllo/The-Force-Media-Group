@@ -1,4 +1,4 @@
-div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
+div.navbar.navbar-default.cloudyBackground.navbar-static-top(ng-controller='NavbarController')
   div.container
     div.navbar-header
       button.navbar-toggle(type='button', ng-click='nav.isCollapsed = !nav.isCollapsed')
@@ -32,4 +32,3 @@ div.navbar.navbar-default.navbar-static-top(ng-controller='NavbarController')
 
         li(ng-show='nav.isLoggedIn()')
           a(ui-sref='logout') Logout
-
