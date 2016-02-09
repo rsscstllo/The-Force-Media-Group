@@ -5,13 +5,10 @@ var controller = require('./eztexting.controller');
 
 var router = express.Router();
 
-router.route('/sendConfirmationMessage/:phoneNumber')
-  .get(controller.sendConfirmationMessage);
+router.get('/sendConfirmationMessage/:phoneNumber', controller.sendConfirmationMessage);
 
-router.route('/createContact/:phoneNumber')
-  .get(controller.createContact);
+router.get('/createContact/:phoneNumber', controller.createContact);
 
-router.route('/sendTextToGroup/:messageText')
-  .get(controller.sendTextToGroup);
+router.get('/sendTextToGroup/:messageText', controller.sendTextToGroup);
 
 module.exports = router;
