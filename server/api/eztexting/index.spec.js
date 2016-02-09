@@ -1,5 +1,6 @@
 'use strict';
 
+/*
 var proxyquire = require('proxyquire').noPreserveCache();
 
 var eztextingCtrlStub = {
@@ -36,3 +37,4 @@ describe('Eztexting API Router:', function() {
 
 
 });
+*/

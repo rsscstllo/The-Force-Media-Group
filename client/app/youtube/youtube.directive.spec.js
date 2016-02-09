@@ -4,7 +4,7 @@ describe('Directive: youtube', function () {
 
   // load the directive's module and view
   beforeEach(module('fmgApp'));
-  beforeEach(module('app/youtube/youtube.html'));
+  beforeEach(module('app/main/main.html'));
 
   var element, scope;
 
@@ -12,10 +12,10 @@ describe('Directive: youtube', function () {
     scope = $rootScope.$new();
   }));
 
-  it('should make hidden element visible', inject(function ($compile) {
+  xit('Should have the proper id for YouTube to consume', inject(function ($compile) {
     element = angular.element('<youtube></youtube>');
     element = $compile(element)(scope);
     scope.$apply();
-    expect(element.text()).toBe('this is the youtube directive');
+    expect(element.attr('id')).toBe('youtube-player');
   }));
 });

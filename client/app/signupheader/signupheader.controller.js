@@ -9,7 +9,6 @@
   class SignUpHeaderController {
 
     constructor(SignUp) {
-      console.log('constructor');
       this.SignUp = SignUp;
       this.phoneNumber = undefined;
     }
@@ -27,7 +26,7 @@
           });
         }
         else if(data.Response.Errors[0] == "PhoneNumber: This phone number is already in your contacts list.") {
-          console.log('You\'ve already registered');
+          alert('You\'ve already registered');
         }
 
       });
