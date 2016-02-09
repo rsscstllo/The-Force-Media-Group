@@ -1,7 +1,7 @@
 /**
  * Created by Gavin on 2/3/16.
  */
-'user strict';
+'use strict';
 
 (function () {
 
@@ -40,13 +40,13 @@
           return tel;
       }
 
-      if (country == 1) {
-        country = "";
+      if (country === 1) {
+        country = '';
       }
 
       number = number.slice(0, 3) + '-' + number.slice(3);
 
-      return (country + " (" + city + ") " + number).trim();
+      return (country + ' (' + city + ') ' + number).trim();
     };
   });
 
