@@ -54,6 +54,7 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
   color: #eef0f6;
 }
 
+
 // Component styles are injected through grunt
 // injector
 @import 'admin/admin.scss';
@@ -66,5 +67,6 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
 @import 'youtube/youtube.scss';
 @import '../components/footer/footer.scss';
 @import '../components/modal/modal.scss';
+@import '../components/navbar/navbar.scss';
 @import '../components/oauth-buttons/oauth-buttons.scss';
 // endinjector
