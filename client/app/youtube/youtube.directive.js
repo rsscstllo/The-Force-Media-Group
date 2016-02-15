@@ -3,7 +3,7 @@
 angular.module('fmgApp')
   .directive('youtube', function ($window, $http) {
     return {
-      template: '<div id="youtube-player"></div>',
+      template: '<div class="video-container"><div id="youtube-player"></div></div>',
       restrict: 'E',
       scope: {
         height: "@",
