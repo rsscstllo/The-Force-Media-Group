@@ -6,11 +6,13 @@ angular.module('fmgApp')
       template: '<div class="video-container"><div id="youtube-player"></div></div>',
       restrict: 'E',
       scope: {
-        height: "@",
-        width: "@",
-        channelid: "@"
+        height: '@',
+        width: '@',
+        channelid: '@'
       },
       link: function (scope, element, attrs) {
+
+        var videoIds;
 
         function onPlayerReady(event) {
           console.log('Player Ready');
@@ -27,12 +29,12 @@ angular.module('fmgApp')
           // This code loads the IFrame Player API code asynchronously.
           var tag = document.createElement('script');
 
-          tag.src = "https://www.youtube.com/iframe_api";
+          tag.src = 'https://www.youtube.com/iframe_api';
           var firstScriptTag = document.getElementsByTagName('script')[0];
           firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
           // This function creates an <iframe> (and YouTube player) after the API code downloads.
-          var player, videoIds;
+          var player;
           $window.onYouTubeIframeAPIReady = function() {
 
             const part = 'snippet';
