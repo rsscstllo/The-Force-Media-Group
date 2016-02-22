@@ -1,4 +1,4 @@
-// Generated on 2016-01-27 using generator-angular-fullstack 3.3.0-beta.0
+// Generated on 2016-02-03 using generator-angular-fullstack 3.3.0
 'use strict';
 
 import _ from 'lodash';
@@ -14,6 +14,7 @@ import nodemon from 'nodemon';
 import {Server as KarmaServer} from 'karma';
 import runSequence from 'run-sequence';
 import {protractor, webdriver_update} from 'gulp-protractor';
+import {Instrumenter} from 'isparta';
 
 var plugins = gulpLoadPlugins();
 var config;
@@ -149,8 +150,8 @@ let mocha = lazypipe()
     });
 
 let istanbul = lazypipe()
-    .pipe(plugins.babelIstanbul.writeReports)
-    .pipe(plugins.babelIstanbul.enforceThresholds, {
+    .pipe(plugins.istanbul.writeReports)
+    .pipe(plugins.istanbulEnforcer, {
         thresholds: {
             global: {
                 lines: 80,
@@ -158,7 +159,9 @@ let istanbul = lazypipe()
                 branches: 80,
                 functions: 80
             }
-        }
+        },
+        coverageDirectory: './coverage',
+        rootDirectory : ''
     });
 
 /********************
@@ -262,7 +265,11 @@ gulp.task('transpile:server', () => {
 gulp.task('lint:scripts', cb => runSequence(['lint:scripts:client', 'lint:scripts:server'], cb));
 
 gulp.task('lint:scripts:client', () => {
-    return gulp.src(_.union(paths.client.scripts, _.map(paths.client.test, blob => '!' + blob)))
+    return gulp.src(_.union(
+        paths.client.scripts,
+        _.map(paths.client.test, blob => '!' + blob),
+        [`!${clientPath}/app/app.constant.js`]
+    ))
         .pipe(lintClientScripts());
 });
 
@@ -325,6 +332,8 @@ gulp.task('watch', () => {
 
     plugins.watch(paths.client.views)
         .pipe(plugins.plumber())
+        .pipe(plugins.jade())
+        .pipe(gulp.dest('.tmp'))
         .pipe(plugins.livereload());
 
     plugins.watch(paths.client.scripts) //['inject:js']
@@ -370,7 +379,7 @@ gulp.task('test:server', cb => {
         'env:test',
         'mocha:unit',
         'mocha:integration',
-        //'mocha:coverage',
+        'mocha:coverage',
         cb);
 });
 
@@ -552,9 +561,12 @@ gulp.task('copy:server', () => {
 gulp.task('coverage:pre', () => {
   return gulp.src(paths.server.scripts)
     // Covering files
-    .pipe(plugins.babelIstanbul())
+    .pipe(plugins.istanbul({
+        instrumenter: Instrumenter, // Use the isparta instrumenter (code coverage for ES6)
+        includeUntested: true
+    }))
     // Force `require` to return covered files
-    .pipe(plugins.babelIstanbul.hookRequire());
+    .pipe(plugins.istanbul.hookRequire());
 });
 
 gulp.task('coverage:unit', () => {

@@ -19,7 +19,7 @@ import passport from 'passport';
 import session from 'express-session';
 import connectMongo from 'connect-mongo';
 import mongoose from 'mongoose';
-var mongoStore = connectMongo(session);
+var MongoStore = connectMongo(session);
 
 export default function(app) {
   var env = app.get('env');
@@ -40,7 +40,7 @@ export default function(app) {
     secret: config.secrets.session,
     saveUninitialized: true,
     resave: false,
-    store: new mongoStore({
+    store: new MongoStore({
       mongooseConnection: mongoose.connection,
       db: 'fmg'
     })
@@ -80,6 +80,7 @@ export default function(app) {
   if ('development' === env || 'test' === env) {
     app.use(express.static(path.join(config.root, '.tmp')));
     app.use(express.static(app.get('appPath')));
+    app.use(express.static(path.join(__dirname, 'client', 'assets')));
     app.use(morgan('dev'));
     app.use(errorHandler()); // Error handler - has to be last
   }

@@ -9,7 +9,9 @@ angular.module('fmgApp', [
   'ngSanitize',
   'ui.router',
   'ui.bootstrap',
-  'validation.match'
+  'validation.match',
+  'ui.mask',
+  'toaster'
 ])
   .config(function($urlRouterProvider, $locationProvider) {
     $urlRouterProvider
