@@ -19,9 +19,9 @@
       var SignUp = this.SignUp;
       var phoneNumber = this.phoneNumber;
       var toaster = this.toaster;
+      var that = this;
 
       SignUp.createContact(phoneNumber).success(function(data) {
-        console.log(data);
 
         if(!data.Response.Errors) {
           SignUp.sendConfirmationMessage(phoneNumber).success(function (data) {
@@ -32,8 +32,14 @@
           toaster.pop("error", "Oops", "You have already subscribed to receive text updates from Jarmone.");
         }
 
+
+      }).then(function() {
+        that.phoneNumber = undefined;
       });
+
+
     }
+
 
 
 
