@@ -1,7 +1,9 @@
 'use strict';
 
+
+
 angular.module('fmgApp')
-  .directive('youtube', function ($window, $http) {
+  .directive('youtube', function ($window, $http, appConfig) {
     return {
       template: '<div class="video-container"><div id="youtube-player"></div></div>',
       restrict: 'E',
@@ -10,7 +12,7 @@ angular.module('fmgApp')
         width: '@',
         channelid: '@'
       },
-      link: function (scope, element, attrs) {
+      link: function (scope) {
 
         var videoIds;
 
@@ -41,7 +43,7 @@ angular.module('fmgApp')
             const maxResults = '10';
             const order = 'date';
             const type = 'video';
-            const apiKey = 'AIzaSyCDhdYEHiYIz59b9bLGqaQg0Sdw7r35REE';
+            const apiKey = appConfig.YouTubeKey;
             const urlString = `https://www.googleapis.com/youtube/v3/search?part=${part}&channelId=${scope.channelid}&maxResults=${maxResults}&order=${order}&type=${type}&key=${apiKey}`;
 
             $http.get(urlString)
