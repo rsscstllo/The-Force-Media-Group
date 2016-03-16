@@ -1,4 +1,9 @@
 navbar
 div This is the store view.
+a(ng-click="createItem()")
+  | create item
+
+div(ng-repeat="item in storeItems")
+  | {{item.Name}}
 
 footer
