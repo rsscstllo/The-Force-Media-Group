@@ -36,9 +36,7 @@ describe('StoreItem API:', function() {
         .post('/api/storeItems')
         .send({
           Name: "This is a new store item",
-          Picture: "pictureurl.png",
           Price: 19.99,
-          Description: "des"
         })
         .expect(201)
         .expect('Content-Type', /json/)
@@ -53,9 +51,7 @@ describe('StoreItem API:', function() {
 
     it('should respond with the newly created storeItem', function() {
       newStoreItem.Name.should.equal('This is a new store item');
-      newStoreItem.Picture.should.equal('pictureurl.png');
       newStoreItem.Price.should.equal(19.99);
-      newStoreItem.Description.should.equal("des");
     });
 
   });
@@ -83,9 +79,7 @@ describe('StoreItem API:', function() {
 
     it('should respond with the requested storeItem', function() {
       newStoreItem.Name.should.equal('This is a new store item');
-      newStoreItem.Picture.should.equal('pictureurl.png');
       newStoreItem.Price.should.equal(19.99);
-      newStoreItem.Description.should.equal("des");
     });
 
   });
@@ -98,9 +92,7 @@ describe('StoreItem API:', function() {
         .put('/api/storeItems/' + newStoreItem._id)
         .send({
           Name: "updated This is a new store item",
-          Picture: "updatedpictureurl.png",
           Price: 19.98,
-          Description: "updateddes"
         })
         .expect(200)
         .expect('Content-Type', /json/)
@@ -118,10 +110,8 @@ describe('StoreItem API:', function() {
     });
 
     it('should respond with the updated storeItem', function() {
-      newStoreItem.Name.should.equal('updated This is a new store item');
-      newStoreItem.Picture.should.equal('updatedpictureurl.png');
-      newStoreItem.Price.should.equal(19.98);
-      newStoreItem.Description.should.equal("updateddes");
+      updatedStoreItem.Name.should.equal('updated This is a new store item');
+      updatedStoreItem.Price.should.equal(19.98);
     });
 
   });

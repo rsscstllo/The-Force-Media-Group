@@ -85,12 +85,8 @@ export function show(req, res) {
 
 // Creates a new StoreItem in the DB
 export function create(req, res) {
-
-  var storeItem = new StoreItem(req.body);
-
-  storeItem.saveAsync()
-    .then(handleEntityNotFound(res))
-    .then(respondWithResult(res))
+  return StoreItem.create(req.body)
+    .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
 
@@ -99,16 +95,16 @@ export function update(req, res) {
   if (req.body._id) {
     delete req.body._id;
   }
-  StoreItem.findByIdAsync(req.params.id)
+  return StoreItem.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
     .then(saveUpdates(req.body))
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-// Deletes a StoreItem from the DB
+// Deletes a Blog from the DB
 export function destroy(req, res) {
-  StoreItem.findByIdAsync(req.params.id)
+  return StoreItem.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
     .catch(handleError(res));
