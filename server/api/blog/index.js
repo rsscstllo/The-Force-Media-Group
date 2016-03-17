@@ -11,6 +11,5 @@ router.post('/', controller.create);
 router.put('/:id', controller.update);
 router.patch('/:id', controller.update);
 router.delete('/:id', controller.destroy);
-//create w/ username and Comment
-//in controller save to database
+
 module.exports = router;

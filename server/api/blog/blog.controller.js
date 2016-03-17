@@ -24,8 +24,8 @@ function respondWithResult(res, statusCode) {
 function saveUpdates(updates) {
   return function(entity) {
     var updated = _.merge(entity, updates);
-    return updated.saveAsync()
-      .spread(updated => {
+    return updated.save()
+      .then(updated => {
         return updated;
       });
   };
@@ -34,7 +34,7 @@ function saveUpdates(updates) {
 function removeEntity(res) {
   return function(entity) {
     if (entity) {
-      return entity.removeAsync()
+      return entity.remove()
         .then(() => {
           res.status(204).end();
         });
@@ -61,14 +61,14 @@ function handleError(res, statusCode) {
 
 // Gets a list of Blogs
 export function index(req, res) {
-  Blog.findAsync()
+  return Blog.find().exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
 // Gets a single Blog from the DB
 export function show(req, res) {
-  Blog.findByIdAsync(req.params.id)
+  return Blog.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
@@ -76,9 +76,8 @@ export function show(req, res) {
 
 // Creates a new Blog in the DB
 export function create(req, res) {
-  Blog.createAsync(req.body)
+  return Blog.create(req.body)
     .then(respondWithResult(res, 201))
-    //save comments/usernames
     .catch(handleError(res));
 }
 
@@ -87,7 +86,7 @@ export function update(req, res) {
   if (req.body._id) {
     delete req.body._id;
   }
-  Blog.findByIdAsync(req.params.id)
+  return Blog.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
     .then(saveUpdates(req.body))
     .then(respondWithResult(res))
@@ -96,7 +95,7 @@ export function update(req, res) {
 
 // Deletes a Blog from the DB
 export function destroy(req, res) {
-  Blog.findByIdAsync(req.params.id)
+  return Blog.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
     .catch(handleError(res));

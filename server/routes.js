@@ -12,7 +12,6 @@ export default function(app) {
   app.use('/api/comments', require('./api/comment'));
   app.use('/api/blogs', require('./api/blog'));
   app.use('/api/eztextings', require('./api/eztexting'));
-  app.use('/api/things', require('./api/thing'));
   app.use('/api/users', require('./api/user'));
 
   app.use('/auth', require('./auth'));

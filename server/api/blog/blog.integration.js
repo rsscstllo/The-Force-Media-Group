@@ -35,8 +35,9 @@ describe('Blog API:', function() {
       request(app)
         .post('/api/blogs')
         .send({
-          name: 'New Blog',
-          info: 'This is the brand new blog!!!'
+          title: 'New Blog',
+          body: 'This is the brand new blog!!!',
+          published: true
         })
         .expect(201)
         .expect('Content-Type', /json/)
@@ -50,8 +51,9 @@ describe('Blog API:', function() {
     });
 
     it('should respond with the newly created blog', function() {
-      newBlog.name.should.equal('New Blog');
-      newBlog.info.should.equal('This is the brand new blog!!!');
+      newBlog.title.should.equal('New Blog');
+      newBlog.body.should.equal('This is the brand new blog!!!');
+      newBlog.published.should.equal(true);
     });
 
   });
@@ -78,8 +80,9 @@ describe('Blog API:', function() {
     });
 
     it('should respond with the requested blog', function() {
-      blog.name.should.equal('New Blog');
-      blog.info.should.equal('This is the brand new blog!!!');
+      blog.title.should.equal('New Blog');
+      blog.body.should.equal('This is the brand new blog!!!');
+      blog.published.should.equal(true);
     });
 
   });
@@ -91,8 +94,9 @@ describe('Blog API:', function() {
       request(app)
         .put('/api/blogs/' + newBlog._id)
         .send({
-          name: 'Updated Blog',
-          info: 'This is the updated blog!!!'
+          title: 'Updated Blog',
+          body: 'This is the updated blog!!!',
+          published: false
         })
         .expect(200)
         .expect('Content-Type', /json/)
@@ -110,8 +114,9 @@ describe('Blog API:', function() {
     });
 
     it('should respond with the updated blog', function() {
-      updatedBlog.name.should.equal('Updated Blog');
-      updatedBlog.info.should.equal('This is the updated blog!!!');
+      updatedBlog.title.should.equal('Updated Blog');
+      updatedBlog.body.should.equal('This is the updated blog!!!');
+      updatedBlog.published.should.equal(false);
     });
 
   });

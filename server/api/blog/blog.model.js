@@ -1,11 +1,12 @@
 'use strict';
 
-var mongoose = require('bluebird').promisifyAll(require('mongoose'));
+
+import mongoose from 'mongoose';
 
 var BlogSchema = new mongoose.Schema({
-  name: String,
-  info: String,
-  active: Boolean
+  title: String,
+  body: String,
+  published: Boolean
 });
 
 export default mongoose.model('Blog', BlogSchema);
