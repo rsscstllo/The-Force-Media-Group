@@ -5,7 +5,7 @@ var controller = require('./storeItem.controller');
 
 var router = express.Router();
 
-router.get('/', controller.getAllStoreItems);
+router.get('/', controller.index);
 router.get('/:id', controller.show);
 router.post('/', controller.create);
 router.put('/:id', controller.update);

@@ -35,8 +35,10 @@ describe('StoreItem API:', function() {
       request(app)
         .post('/api/storeItems')
         .send({
-          name: 'New StoreItem',
-          info: 'This is the brand new storeItem!!!'
+          Name: "This is a new store item",
+          Picture: "pictureurl.png",
+          Price: 19.99,
+          Description: "des"
         })
         .expect(201)
         .expect('Content-Type', /json/)
@@ -50,8 +52,10 @@ describe('StoreItem API:', function() {
     });
 
     it('should respond with the newly created storeItem', function() {
-      newStoreItem.name.should.equal('New StoreItem');
-      newStoreItem.info.should.equal('This is the brand new storeItem!!!');
+      newStoreItem.Name.should.equal('This is a new store item');
+      newStoreItem.Picture.should.equal('pictureurl.png');
+      newStoreItem.Price.should.equal(19.99);
+      newStoreItem.Description.should.equal("des");
     });
 
   });
@@ -78,8 +82,10 @@ describe('StoreItem API:', function() {
     });
 
     it('should respond with the requested storeItem', function() {
-      storeItem.name.should.equal('New StoreItem');
-      storeItem.info.should.equal('This is the brand new storeItem!!!');
+      newStoreItem.Name.should.equal('This is a new store item');
+      newStoreItem.Picture.should.equal('pictureurl.png');
+      newStoreItem.Price.should.equal(19.99);
+      newStoreItem.Description.should.equal("des");
     });
 
   });
@@ -91,8 +97,10 @@ describe('StoreItem API:', function() {
       request(app)
         .put('/api/storeItems/' + newStoreItem._id)
         .send({
-          name: 'Updated StoreItem',
-          info: 'This is the updated storeItem!!!'
+          Name: "updated This is a new store item",
+          Picture: "updatedpictureurl.png",
+          Price: 19.98,
+          Description: "updateddes"
         })
         .expect(200)
         .expect('Content-Type', /json/)
@@ -110,8 +118,10 @@ describe('StoreItem API:', function() {
     });
 
     it('should respond with the updated storeItem', function() {
-      updatedStoreItem.name.should.equal('Updated StoreItem');
-      updatedStoreItem.info.should.equal('This is the updated storeItem!!!');
+      newStoreItem.Name.should.equal('updated This is a new store item');
+      newStoreItem.Picture.should.equal('updatedpictureurl.png');
+      newStoreItem.Price.should.equal(19.98);
+      newStoreItem.Description.should.equal("updateddes");
     });
 
   });

@@ -60,14 +60,19 @@ function handleError(res, statusCode) {
 }
 
 // Gets a list of StoreItems
-export function getAllStoreItems(req, res) {
-  StoreItem.find().exec(function(err, storeItems) {
-    if(err) {
-      res.status(400).send(err);
-    } else {
-      res.json(storeItems);
-    }
-  });
+export function index(req, res) {
+  StoreItem.find(req.params)
+    .then(handleEntityNotFound(res))
+    .then(respondWithResult(res))
+    .catch(handleError(res));
+
+  //StoreItem.find().exec(function(err, storeItems) {
+  //  if(err) {
+  //    res.status(400).send(err);
+  //  } else {
+  //    res.json(storeItems);
+  //  }
+  //});
 }
 
 // Gets a single StoreItem from the DB
@@ -83,14 +88,10 @@ export function create(req, res) {
 
   var storeItem = new StoreItem(req.body);
 
-  storeItem.save(function(err) {
-    if(err) {
-      console.log(err);
-      res.status(400).send(err);
-    } else {
-      res.json(storeItem);
-    }
-  });
+  storeItem.saveAsync()
+    .then(handleEntityNotFound(res))
+    .then(respondWithResult(res))
+    .catch(handleError(res));
 }
 
 // Updates an existing StoreItem in the DB
