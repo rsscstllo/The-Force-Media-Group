@@ -2,7 +2,7 @@ navbar
 div(ng-show="viewAll")
     .container  
     
-        div
+        div(ng-show="isAdmin")
             h3(class="list-group-item-heading") New post
             .form-group
                 label Title
@@ -24,12 +24,13 @@ div(ng-show="viewAll")
                     div(class="btn-group" style="float:right")
                         button.btn.btn-default
                             span(class="glyphicon glyphicon-comment")  0
-                        button.btn.btn-default(ng-click="deletePost(blog)" data-toggle="tooltip" title="Delete")
+                        button.btn.btn-default(ng-show="isAdmin" ng-click="deletePost(blog)" data-toggle="tooltip" title="Delete")
                             span(class="glyphicon glyphicon-trash")
                     h3(class="list-group-item-heading" href="#" ng-click="toggleView(blog)") 
                         a(href="#") {{blog.title}}
                     h6 {{blog.updatedAt}}
-                p(class="list-group-item-text") {{blog.body | limitTo:80}}...
+                p(class="list-group-item-text" ng-if="blog.body.length > 80") {{blog.body | limitTo:80}}...
+                p(class="list-group-item-text" ng-if="blog.body.length <= 80") {{blog.body}}
         button.btn.btn-default(type="submit" data-toggle="tooltip" title="Show more" ng-click="incrementLimit()" ng-if="limit < blogs.length") Show More
 div(ng-show="!viewAll")
     .container
@@ -37,9 +38,9 @@ div(ng-show="!viewAll")
             li
                 a(href="#" ng-click="resetView()") blog
             li
-                a {{currentBlog.title | limitTo:15}}
+                a(href="#"){{currentBlog.title | limitTo:15}}
         div
-            div(class="btn-group" style="float:right")
+            div(class="btn-group" style="float:right" ng-show="isAdmin")
                 button.btn.btn-default(ng-click="editPost()" data-toggle="tooltip" title="Edit post")
                     span(class="glyphicon glyphicon-pencil")
                 button.btn.btn-default(ng-click="deletePost(currentBlog)" data-toggle="tooltip" title="Delete")
@@ -68,7 +69,7 @@ div(ng-show="!viewAll")
         .container
             .form-group
                 label New Comment
-                textarea.form-control(rows="5")
-            button.btn.btn-success(type="submit" data-toggle="tooltip" title="Submit comment" style="float:right")
+                textarea.form-control(rows="5" ng-disabled="!isLoggedIn")
+            button.btn.btn-success(type="submit" data-toggle="tooltip" title="Submit comment" style="float:right" ng-disabled="!isLoggedIn")
                 span(class="glyphicon glyphicon-comment")
 footer

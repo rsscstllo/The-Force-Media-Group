@@ -1,22 +1,24 @@
 'use strict';
 
 angular.module('fmgApp')
-  .controller('BlogCtrl', function ($scope, $http) {
+  .controller('BlogCtrl', function ($scope, blogService, Auth) {
     $scope.blogs = [];
     $scope.limit = 5;
     $scope.message = 'Hello';
     $scope.viewAll = true;
     $scope.edit = false;
-    $scope.isLoggedIn = false;
-    $scope.isAdmin = false;
+    $scope.isLoggedIn = Auth.isLoggedIn();
+    $scope.isAdmin = Auth.isAdmin();
+    $scope.currentUser = Auth.getCurrentUser();
+    console.log(Auth);
 
-    $http.get('api/blogs').then(function(response) {
+    blogService.getAllPosts().then(function(response) {
         console.log(response);
         $scope.blogs = response.data;
     });
 
     $scope.updateBlogs = function() {
-        $http.get('api/blogs').then(function(response) {
+        blogService.getAllPosts().then(function(response) {
             console.log(response);
             $scope.blogs = response.data;
         });
@@ -29,14 +31,15 @@ angular.module('fmgApp')
     };
     $scope.submitEdit= function() {
         $scope.currentBlog.updatedAt = moment().format('MMMM Do YYYY h:mm:ss a');
-        $http.put('api/blogs/'+$scope.currentBlog._id, $scope.currentBlog).then(function(response) {
+
+        blogService.editPost($scope.currentBlog).then(function(response) {
             console.log(response);
             $scope.updateBlogs();
             $scope.edit = false;
         });
     }
     $scope.deletePost = function(blog) {
-        $http.delete('api/blogs/'+blog._id).then(function(response) {
+        blogService.deletePost(blog).then(function(response) {
             console.log(response);
             $scope.updateBlogs();
         });
@@ -56,7 +59,7 @@ angular.module('fmgApp')
         $scope.blogpost.published = true;
         $scope.blogpost.createdAt = moment().format('MMMM Do YYYY h:mm:ss a');
         $scope.blogpost.updatedAt = moment().format('MMMM Do YYYY h:mm:ss a');
-        $http.post('/api/blogs', $scope.blogpost).then(function(response) {
+        blogService.createPost($scope.blogpost).then(function(response) {
             $scope.blogpost.title="";
             $scope.blogpost.body="";
             console.log(response);
