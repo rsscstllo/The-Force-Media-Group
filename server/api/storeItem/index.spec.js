@@ -36,9 +36,9 @@ describe('StoreItem API Router:', function() {
 
   describe('GET /api/storeItems', function() {
 
-    it('should route to storeItem.controller.index', function() {
+    it('should route to storeItem.controller.getAllStoreItems', function() {
       routerStub.get
-        .withArgs('/', 'storeItemCtrl.index')
+        .withArgs('/', 'storeItemCtrl.getAllStoreItems')
         .should.have.been.calledOnce;
     });
 
