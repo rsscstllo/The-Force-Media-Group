@@ -4,7 +4,8 @@
 
 angular.module('fmgApp').service('StoreService', ['$http',
   function($http) {
-    var baseUrl = 'http://localhost:9000/api/storeItems';
+    var baseUrl = '/api/storeItems/';
+
     var methods = {
       createStoreItem: function(StoreItem) {
         return $http.post(baseUrl, StoreItem);

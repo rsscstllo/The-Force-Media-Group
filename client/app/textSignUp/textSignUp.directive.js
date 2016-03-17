@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('fmgApp')
-  .directive('textSignUp', function (SignUp, toaster) {
+  .directive('textSignUp', function (signUpService, toaster) {
     return {
       templateUrl: 'app/textSignUp/textSignUp.html',
       restrict: 'EA',
@@ -10,11 +10,11 @@ angular.module('fmgApp')
         scope.createContact = function() {
           scope.$broadcast('startLoading');
 
-          SignUp.createContact(scope.phoneNumber).success(function (data) {
+          signUpService.createContact(scope.phoneNumber).success(function (data) {
             scope.$broadcast('stopLoading');
 
             if (!data.Response.Errors) {
-              SignUp.sendConfirmationMessage(scope.phoneNumber).success(function () {
+              signUpService.sendConfirmationMessage(scope.phoneNumber).success(function () {
                 toaster.pop('success', 'Congratulations!', 'You have been subscribed. You should receive a confirmation text message shortly.');
               });
             }
