@@ -80,8 +80,7 @@ export function show(req, res) {
 
 // Creates a new StoreItem in the DB
 export function create(req, res) {
-  console.log(req.body);
-  console.log(req.params);
+
   var storeItem = new StoreItem(req.body);
 
   storeItem.save(function(err) {
