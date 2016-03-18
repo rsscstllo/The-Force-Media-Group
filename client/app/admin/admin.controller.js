@@ -8,22 +8,16 @@ class AdminController {
     // Use the User $resource to fetch all users
     this.users = User.query();
 
-    this.customColor1 = "";
-    this.customColor2 = "";
-    this.customColor3 = "";
-    this.customColor4 = "";
-    this.customColor5 = "";
+    // Initialize colors to default colors
+    this.customColor1 = "#094d74";
+    this.customColor2 = "#759cd8";
+    this.customColor3 = "#9cb9d1";
+    this.customColor4 = "#cfdaec";
+    this.customColor5 = "#eef0f6";
   }
 
   saveCustomColorTheme() {
     console.log('save button clicked');
-    // this.customColor1 = customColor1;
-    // this.customColor2 = customColor2;
-    // this.customColor3 = customColor3;
-    // this.customColor4 = customColor4;
-    // this.customColor5 = customColor5;
-
-    console.log(this.customColor1);
   }
 
   delete(user) {

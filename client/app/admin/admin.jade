@@ -11,7 +11,6 @@ navbar
       a.trash(ng-click='admin.delete(user)')
         span.glyphicon.glyphicon-trash.pull-right
 
-// - Default Color Theme Panel
 .container
   h3
     | Default Color Theme
@@ -30,8 +29,7 @@ navbar
   .col-xs-12
     div.color5Default.col-xs-5.colorPanel
     div.col-xs-7
-
-// - Custom Color Theme Panel 
+ 
 .container
   h3
     | Custom Color Theme
@@ -50,25 +48,24 @@ navbar
   .col-xs-12
     div.color5Default.col-xs-5.colorPanel(ng-style="{'background-color': customColor5}")
     div.col-xs-7
-      
- // - Text Boxes
+
 .container
   form
     br
     | Color 1: 
-    input(type="text", placeholder="#094d74", ng-model="customColor1").textBoxPadding
+    input.textBoxPadding(type="text", placeholder="#094d74", ng-model="customColor1")
     br
     | Color 2: 
-    input(type="text", placeholder="#759cd8", ng-model="customColor2").textBoxPadding
+    input.textBoxPadding(type="text", placeholder="#759cd8", ng-model="customColor2")
     br
     | Color 3: 
-    input(type="text", placeholder="#9cb9d1", ng-model="customColor3").textBoxPadding
+    input.textBoxPadding(type="text", placeholder="#9cb9d1", ng-model="customColor3")
     br
     | Color 4: 
-    input(type="text", placeholder="#cfdaec", ng-model="customColor4").textBoxPadding
+    input.textBoxPadding(type="text", placeholder="#cfdaec", ng-model="customColor4")
     br
     | Color 5: 
-    input(type="text", placeholder="#eef0f6", ng-model="customColor5").textBoxPadding
+    input.textBoxPadding(type="text", placeholder="#eef0f6", ng-model="customColor5")
     br
       
     a.btn.btn-xs.btn-default.textBoxPadding(ng-click="admin.saveCustomColorTheme()")
