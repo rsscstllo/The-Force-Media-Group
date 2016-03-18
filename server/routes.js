@@ -9,7 +9,9 @@ import path from 'path';
 
 export default function(app) {
   // Insert routes below
+
   app.use('/api/comments', require('./api/comment'));
+  app.use('/api/storeItems', require('./api/storeItem'));
   app.use('/api/blogs', require('./api/blog'));
   app.use('/api/eztextings', require('./api/eztexting'));
   app.use('/api/users', require('./api/user'));
