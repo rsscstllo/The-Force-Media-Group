@@ -2,37 +2,46 @@
 
 angular.module('fmgApp')
   .controller('StoreCtrl', function ($scope) {
-    $scope.message = 'Hello';
+    $scope.addedItems = [];
     $scope.items=[
       {
-        Name: 'item1',
+        Name: 'Item 1',
         Picture: '../assets/images/store/Merchandise_Icon.png',
         Price: 19.99,
         Description: 'description'
       },
       {
-        Name: 'item2',
+        Name: 'Item 2',
         Picture: '../assets/images/store/Merchandise_Icon.png',
         Price: 19.99,
         Description: 'description'
       },
       {
-        Name: 'item3',
+        Name: 'Item 3',
         Picture: '../assets/images/store/Merchandise_Icon.png',
         Price: 19.99,
         Description: 'description'
       },
       {
-        Name: 'item4',
+        Name: 'Item 4',
         Picture: '../assets/images/store/Merchandise_Icon.png',
         Price: 19.99,
         Description: 'description'
       },
       {
-        Name: 'item5',
+        Name: 'Item 5',
+        Picture: '../assets/images/store/Merchandise_Icon.png',
+        Price: 19.99,
+        Description: 'description'
+      },
+      {
+        Name: 'Item 6',
         Picture: '../assets/images/store/Merchandise_Icon.png',
         Price: 19.99,
         Description: 'description'
       }
     ];
+    $scope.addToCart= function(){
+
+    }
   });
