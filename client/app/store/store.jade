@@ -5,10 +5,10 @@ navbar
       button.crestBackground.btn.btn-default.btn-lg#cart(class="glyphicon glyphicon-shopping-cart" ng-click="checkCart()") 
   .row
     div(ng-repeat="item in items")
-      .col-lg-3.col-md-4.col-sm-4  
+      .col-lg-4.col-md-4.col-sm-5.col-xs-6  
         .panel.panel-default
           .panel-body.text-center
-            img(ng-src="{{item.Picture}}")
+            img.img-responsive.center-block(ng-src="{{item.Picture}}")
             h4.row.text-center
               {{item.Name}} 
             h5.row.text-center.crestColor
