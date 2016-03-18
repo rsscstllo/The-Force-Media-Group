@@ -4,20 +4,20 @@
 
 class AdminController {
 
-  constructor(User) {
+  constructor(User, $scope) {
     // Use the User $resource to fetch all users
     this.users = User.query();
-
-    // Initialize colors to default colors
-    this.customColor1 = "#094d74";
-    this.customColor2 = "#759cd8";
-    this.customColor3 = "#9cb9d1";
-    this.customColor4 = "#cfdaec";
-    this.customColor5 = "#eef0f6";
+    this.scope = $scope;
   }
 
+  // Update colors in database with new ones
   saveCustomColorTheme() {
     console.log('save button clicked');
+    console.log(this.scope.customColor1);
+    console.log(this.scope.customColor2);
+    console.log(this.scope.customColor3);
+    console.log(this.scope.customColor4);
+    console.log(this.scope.customColor5);
   }
 
   delete(user) {
