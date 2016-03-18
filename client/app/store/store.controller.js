@@ -44,4 +44,5 @@ angular.module('fmgApp')
     $scope.addToCart= function(){
 
     }
+
   });

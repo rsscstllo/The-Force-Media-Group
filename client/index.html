@@ -14,6 +14,7 @@
     <!-- build:css(client) app/vendor.css -->
       <!-- bower:css -->
       <link rel="stylesheet" href="bower_components/AngularJS-Toaster/toaster.css" />
+      <link rel="stylesheet" href="bower_components/ngModal/dist/ng-modal.css" />
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
@@ -64,6 +65,7 @@
       <script src="bower_components/angular-ui-mask/dist/mask.js"></script>
       <script src="bower_components/angular-animate/angular-animate.js"></script>
       <script src="bower_components/AngularJS-Toaster/toaster.js"></script>
+      <script src="bower_components/ngModal/dist/ng-modal.js"></script>
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js(.tmp) app/app.js -->
@@ -72,7 +74,7 @@
       <script src="app/admin/admin.module.js"></script>
       <script src="components/auth/auth.module.js"></script>
       <script src="components/util/util.module.js"></script>
-      <script src="app/store/store.service.js"></script>
+      <script src="app/store/store.js"></script>
       <script src="app/admin/admin.controller.js"></script>
       <script src="app/account/account.js"></script>
       <script src="app/admin/admin.router.js"></script>
@@ -83,12 +85,14 @@
       <script src="app/blog/blog.js"></script>
       <script src="app/booking/booking.controller.js"></script>
       <script src="app/booking/booking.js"></script>
+      <script src="app/cart/cart.controller.js"></script>
+      <script src="app/cart/cart.js"></script>
       <script src="app/commentService/comment.service.js"></script>
       <script src="app/main/main.controller.js"></script>
       <script src="app/main/main.js"></script>
       <script src="app/store/store.controller.js"></script>
-      <script src="app/store/store.js"></script>
       <script src="app/account/login/login.controller.js"></script>
+      <script src="app/store/store.service.js"></script>
       <script src="app/textSignUp/textSignUp.directive.js"></script>
       <script src="app/textSignUp/textSignUp.factory.js"></script>
       <script src="app/youtube/youtube.directive.js"></script>

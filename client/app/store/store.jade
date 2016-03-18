@@ -1,19 +1,20 @@
-navbar  
+
+navbar
 .container
   .row
     .col-lg-12.text-right
-      button.crestBackground.btn.btn-default.btn-lg#cart(class="glyphicon glyphicon-shopping-cart" ng-click="checkCart()") 
+      button.crestBackground.btn.btn-default.btn-lg#cart(class="glyphicon glyphicon-shopping-cart" ui-sref="cart")
   .row
     div(ng-repeat="item in items")
-      .col-lg-4.col-md-4.col-sm-5.col-xs-6  
+      .col-lg-4.col-md-4.col-sm-5.col-xs-6
         .panel.panel-default
           .panel-body.text-center
             img.img-responsive.center-block(ng-src="{{item.Picture}}")
             h4.row.text-center
-              {{item.Name}} 
+              {{item.Name}}
             h5.row.text-center.crestColor
               |${{item.Price}}
             .row.text-center
-              button.crestBackground.btn.btn-default(ng-click="addToCart()") 
+              button.crestBackground.btn.btn-default(ng-click="addToCart()")
                 |Add to Cart
 footer.cloudyBackground
