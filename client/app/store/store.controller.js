@@ -1,25 +1,48 @@
 'use strict';
 
 angular.module('fmgApp')
-  .controller('StoreCtrl', function ($scope, StoreService) {
-    $scope.message = 'Hello';
-    $scope.storeItems = undefined;
+  .controller('StoreCtrl', function ($scope) {
+    $scope.addedItems = [];
+    $scope.items=[
+      {
+        Name: 'Item 1',
+        Picture: '../assets/images/store/Merchandise_Icon.png',
+        Price: 19.99,
+        Description: 'description'
+      },
+      {
+        Name: 'Item 2',
+        Picture: '../assets/images/store/Merchandise_Icon.png',
+        Price: 19.99,
+        Description: 'description'
+      },
+      {
+        Name: 'Item 3',
+        Picture: '../assets/images/store/Merchandise_Icon.png',
+        Price: 19.99,
+        Description: 'description'
+      },
+      {
+        Name: 'Item 4',
+        Picture: '../assets/images/store/Merchandise_Icon.png',
+        Price: 19.99,
+        Description: 'description'
+      },
+      {
+        Name: 'Item 5',
+        Picture: '../assets/images/store/Merchandise_Icon.png',
+        Price: 19.99,
+        Description: 'description'
+      },
+      {
+        Name: 'Item 6',
+        Picture: '../assets/images/store/Merchandise_Icon.png',
+        Price: 19.99,
+        Description: 'description'
+      }
+    ];
+    $scope.addToCart= function(){
 
-    StoreService.getAllStoreItems().success(function(data) {
-      $scope.storeItems = data;
-    });
-
-    $scope.createItem = function() {
-      console.log('create item');
-      $scope.storeItem = {
-        Name: 'Name3',
-        Picture: 'picture3',
-        Price: 4.99,
-        Description: 'description3'
-      };
-
-        StoreService.createStoreItem($scope.storeItem).success(function(data) {
-          console.log(data);
-        });
     }
+
   });

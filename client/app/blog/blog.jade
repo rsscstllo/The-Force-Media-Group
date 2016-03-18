@@ -1,4 +1,19 @@
 navbar
-div This is the blog view.
-
-footer
+.row
+  .col-lg-12
+    ul.list-group
+      li.list-group-item(ng-repeat="comment in comments")
+        p {{comment.body}}
+    .panel.panel-default
+      .panel-heading
+        | Leave a Comment
+      .panel-body
+        .row
+          .col-lg-6
+            form(role="form")
+              .input-group
+                span.input-group-addon
+                  i(class="glyphicon glyphicon-pencil" id="sizing-addon1")
+                input.form-control(type="text", ng-model="comment.text" placeholder="Comment" aria-describedby="sizing-addon1")
+              button.btn.btn-default#submitButton(ng-click="createComment()") Submit   
+footer.cloudyBackground
