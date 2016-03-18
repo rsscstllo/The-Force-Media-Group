@@ -19,27 +19,29 @@
 	}
 }
 
+.colorPanel {
+	height:40px;
+}
 .color1Default {
 	background-color:#094d74;
-	height:40px;
 }
 
 .color2Default {
 	background-color:#759cd8;
-	height:40px;
 }
 
 .color3Default {
 	background-color:#9cb9d1;
-	height:40px;
 }
 
 .color4Default {
 	background-color:#cfdaec;
-	height:40px;
 }
 
 .color5Default {
 	background-color:#eef0f6;
-	height:40px;
+}
+
+.textBoxPadding {
+	margin-top:8px;
 }

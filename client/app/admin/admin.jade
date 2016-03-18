@@ -1,4 +1,5 @@
 navbar
+
 .container
   p
     | The delete user and user index api routes are restricted to users with the 'admin' role.
@@ -9,64 +10,68 @@ navbar
       span.text-muted {{user.email}}
       a.trash(ng-click='admin.delete(user)')
         span.glyphicon.glyphicon-trash.pull-right
-      
-<!-- Admin form to change web site theme colors -->
+
+// - Default Color Theme Panel
 .container
   h3
-    | Default Theme Colors
+    | Default Color Theme
   .col-xs-12
-    div.color1Default.col-xs-5
+    div.color1Default.col-xs-5.colorPanel
     div.col-xs-7
   .col-xs-12
-    div.color2Default.col-xs-5
+    div.color2Default.col-xs-5.colorPanel
     div.col-xs-7
   .col-xs-12
-    div.color3Default.col-xs-5
+    div.color3Default.col-xs-5.colorPanel
     div.col-xs-7
   .col-xs-12
-    div.color4Default.col-xs-5
+    div.color4Default.col-xs-5.colorPanel
     div.col-xs-7
   .col-xs-12
-    div.color5Default.col-xs-5
+    div.color5Default.col-xs-5.colorPanel
     div.col-xs-7
 
+// - Custom Color Theme Panel 
 .container
   h3
-    | Custom Theme Colors
+    | Custom Color Theme
   .col-xs-12
-    div.color1Default.col-xs-5
+    div.color1Default.col-xs-5.colorPanel(ng-style="{'background-color': customColor1}")
     div.col-xs-7
   .col-xs-12
-    div.color2Default.col-xs-5
+    div.color2Default.col-xs-5.colorPanel(ng-style="{'background-color': customColor2}")
     div.col-xs-7
   .col-xs-12
-    div.color3Default.col-xs-5
+    div.color3Default.col-xs-5.colorPanel(ng-style="{'background-color': customColor3}")
     div.col-xs-7
   .col-xs-12
-    div.color4Default.col-xs-5
+    div.color4Default.col-xs-5.colorPanel(ng-style="{'background-color': customColor4}")
     div.col-xs-7
   .col-xs-12
-    div.color5Default.col-xs-5
+    div.color5Default.col-xs-5.colorPanel(ng-style="{'background-color': customColor5}")
     div.col-xs-7
       
+ // - Text Boxes
 .container
   form
     br
-    br
     | Color 1: 
-    input(type="text")
+    input(type="text", placeholder="#094d74", ng-model="customColor1").textBoxPadding
     br
     | Color 2: 
-    input(type="text")
+    input(type="text", placeholder="#759cd8", ng-model="customColor2").textBoxPadding
     br
     | Color 3: 
-    input(type="text")
+    input(type="text", placeholder="#9cb9d1", ng-model="customColor3").textBoxPadding
     br
     | Color 4: 
-    input(type="text")
+    input(type="text", placeholder="#cfdaec", ng-model="customColor4").textBoxPadding
     br
     | Color 5: 
-    input(type="text")
+    input(type="text", placeholder="#eef0f6", ng-model="customColor5").textBoxPadding
     br
+      
+    a.btn.btn-xs.btn-default.textBoxPadding(ng-click="admin.saveCustomColorTheme()")
+      | Save 
     br
     br
