@@ -38,7 +38,7 @@ div(ng-show="!viewAll")
             li
                 a(href="#" ng-click="resetView()") blog
             li
-                a(href="#"){{currentBlog.title | limitTo:15}}
+                a(href="#") {{currentBlog.title | limitTo:15}}
         div
             div(class="btn-group" style="float:right" ng-show="isAdmin")
                 button.btn.btn-default(ng-click="editPost()" data-toggle="tooltip" title="Edit post")
@@ -60,16 +60,17 @@ div(ng-show="!viewAll")
                 button.btn.btn-default(type="submit" data-toggle="tooltip" title="Publish" ng-click="submitEdit()")
                     span(class="glyphicon glyphicon-plus")
 div(ng-show="!viewAll")
-    div(id="comments")
-        .container
-            h3 Comments
-            .container
-                p.post-body Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
     div
         .container
+            ul.list-group
+                li.list-group-item(ng-repeat="comment in comments" ng-if="comment.blogId == currentBlog._id")    
+                    p {{comment.body}}
+                    button.btn.btn-default(data-toggle="tooltip" title="Delete" ng-show="isAdmin" ng-click="deleteComment(comment)")
+                        span(class="glyphicon glyphicon-trash")
             .form-group
                 label New Comment
-                textarea.form-control(rows="5" ng-disabled="!isLoggedIn")
-            button.btn.btn-success(type="submit" data-toggle="tooltip" title="Submit comment" style="float:right" ng-disabled="!isLoggedIn")
+                textarea.form-control(rows="5" ng-disabled="!isLoggedIn" ng-model="comment.text" placeholder="comment")
+            button.btn.btn-default(type="submit" data-toggle="tooltip" title="Submit comment" ng-disabled="!isLoggedIn" ng-click="createComment()")
                 span(class="glyphicon glyphicon-comment")
+
 footer

@@ -1,8 +1,10 @@
 'use strict';
 
+
 angular.module('fmgApp')
-  .controller('BlogCtrl', function ($scope, blogService, Auth) {
+  .controller('BlogCtrl', function ($scope, blogService, commentService, Auth) {
     $scope.blogs = [];
+    $scope.comments = [];
     $scope.limit = 5;
     $scope.message = 'Hello';
     $scope.viewAll = true;
@@ -10,7 +12,7 @@ angular.module('fmgApp')
     $scope.isLoggedIn = Auth.isLoggedIn();
     $scope.isAdmin = Auth.isAdmin();
     $scope.currentUser = Auth.getCurrentUser();
-    console.log(Auth);
+    console.log($scope.isAdmin);
 
     blogService.getAllPosts().then(function(response) {
         console.log(response);
@@ -65,5 +67,52 @@ angular.module('fmgApp')
             console.log(response);
             $scope.updateBlogs();
         });
+    }
+
+    commentService.getAllComments()
+      .then(function(response){
+        $scope.comments = response.data;
+      }).catch(function(err){
+        console.log(err);
+    });
+
+    $scope.updateComments = function() {
+        commentService.getAllComments()
+          .then(function(response){
+            $scope.comments = response.data;
+          }).catch(function(err){
+            console.log(err);
+        });
+    }
+
+    $scope.createComment= function (){
+      var text = $scope.comment.text;
+
+      if (text === ""){
+         toaster.pop("error","Please enter text.");
+         return;
+      }
+
+      var commentToCreate = {
+        blogId: $scope.currentBlog._id,
+        userId: $scope.currentUser._id,
+        body: text
+      };
+      commentService.createComment(commentToCreate)
+        .then(function (response){
+          var comment = response.data;
+          //toaster.pop("success","Comment submitted");
+          $scope.comment.text = "";
+          console.log(comment);
+          $scope.comments.push(comment);
+        }).catch(function(err){
+          console.log(err);
+        });
+    };
+
+    $scope.deleteComment = function(comment) {
+        commentService.deleteComment(comment).then(function(response) {
+            $scope.updateComments();
+        })
     }
   });
