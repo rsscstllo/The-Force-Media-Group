@@ -1,7 +1,7 @@
 navbar
 .container
   .col-xs-6
-    div(ng-repeat="item in items").list-group
+    div(ng-repeat="item in items track by $index").list-group
       .list-group-item
         table.cartItemTable
           tr
@@ -12,6 +12,9 @@ navbar
                 | {{item.Description}}
               .itemPrice
                 | {{item.Price}}
+            td
+              .itemPicture
+                img.img-responsive.center-block(ng-src="{{item.Picture}}")
             td.removeButtontd
               .removeButton.glyphicon.glyphicon-trash(title="remove item from cart" ng-click="confirmRemoveItem($index)")
   .col-xs-6
@@ -19,6 +22,9 @@ navbar
       h4
         | Checkout Details
 
+      label
+        | Order total: {{orderTotal | currency:"USD $"}}
+      br
       label
         | Shipping Information
       table

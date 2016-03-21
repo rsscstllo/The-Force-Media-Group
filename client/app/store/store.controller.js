@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('fmgApp')
-  .controller('StoreCtrl', function ($scope) {
+  .controller('StoreCtrl', function ($scope, $state, toaster) {
     $scope.addedItems = [];
     $scope.items=[
       {
@@ -41,8 +41,10 @@ angular.module('fmgApp')
         Description: 'description'
       }
     ];
-    $scope.addToCart= function(){
-
-    }
+    $scope.addToCart= function(item){
+      toaster.pop("success", "Added " + item.Name);
+      $scope.addedItems.push(item);
+      console.log($scope.addedItems);
+    };
 
   });
