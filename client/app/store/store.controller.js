@@ -41,6 +41,17 @@ angular.module('fmgApp')
         Description: 'description'
       }
     ];
+
+    $scope.seeItem = function(index) {
+      $scope.selectedItem = $scope.items[index];
+      $scope.showDialog = true;
+    };
+
+    $scope.closeDialog = function() {
+      $scope.selectedItem = undefined;
+      $scope.showDialog = false;
+    };
+    
     $scope.addToCart= function(item){
       toaster.pop("success", "Added " + item.Name);
       $scope.addedItems.push(item);
