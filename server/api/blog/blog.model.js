@@ -1,6 +1,5 @@
 'use strict';
 
-
 import mongoose from 'mongoose';
 
 var BlogSchema = new mongoose.Schema({
