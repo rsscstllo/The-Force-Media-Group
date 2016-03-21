@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('fmgApp')
-  .controller('StoreCtrl', function ($scope) {
+  .controller('StoreCtrl', function ($scope, $state, toaster) {
     $scope.addedItems = [];
     $scope.items=[
       {
@@ -41,9 +41,7 @@ angular.module('fmgApp')
         Description: 'description'
       }
     ];
-    $scope.addToCart= function(index){
 
-    }
     $scope.seeItem = function(index) {
       $scope.selectedItem = $scope.items[index];
       $scope.showDialog = true;
@@ -52,6 +50,12 @@ angular.module('fmgApp')
     $scope.closeDialog = function() {
       $scope.selectedItem = undefined;
       $scope.showDialog = false;
+    };
+    
+    $scope.addToCart= function(item){
+      toaster.pop("success", "Added " + item.Name);
+      $scope.addedItems.push(item);
+      console.log($scope.addedItems);
     };
 
   });

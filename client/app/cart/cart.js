@@ -6,6 +6,7 @@ angular.module('fmgApp')
       .state('cart', {
         url: '/cart',
         templateUrl: 'app/cart/cart.html',
-        controller: 'CartCtrl'
+        controller: 'CartCtrl',
+        params: {items: []}
       });
   });
