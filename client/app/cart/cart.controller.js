@@ -24,6 +24,12 @@ angular.module('fmgApp')
     $scope.removeItem = function() {
       $scope.items.splice($scope.currentItem, 1);
       toaster.pop("success", "Item removed from cart");
+
+      $scope.orderTotal = 0;
+      $scope.items.forEach(function(item) {
+        $scope.orderTotal += item.Price;
+      });
+
       $scope.hideDialog();
     };
 
