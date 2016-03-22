@@ -9,13 +9,9 @@ import path from 'path';
 
 export default function(app) {
   // Insert routes below
-<<<<<<< HEAD
   app.use('/api/themeColors', require('./api/themeColor'));
-=======
-
   app.use('/api/comments', require('./api/comment'));
   app.use('/api/storeItems', require('./api/storeItem'));
->>>>>>> b7783dea3fd374f66c2933970ffa85720a7c31f6
   app.use('/api/blogs', require('./api/blog'));
   app.use('/api/eztextings', require('./api/eztexting'));
   app.use('/api/users', require('./api/user'));
