@@ -9,13 +9,13 @@ angular.module('fmgApp')
             return $http.get(baseUrl);
         },
         createPost: function(blogpost) {
-            return $http.post(baseurl, blogpost);
+            return $http.post(baseUrl, blogpost);
         },
         deletePost: function(blogpost) {
-            return $http.delete(baseurl + '/' + blogpost._id);
+            return $http.delete(baseUrl + '/' + blogpost._id);
         },
         editPost: function(blogpost) {
-            return $http.put(baseurl + '/' + blogpost._id, blogpost);
+            return $http.put(baseUrl + '/' + blogpost._id, blogpost);
         }
       };
 
