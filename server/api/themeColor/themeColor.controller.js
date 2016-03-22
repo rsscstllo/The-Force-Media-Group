@@ -83,15 +83,16 @@ export function create(req, res) {
 
 // Updates an existing ThemeColor in the DB
 export function update(req, res) {
-  if (req.body._id) {
-    delete req.body._id;
-  }
-  ThemeColor.findByIdAsync(req.params.id)
-    .then(handleEntityNotFound(res))
-    .then(saveUpdates(req.body))
-    .then(respondWithResult(res))
-    .catch(handleError(res));
+    if (req.body._id) {
+      delete req.body._id;
+    }
+    ThemeColor.findByIdAsync(req.params.id)
+      .then(handleEntityNotFound(res))
+      .then(saveUpdates(req.body))
+      .then(respondWithResult(res))
+      .catch(handleError(res));
 }
+
 
 // Deletes a ThemeColor from the DB
 export function destroy(req, res) {
