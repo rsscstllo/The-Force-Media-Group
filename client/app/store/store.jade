@@ -9,7 +9,7 @@ navbar
       .col-lg-4.col-md-4.col-sm-5.col-xs-6
         .panel.panel-default
           .panel-body.text-center
-            img.img-responsive.center-block(ng-src="{{item.Picture}}")
+            img.img-responsive.center-block(ng-src="{{item.Picture}}" ng-click="seeItem($index)")
             h4.row.text-center
               {{item.Name}}
             h5.row.text-center.crestColor
@@ -18,3 +18,13 @@ navbar
               button.crestBackground.btn.btn-default(ng-click="addToCart(item)")
                 |Add to Cart
 footer.cloudyBackground
+
+modal-dialog(show="showDialog" height="55%" width="50%")
+  p
+    img.img-responsive.center-block(ng-src="{{selectedItem.Picture}}")
+    h4.row.text-center
+      {{selectedItem.Name}}
+    h4.row.text-center
+      |${{selectedItem.Price}}
+    h4.row.text-center  
+      {{selectedItem.Description}}
