@@ -1,7 +1,8 @@
 navbar
+
 div(ng-show="viewAll")
-    .container  
-    
+    .container
+
         div(ng-show="isAdmin")
             h3(class="list-group-item-heading") New post
             .form-group
@@ -26,7 +27,7 @@ div(ng-show="viewAll")
                             span(class="glyphicon glyphicon-comment")  0
                         button.btn.btn-default(ng-show="isAdmin" ng-click="deletePost(blog)" data-toggle="tooltip" title="Delete")
                             span(class="glyphicon glyphicon-trash")
-                    h3(class="list-group-item-heading" href="#" ng-click="toggleView(blog)") 
+                    h3(class="list-group-item-heading" href="#" ng-click="toggleView(blog)")
                         a(href="#") {{blog.title}}
                     h6 {{blog.updatedAt}}
                 p(class="list-group-item-text" ng-if="blog.body.length > 80") {{blog.body | limitTo:80}}...
@@ -63,7 +64,7 @@ div(ng-show="!viewAll")
     div
         .container
             ul.list-group
-                li.list-group-item(ng-repeat="comment in comments" ng-if="comment.blogId == currentBlog._id")    
+                li.list-group-item(ng-repeat="comment in comments" ng-if="comment.blogId == currentBlog._id")
                     p {{comment.body}}
                     button.btn.btn-default(data-toggle="tooltip" title="Delete" ng-show="isAdmin" ng-click="deleteComment(comment)")
                         span(class="glyphicon glyphicon-trash")
