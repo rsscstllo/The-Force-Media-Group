@@ -10,6 +10,15 @@ var commentCtrlStub = {
   destroy: 'commentCtrl.destroy'
 };
 
+var authServiceStub = {
+  isAuthenticated() {
+    return 'authService.isAuthenticated';
+  },
+  hasRole(role) {
+    return 'authService.hasRole.' + role;
+  }
+};
+
 var routerStub = {
   get: sinon.spy(),
   put: sinon.spy(),
@@ -25,7 +34,8 @@ var commentIndex = proxyquire('./index.js', {
       return routerStub;
     }
   },
-  './comment.controller': commentCtrlStub
+  './comment.controller': commentCtrlStub,
+  '../../auth/auth.service': authServiceStub
 });
 
 describe('Comment API Router:', function() {
@@ -58,7 +68,7 @@ describe('Comment API Router:', function() {
 
     it('should route to comment.controller.create', function() {
       routerStub.post
-        .withArgs('/', 'commentCtrl.create')
+        .withArgs('/', 'authService.isAuthenticated', 'commentCtrl.create')
         .should.have.been.calledOnce;
     });
 
@@ -68,7 +78,7 @@ describe('Comment API Router:', function() {
 
     it('should route to comment.controller.update', function() {
       routerStub.put
-        .withArgs('/:id', 'commentCtrl.update')
+        .withArgs('/:id', 'authService.isAuthenticated', 'commentCtrl.update')
         .should.have.been.calledOnce;
     });
 
@@ -78,7 +88,7 @@ describe('Comment API Router:', function() {
 
     it('should route to comment.controller.update', function() {
       routerStub.patch
-        .withArgs('/:id', 'commentCtrl.update')
+        .withArgs('/:id', 'authService.isAuthenticated', 'commentCtrl.update')
         .should.have.been.calledOnce;
     });
 
@@ -88,7 +98,7 @@ describe('Comment API Router:', function() {
 
     it('should route to comment.controller.destroy', function() {
       routerStub.delete
-        .withArgs('/:id', 'commentCtrl.destroy')
+        .withArgs('/:id', 'authService.isAuthenticated', 'commentCtrl.destroy')
         .should.have.been.calledOnce;
     });
 

@@ -1,11 +1,47 @@
 'use strict';
 
-var app = require('../..');
+import app from '../..';
+import User from '../user/user.model';
 import request from 'supertest';
 
 var newComment;
 
 describe('Comment API:', function() {
+  var user, token;
+
+  // Clear users before testing
+  before(function() {
+    return User.remove().then(function() {
+      user = new User({
+        provider: 'local',
+        name: 'I AM USER',
+        email: 'test@example.com',
+        password: 'test123'
+      });
+
+      return user.save();
+    });
+  });
+
+  before(function(done) {
+    request(app)
+      .post('/auth/local')
+      .send({
+        email: 'test@example.com',
+        password: 'test123'
+      })
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end((err, res) => {
+        token = res.body.token;
+        done();
+      });
+  });
+
+  // Clear users after testing
+  after(function() {
+    return User.remove();
+  });
 
   describe('GET /api/comments', function() {
     var comments;
@@ -34,6 +70,7 @@ describe('Comment API:', function() {
     beforeEach(function(done) {
       request(app)
         .post('/api/comments')
+        .set('authorization', 'Bearer ' + token)
         .send({
           userId: 'userId 1',
           blogId: 'blogId 1',
@@ -93,6 +130,7 @@ describe('Comment API:', function() {
     beforeEach(function(done) {
       request(app)
         .put('/api/comments/' + newComment._id)
+        .set('authorization', 'Bearer ' + token)
         .send({
           userId: 'userId 1 updated',
           blogId: 'blogId 1 updated',
@@ -126,6 +164,7 @@ describe('Comment API:', function() {
     it('should respond with 204 on successful removal', function(done) {
       request(app)
         .delete('/api/comments/' + newComment._id)
+        .set('authorization', 'Bearer ' + token)
         .expect(204)
         .end((err, res) => {
           if (err) {
@@ -138,6 +177,7 @@ describe('Comment API:', function() {
     it('should respond with 404 when comment does not exist', function(done) {
       request(app)
         .delete('/api/comments/' + newComment._id)
+        .set('authorization', 'Bearer ' + token)
         .expect(404)
         .end((err, res) => {
           if (err) {
