@@ -1,38 +1,61 @@
 'use strict';
 
 angular.module('fmgApp')
-  .controller('StoreCtrl', function ($scope) {
-    $scope.message = 'Hello';
+  .controller('StoreCtrl', function ($scope, $state, toaster) {
+    $scope.addedItems = [];
     $scope.items=[
       {
-        Name: 'item1',
+        Name: 'Item 1',
         Picture: '../assets/images/store/Merchandise_Icon.png',
         Price: 19.99,
         Description: 'description'
       },
       {
-        Name: 'item2',
+        Name: 'Item 2',
         Picture: '../assets/images/store/Merchandise_Icon.png',
         Price: 19.99,
         Description: 'description'
       },
       {
-        Name: 'item3',
+        Name: 'Item 3',
         Picture: '../assets/images/store/Merchandise_Icon.png',
         Price: 19.99,
         Description: 'description'
       },
       {
-        Name: 'item4',
+        Name: 'Item 4',
         Picture: '../assets/images/store/Merchandise_Icon.png',
         Price: 19.99,
         Description: 'description'
       },
       {
-        Name: 'item5',
+        Name: 'Item 5',
+        Picture: '../assets/images/store/Merchandise_Icon.png',
+        Price: 19.99,
+        Description: 'description'
+      },
+      {
+        Name: 'Item 6',
         Picture: '../assets/images/store/Merchandise_Icon.png',
         Price: 19.99,
         Description: 'description'
       }
     ];
+
+    $scope.seeItem = function(index) {
+      $scope.selectedItem = $scope.items[index];
+      $scope.showDialog = true;
+    };
+
+    $scope.closeDialog = function() {
+      $scope.selectedItem = undefined;
+      $scope.showDialog = false;
+    };
+    
+    $scope.addToCart= function(item){
+      toaster.pop("success", "Added " + item.Name);
+      $scope.addedItems.push(item);
+      console.log($scope.addedItems);
+    };
+
   });
