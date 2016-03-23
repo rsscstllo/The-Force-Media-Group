@@ -2,7 +2,7 @@
 
 
 angular.module('fmgApp')
-  .controller('BlogCtrl', function ($scope, blogService, commentService, Auth) {
+  .controller('BlogCtrl', function ($scope, blogService, commentService, Auth, toaster) {
     $scope.blogs = [];
     $scope.comments = [];
     $scope.limit = 5;

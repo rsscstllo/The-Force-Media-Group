@@ -1,7 +1,7 @@
 navbar
 
 .container
-  button.btn.btn-xs.btn-default(ng-click="admin.showDialog()")
+  button.btn.btn-xs.btn-default(ng-click="showDialog()")
     | Send text
   p
     | The delete user and user index api routes are restricted to users with the 'admin' role.
@@ -31,7 +31,7 @@ navbar
   .col-xs-12
     div.color5Default.col-xs-5.colorPanel
     div.col-xs-7
- 
+
 .container
   h3
     | Custom Color Theme
@@ -54,32 +54,32 @@ navbar
 .container
   form
     br
-    | Color 1: 
+    | Color 1:
     input.textBoxPadding(type="text", placeholder="#094d74", ng-model="customColors[0].colorCode")
     br
-    | Color 2: 
+    | Color 2:
     input.textBoxPadding(type="text", placeholder="#759cd8", ng-model="customColors[1].colorCode")
     br
-    | Color 3: 
+    | Color 3:
     input.textBoxPadding(type="text", placeholder="#9cb9d1", ng-model="customColors[2].colorCode")
     br
-    | Color 4: 
+    | Color 4:
     input.textBoxPadding(type="text", placeholder="#cfdaec", ng-model="customColors[3].colorCode")
     br
-    | Color 5: 
+    | Color 5:
     input.textBoxPadding(type="text", placeholder="#eef0f6", ng-model="customColors[4].colorCode")
     br
-      
+
     a.btn.btn-xs.btn-default.textBoxPadding(ng-click="saveCustomColorTheme()")
-      | Save 
+      | Save
     br
     br
 
-  modal-dialog(show="showDialog" dialog-title="Send text message to users" height="250px" width="30%")
-    textarea(placeholder="Hey everyone! Check out the new video." ng-model="admin.textBody" style="margin-top:20px;height:100px;").form-control
+  modal-dialog(show="dialogVisible" dialog-title="Send text message to users" height="250px" width="30%")
+    textarea(placeholder="Hey everyone! Check out the new video." ng-model="textBody" style="margin-top:20px;height:100px;").form-control
 
     div(style="margin-top:10px")
-      button.btn.btn-xs.btn-default(ng-click="admin.hideDialog()")
+      button.btn.btn-xs.btn-default(ng-click="hideDialog()")
         | Cancel
-      button.btn.btn-xs.btn-success#removeItemButton(ng-click="admin.sendText()")
+      button.btn.btn-xs.btn-success#removeItemButton(ng-click="sendText(textBody)")
         | Send Text
