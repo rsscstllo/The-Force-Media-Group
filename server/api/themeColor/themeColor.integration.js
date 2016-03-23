@@ -36,7 +36,7 @@ describe('ThemeColor API:', function() {
         .post('/api/themeColors')
         .send({
           name: 'New ThemeColor',
-          info: 'This is the brand new themeColor!!!'
+          colorCode: 'This is the brand new themeColor!!!'
         })
         .expect(201)
         .expect('Content-Type', /json/)
@@ -51,7 +51,7 @@ describe('ThemeColor API:', function() {
 
     it('should respond with the newly created themeColor', function() {
       newThemeColor.name.should.equal('New ThemeColor');
-      newThemeColor.info.should.equal('This is the brand new themeColor!!!');
+      newThemeColor.colorCode.should.equal('This is the brand new themeColor!!!');
     });
 
   });
@@ -79,7 +79,7 @@ describe('ThemeColor API:', function() {
 
     it('should respond with the requested themeColor', function() {
       themeColor.name.should.equal('New ThemeColor');
-      themeColor.info.should.equal('This is the brand new themeColor!!!');
+      themeColor.colorCode.should.equal('This is the brand new themeColor!!!');
     });
 
   });
@@ -92,7 +92,7 @@ describe('ThemeColor API:', function() {
         .put('/api/themeColors/' + newThemeColor._id)
         .send({
           name: 'Updated ThemeColor',
-          info: 'This is the updated themeColor!!!'
+          colorCode: 'This is the updated themeColor!!!'
         })
         .expect(200)
         .expect('Content-Type', /json/)
@@ -111,7 +111,7 @@ describe('ThemeColor API:', function() {
 
     it('should respond with the updated themeColor', function() {
       updatedThemeColor.name.should.equal('Updated ThemeColor');
-      updatedThemeColor.info.should.equal('This is the updated themeColor!!!');
+      updatedThemeColor.colorCode.should.equal('This is the updated themeColor!!!');
     });
 
   });
