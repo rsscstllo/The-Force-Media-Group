@@ -1,10 +1,20 @@
 'use strict';
 
 angular.module('fmgApp.admin')
-  .controller('AdminController', function ($scope, toaster, colorService) {
+  .controller('AdminController', function ($scope, toaster, colorService, signUpService) {
 
     $scope.themeColors = [];
     $scope.customColors = [];
+    $scope.dialogVisible = false;
+
+    $scope.sendText = function(textBody) {
+      if (textBody) {
+        signUpService.sendTextToGroup(textBody).success(function (data) {
+          $scope.dialogVisible = false;
+          toaster.pop("success", "Text message sent!");
+        });
+      }
+    };
 
     colorService.getAllColors()
       .then(function(response) {
@@ -59,7 +69,7 @@ angular.module('fmgApp.admin')
     $scope.delete = function() {
       $scope.user.$remove();
       $scope.users.splice($scope.users.indexOf($scope.user), 1);
-    }
+    };
 
     $scope.createColor = function() {
 
@@ -85,4 +95,15 @@ angular.module('fmgApp.admin')
           console.log(err);
         });
     };
+
+    $scope.showDialog = function() {
+      $scope.dialogVisible = true;
+    };
+
+    $scope.hideDialog = function() {
+      $scope.dialogVisible = false;
+    };
+
+
+
   });
