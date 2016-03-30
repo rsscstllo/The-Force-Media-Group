@@ -1,41 +1,44 @@
-div.navbar.navbar-default.cloudyBackground.navbar-static-top(ng-controller='NavbarController')
-  div.container
-    div.navbar-header
-      button.navbar-toggle(type='button', ng-click='nav.isCollapsed = !nav.isCollapsed')
-        span.sr-only Toggle navigation
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
-      a.navbar-logo(href='/')
-        img(src='../assets/images/filler_Logo.jpg' alt='Jarmone Davis Media' height='50px')
-      span#mobileLoader.overlay-loader.pull-right.mobile-loader.visible-xs
-        img.loader-icon(src="../assets/images/cog03.svg", data-cog="cog03")
+div(ng-controller='NavbarController')
+  md-toolbar
+    div.md-toolbar-tools
+      //md-menu
+        button(ng-click="$mdOpenMenu()") File
+          md-menu-content
+            md-menu-item()
+              md-button(ng-click="ctrl.sampleAction('share', $event)") Share...
+      
+      span(ng-repeat='item in nav.menu', ui-sref-active='active')
+        a(ui-sref='{{item.state}}') {{item.title}}
+      
+      span(ng-show='nav.isAdmin()', ui-sref-active='active')
+        a(ui-sref='admin') Admin
+      
+      span(flex)
+      
+      span(ng-hide='nav.isLoggedIn()', ui-sref-active='active')
+        a(ui-sref='signup') Sign up
 
-    #loader.overlay-loader.pull-right.hidden-xs
-      img.loader-icon(src="../assets/images/cog03.svg", data-cog="cog03")
+      span(ng-hide='nav.isLoggedIn()', ui-sref-active='active')
+        a(ui-sref='login') Login
 
+      span(ng-show='nav.isLoggedIn()')
+        p.navbar-text Hello {{ nav.getCurrentUser().name }}
 
-    div#navbar-main.navbar-collapse.collapse(collapse='nav.isCollapsed')
-      ul.nav.navbar-nav
-        li(ng-repeat='item in nav.menu', ui-sref-active='active')
-          a(ui-sref='{{item.state}}') {{item.title}}
+      span(ng-show='nav.isLoggedIn()', ui-sref-active='active')
+        a(ui-sref='settings')
+          span.glyphicon.glyphicon-cog
 
-        li(ng-show='nav.isAdmin()', ui-sref-active='active')
-          a(ui-sref='admin') Admin
+      span(ng-show='nav.isLoggedIn()')
+        a(ui-sref='logout') Logout
 
-      ul.nav.navbar-nav.navbar-right
-        li(ng-hide='nav.isLoggedIn()', ui-sref-active='active')
-          a(ui-sref='signup') Sign up
-
-        li(ng-hide='nav.isLoggedIn()', ui-sref-active='active')
-          a(ui-sref='login') Login
-
-        li(ng-show='nav.isLoggedIn()')
-          p.navbar-text Hello {{ nav.getCurrentUser().name }}
-
-        li(ng-show='nav.isLoggedIn()', ui-sref-active='active')
-          a(ui-sref='settings')
-            span.glyphicon.glyphicon-cog
-
-        li(ng-show='nav.isLoggedIn()')
-          a(ui-sref='logout') Logout
+      //md-button RIGHT
+      
+br
+//span 
+  a(href='/') 
+    img(src='../assets/images/filler_Logo.jpg' alt='Jarmone Davis Media' height="50px")
+  
+  #loader.overlay-loader.pull-right.hidden-xs
+    img.loader-icon(src="../assets/images/cog03.svg", data-cog="cog03")
+  span#mobileLoader.overlay-loader.pull-right.mobile-loader.visible-xs
+    img.loader-icon(src="../assets/images/cog03.svg", data-cog="cog03")

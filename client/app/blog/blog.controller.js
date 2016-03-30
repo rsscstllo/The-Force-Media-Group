@@ -24,10 +24,12 @@ angular.module('fmgApp')
             console.log(response);
             $scope.blogs = response.data;
         });
-    }
+    };
+
     $scope.incrementLimit = function() {
         $scope.limit+=5;
-    }
+    };
+
     $scope.editPost = function() {
         $scope.edit = !$scope.edit;
     };
@@ -39,35 +41,40 @@ angular.module('fmgApp')
             $scope.updateBlogs();
             $scope.edit = false;
         });
-    }
+    };
+
     $scope.deletePost = function(blog) {
         blogService.deletePost(blog).then(function(response) {
             console.log(response);
             $scope.updateBlogs();
         });
     };
+
     $scope.toggleView = function(blog) {
         $scope.currentBlog = blog;
         $scope.viewAll = ! $scope.viewAll;
-    }
+    };
+
     $scope.resetView = function() {
         $scope.viewAll = true;
         $scope.edit = false;
-    }
+    };
+
     $scope.saveDraft = function() {
-        console.log("save draft")
-    }
+        console.log('save draft');
+    };
+
     $scope.createPost = function() {
         $scope.blogpost.published = true;
         $scope.blogpost.createdAt = moment().format('MMMM Do YYYY h:mm:ss a');
         $scope.blogpost.updatedAt = moment().format('MMMM Do YYYY h:mm:ss a');
         blogService.createPost($scope.blogpost).then(function(response) {
-            $scope.blogpost.title="";
-            $scope.blogpost.body="";
+            $scope.blogpost.title='';
+            $scope.blogpost.body='';
             console.log(response);
             $scope.updateBlogs();
         });
-    }
+    };
 
     commentService.getAllComments()
       .then(function(response){
@@ -83,13 +90,13 @@ angular.module('fmgApp')
           }).catch(function(err){
             console.log(err);
         });
-    }
+    };
 
     $scope.createComment= function (){
       var text = $scope.comment.text;
 
-      if (text === ""){
-         toaster.pop("error","Please enter text.");
+      if (text === ''){
+         toaster.pop('error','Please enter text.');
          return;
       }
 
@@ -98,11 +105,12 @@ angular.module('fmgApp')
         userId: $scope.currentUser._id,
         body: text
       };
+
       commentService.createComment(commentToCreate)
         .then(function (response){
           var comment = response.data;
-          //toaster.pop("success","Comment submitted");
-          $scope.comment.text = "";
+          //toaster.pop('success','Comment submitted');
+          $scope.comment.text = '';
           console.log(comment);
           $scope.comments.push(comment);
         }).catch(function(err){
@@ -111,8 +119,8 @@ angular.module('fmgApp')
     };
 
     $scope.deleteComment = function(comment) {
-        commentService.deleteComment(comment).then(function(response) {
+        commentService.deleteComment(comment).then(function() {
             $scope.updateComments();
-        })
-    }
+        });
+    };
   });

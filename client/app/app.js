@@ -12,11 +12,15 @@ angular.module('fmgApp', [
   'validation.match',
   'ui.mask',
   'toaster',
-  'ngModal'
+  'ngModal',
+  'ngMaterial'
 ])
-  .config(function($urlRouterProvider, $locationProvider) {
+  .config(function($urlRouterProvider, $locationProvider, $mdThemingProvider) {
     $urlRouterProvider
       .otherwise('/');
 
     $locationProvider.html5Mode(true);
+
+    $mdThemingProvider.theme('default')
+      .dark();
   });
