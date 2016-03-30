@@ -28,6 +28,6 @@
     "livereload-js": "^2.2.1"
   },
   "resolutions": {
-    "angular": "1.5.2"
+    "angular": "1.5.3"
   }
 }
