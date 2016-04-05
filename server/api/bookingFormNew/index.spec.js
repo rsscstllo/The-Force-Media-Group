@@ -54,15 +54,15 @@ describe('BookingFormNew API Router:', function() {
 
   });
 
-  describe('POST /api/bookingFormNews', function() {
-
-    it('should route to bookingFormNew.controller.create', function() {
-      routerStub.post
-        .withArgs('/', 'bookingFormNewCtrl.create')
-        .should.have.been.calledOnce;
-    });
-
-  });
+  // describe('POST /api/bookingFormNews', function() {
+  //
+  //   it('should route to bookingFormNew.controller.create', function() {
+  //     routerStub.post
+  //       .withArgs('/', 'bookingFormNewCtrl.create')
+  //       .should.have.been.calledOnce;
+  //   });
+  //
+  // });
 
   describe('PUT /api/bookingFormNews/:id', function() {
 
