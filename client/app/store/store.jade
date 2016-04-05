@@ -2,25 +2,35 @@
 navbar
 .container
   .row
-    .col-lg-12.text-right
-      button.crestBackground.btn.btn-default.btn-lg#cart(class="glyphicon glyphicon-shopping-cart" ui-sref="cart({items: addedItems})")
+    .col-lg-12
+      div(ng-show="isAdmin")
+        button.crestBackground.btn.btn-sucess.btn-sm(ng-click="addStoreItem()")
+          | Add New Item
+      .text-right
+        button.crestBackground.btn.btn-default.btn-lg#cart(class="glyphicon glyphicon-shopping-cart" ui-sref="cart({items: addedItems})")
   .row
     div(ng-repeat="item in items")
       .col-lg-4.col-md-4.col-sm-5.col-xs-6
         .panel.panel-default
           .panel-body.text-center
-            img.img-responsive.center-block(ng-src="{{item.Picture}}" ng-click="seeItem($index)")
-            h4.row.text-center
-              | {{item.Name}}
-            h5.row.text-center.crestColor
-              |${{item.Price}}
+            div(ng-click="seeItem($index)")
+              img.img-responsive.center-block(ng-src="{{item.Picture}}")
+              h4.row.text-center(style="color:black")
+                | {{item.Name}}
+              h5.row.text-center.crestColor
+                |${{item.Price}}
             .row.text-center
               button.crestBackground.btn.btn-default(ng-click="addToCart(item)")
                 |Add to Cart
 footer.cloudyBackground
 
-modal-dialog(show="showDialog" height="55%" width="50%")
-  p
+modal-dialog(show="showDialog" height="55%" width="50%" style="color:black;")
+  div(ng-show="isAdmin")
+    button.crestBackground.btn.btn-sucess.btn-sm(ng-click="editItem()")
+      | Edit Item
+    button.btn.btn-danger.btn-sm(ng-click="deleteStoreItem()" style="margin-left: 8px")
+      | Delete Item
+  div(ng-hide="editingItem")
     img.img-responsive.center-block(ng-src="{{selectedItem.Picture}}")
     h4.row.text-center
       | {{selectedItem.Name}}
@@ -28,3 +38,52 @@ modal-dialog(show="showDialog" height="55%" width="50%")
       |${{selectedItem.Price}}
     h4.row.text-center
       | {{selectedItem.Description}}
+
+  form(ng-if="editingItem")
+    .form-group
+      label(for="Name")
+        | Name
+      input#Name.form-control(ng-model="tmpItem.Name")
+
+      label(for="Picture")
+       | Picture
+      input#Picture.form-control(ng-model="tmpItem.Picture")
+
+      label(for="Price")
+        | Price
+      input#Price.form-control(ng-model="tmpItem.Price")
+
+      label(for="Description")
+        | Description
+      input#Description.form-control(ng-model="tmpItem.Description")
+
+      button.crestBackground.btn.btn-default(ng-click="undoEdit()")
+        | Undo Changes
+      button.crestBackground.btn.btn-default(ng-click="saveEdit()")
+        | Save Item
+
+modal-dialog(show="showAddItemDialog" height="55%" width="50%")
+  .container
+    .form-group
+      label(for="addName")
+        | Name
+      input#addName.form-control(ng-model="newStoreItem.Name")
+
+      label(for="addPicture")
+        | Picture
+      input#addPicture.form-control(ng-model="newStoreItem.Picture")
+
+      label(for="addPrice")
+        | Price
+      input#addPrice.form-control(ng-model="newStoreItem.Price")
+
+      label(for="addDescription")
+        | Description
+      input#addDescription.form-control(ng-model="newStoreItem.Description")
+
+      button.crestBackground.btn.btn-default(ng-click="saveStoreItem()")
+        | Save Item
+
+
+
+
