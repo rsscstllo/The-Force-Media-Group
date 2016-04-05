@@ -15,6 +15,7 @@ export default function(app) {
   app.use('/api/blogs', require('./api/blog'));
   app.use('/api/eztextings', require('./api/eztexting'));
   app.use('/api/users', require('./api/user'));
+  app.use('/api/bookingFormNews', require('./api/bookingFormNew'));
 
   app.use('/auth', require('./auth').default);
 
