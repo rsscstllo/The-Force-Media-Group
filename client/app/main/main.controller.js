@@ -3,6 +3,7 @@
 angular.module('fmgApp')
   .controller('MainController', function ($scope, toaster, colorService) {
 
+    /*
     colorService.getAllColors()
       .then(function(response) {
         var colors = response.data;
@@ -25,5 +26,6 @@ angular.module('fmgApp')
       }).catch(function(err) {
           console.log(err);
       });
+      */
 
   });

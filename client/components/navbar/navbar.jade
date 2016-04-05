@@ -2,17 +2,17 @@ div(ng-controller='NavbarController')
   md-toolbar
     div(layout="row" layout-padding layout-align="space-between center")
       div
-        md-button(ng-repeat='item in nav.menu', ui-sref-active='active' ui-sref='{{item.state}}') {{item.title}}
-        md-button(ng-show='nav.isAdmin()', ui-sref-active='active' ui-sref='admin') Admin
+        md-button(ng-repeat='item in nav.menu', ui-sref-active='active' ui-sref='{{item.state}}' aria-label="menu link") {{item.title}}
+        md-button(ng-show='nav.isAdmin()', ui-sref-active='active' ui-sref='admin' aria-label="menu admin link") Admin
         
       div
-        md-button(ng-hide='nav.isLoggedIn()', ui-sref-active='active' ui-sref='signup') Sign up
-        md-button(ng-hide='nav.isLoggedIn()', ui-sref-active='active' ui-sref='login') Login
+        md-button(ng-hide='nav.isLoggedIn()', ui-sref-active='active' ui-sref='signup' aria-label="sign up button") Sign up
+        md-button(ng-hide='nav.isLoggedIn()', ui-sref-active='active' ui-sref='login'  aria-label="login button") Login
         span(ng-show='nav.isLoggedIn()')
           p.navbar-text Hello {{ nav.getCurrentUser().name }}
-        md-button(ng-show='nav.isLoggedIn()', ui-sref-active='active' ui-sref='settings')
+        md-button(ng-show='nav.isLoggedIn()', ui-sref-active='active' ui-sref='settings'  aria-label="settings")
           span.glyphicon.glyphicon-cog
-        md-button(ng-show='nav.isLoggedIn()' ui-sref='logout') Logout 
+        md-button(ng-show='nav.isLoggedIn()' ui-sref='logout' aria-label="logout") Logout 
 br
   
 //span 
