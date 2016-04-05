@@ -109,3 +109,35 @@ export function destroy(req, res) {
     .then(removeEntity(res))
     .catch(handleError(res));
 }
+
+
+export function createCharge(req, res) {
+  // setup stripe with test API key
+  var stripe = require("stripe")(
+    "sk_test_IwZeKVydQnhNLuhUlWddgIZf"
+  );
+
+  // create charge using stripe module
+  return stripe.charges.create({
+    amount: req.body.amount,
+    currency: "usd",
+    card: {
+      number: req.body.card.number,
+      exp_month: req.body.card.exp_month,
+      exp_year: req.body.card.exp_year,
+      cvc: req.body.card.cvv
+    },
+    description: req.body.description
+  }, function(err, charge) {
+    if (err) {
+      // bad things
+      res.json(err);
+    } else {
+      // successful charge
+      res.json(charge);
+    }
+  });
+
+
+
+}
