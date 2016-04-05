@@ -118,21 +118,26 @@ export function createCharge(req, res) {
   );
 
   // create charge using stripe module
-  stripe.charges.create({
+  return stripe.charges.create({
     amount: req.body.amount,
     currency: "usd",
     card: {
       number: req.body.card.number,
       exp_month: req.body.card.exp_month,
       exp_year: req.body.card.exp_year,
-      cvc: req.body.card.cvc
+      cvc: req.body.card.cvv
     },
     description: req.body.description
-  }).then(function (charge) {
-    console.log("Charge created");
-    console.log(charge);
-  }, function (err) {
-    console.log(err);
+  }, function(err, charge) {
+    if (err) {
+      // bad things
+      res.json(err);
+    } else {
+      // successful charge
+      res.json(charge);
+    }
   });
+
+
 
 }

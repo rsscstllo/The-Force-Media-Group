@@ -14,13 +14,7 @@ angular.module('fmgApp')
 
     $scope.submit = function() {
       if ( $scope.propName && $scope.phoneNum && $scope.email && $scope.eventDate && $scope.eventType && $scope.descript ) {
-          // $http.post('/someUrl', data, config).then(successCallback, errorCallback);
-          // $http.post('/api/BookingCtrl', $scope.BookingCtrl).then( function(data) {
-          //     console.log('SUCCESS');
-          //     resetForm();
-          //     // May want to redirect somewhere after success, or take the received data back, and display it somehow?
-          //   }, function(err) { console.log(err); }
-          // );
+
           var bookingRequest = {
             propName: $scope.propName,
             phoneNum: $scope.phoneNum,
@@ -28,10 +22,17 @@ angular.module('fmgApp')
             eventDate: $scope.eventDate,
             eventType: $scope.eventType,
             descript: $scope.descript
-          }
+          };
           console.log(bookingRequest);
           console.log('Calling sendBookingEmail');
-          emailService.sendBookingEmail(bookingRequest).success(function(data) {
+
+          var emailObj = {
+            sendTo: "gdscheele@ufl.edu",
+            subject: "New Booking Request",
+            emailBody: 'Requester Name: ' + $scope.propName + '\nRequester Email: ' + $scope.email + '\nRequester Phone: ' + $scope.phoneNum + '\nEvent Type: ' + $scope.eventType + '\nEvent Description: ' + $scope.descript + '\nEvent Date/Time: ' + $scope.eventDate
+          };
+
+          emailService.sendBookingEmail(emailObj).success(function(data) {
             console.log(data);
           })
 

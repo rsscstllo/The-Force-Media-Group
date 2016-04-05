@@ -121,9 +121,9 @@ navbar
         | Expiration Year:
       input#expYear.form-control(ng-model="card.exp_year")
 
-      label(for="cvc")
-        | CVC:
-      input#cvc.form-control(ng-model="card.cvc")
+      label(for="cvv")
+        | CVV:
+      input#cvv.form-control(ng-model="card.cvv")
 
       button.btn.btn-xs.btn-success.pull-right(ng-click="submitPayment()")
         | Make Order
