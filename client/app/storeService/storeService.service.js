@@ -20,6 +20,9 @@ angular.module('fmgApp')
       },
       createCharge: function(transactionDetails) {
         return $http.put(baseUrl, transactionDetails);
+      },
+      validateAddress: function(address) {
+        return $http.put(baseUrl + 'validateAddress/', address);
       }
     };
 

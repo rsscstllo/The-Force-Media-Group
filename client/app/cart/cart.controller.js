@@ -17,8 +17,6 @@ angular.module('fmgApp')
       zip: undefined
     };
 
-    if($scope.items.length === 0)
-      $state.go('store');
 
     $scope.card = {
       number: undefined,
@@ -27,9 +25,21 @@ angular.module('fmgApp')
       cvv: undefined
     };
 
-    $scope.items.forEach(function(item) {
-      $scope.orderTotal += item.Price;
-    });
+    $scope.$watch('items', function(items) {
+      if(items.length === 0) {
+        toaster.pop("error", "There are no items in your cart.", "Add items to your cart from the store.");
+        $state.go('store');
+      }
+
+      var total = 0;
+      items.forEach(function(item) {
+
+        total += item.Price * item.Quantity;
+      });
+
+      $scope.orderTotal = total;
+    }, true);
+
 
     $scope.confirmRemoveItem = function(index) {
       $scope.currentItem = index;
@@ -42,8 +52,6 @@ angular.module('fmgApp')
     };
 
     $scope.removeItem = function() {
-      console.log("current user");
-      console.log($scope.currentUser);
       $scope.items.splice($scope.currentItem, 1);
       toaster.pop('success', 'Item removed from cart');
 
@@ -60,8 +68,32 @@ angular.module('fmgApp')
     };
 
     $scope.checkout = function() {
-      $scope.checkingOut = true;
-      console.log($scope.shippingInfo);
+      var addressObj = {
+        fullName: $scope.shippingInfo.fullName,
+        address1: $scope.shippingInfo.address1,
+        address2: $scope.shippingInfo.address2,
+        city: $scope.shippingInfo.city,
+        state: $scope.shippingInfo.state,
+        zip: $scope.shippingInfo.zip
+      };
+      storeService.validateAddress(addressObj).success(function(data) {
+        if(data.object_state === "VALID") {
+          $scope.checkingOut = true;
+
+          $scope.shippingInfo.fullName = data.name;
+          $scope.shippingInfo.address1 = data.street1;
+          $scope.shippingInfo.address2 = data.street2;
+          $scope.shippingInfo.city = data.city;
+          $scope.shippingInfo.state = data.state;
+          $scope.shippingInfo.zip = data.zip;
+        } else {
+          toaster.pop("error", "Invalid Address", data.messages[0].text);
+        }
+      });
+    };
+
+    $scope.changeAddress = function() {
+      $scope.checkingOut = false;
     };
 
     $scope.submitPayment = function() {
@@ -140,7 +172,6 @@ angular.module('fmgApp')
         emailString += "</tbody></table>";
 
         //send a copy of email to jarmone and to the logged in user
-        console.log(data);
         if(data.data.status === "succeeded") {
           var emailObj = {
             sendTo: ["fmgMerchandise@gmail.com", $scope.currentUser.email],
@@ -149,12 +180,10 @@ angular.module('fmgApp')
           };
 
           emailService.sendEmail(emailObj).then(function (email) {
-            console.log(email);
             toaster.pop("success", "Order Placed.", "An email has been sent to confirm your order details.");
             $state.go('store');
           });
         } else {
-          console.log("payment error");
           toaster.pop("error", "Payment Error!", data.data.message);
         }
       });

@@ -11,6 +11,7 @@
 
 import _ from 'lodash';
 import StoreItem from './storeItem.model';
+var shippo = require('shippo')('d0120ed2ca350acbcc430b07c2fa703641912098');
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -140,4 +141,44 @@ export function createCharge(req, res) {
 
 
 
+}
+
+export function validateAddress(req, res) {
+  if(req.body.address2 !== null) {
+    shippo.address.create({
+      "object_purpose": "QUOTE",
+      "name": req.body.fullName,
+      "street1": req.body.address1,
+      "city": req.body.city,
+      "state": req.body.state,
+      "zip": req.body.zip,
+      "country": "US",
+      "validate": true
+    }, function (err, shippo) {
+      if (err) {
+        res.json(err);
+      } else {
+        res.json(shippo);
+      }
+    });
+  }
+  else {
+    shippo.address.create({
+      "object_purpose":"QUOTE",
+      "name": req.body.fullName,
+      "street1": req.body.address1,
+      "street2": req.body.address2,
+      "city": req.body.city,
+      "state": req.body.state,
+      "zip": req.body.zip,
+      "country":" US",
+      "validate": true
+    }, function(err, shippo) {
+      if (err) {
+        res.json(err);
+      } else {
+        res.json(shippo);
+      }
+    });
+  }
 }

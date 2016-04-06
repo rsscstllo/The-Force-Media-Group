@@ -5,22 +5,27 @@ navbar
       .list-group-item
         table.cartItemTable
           tr
-            td
+            td(style="width:120px")
+              .itemPicture
+                img.img-responsive.center-block(ng-src="{{item.Picture}}" style="max-height:100px; max-width:100px;")
+            td(style="color:black")
               .itemName
                 | {{item.Name}}
               .itemDescription
                 | {{item.Description}}
               .itemPrice
-                | {{item.Price}}
-              input.form-control(ng-model="item.Quantity")
-            td
-              .itemPicture
-                img.img-responsive.center-block(ng-src="{{item.Picture}}")
+                | {{item.Price | currency:"$"}}
+
+              label(for="quantity")
+                | Quantity
+              input#quantity.form-control(ng-model="item.Quantity" type="number")
             td.removeButtontd
               .removeButton.glyphicon.glyphicon-trash(title="remove item from cart" ng-click="confirmRemoveItem($index)")
 
     div(ng-show="checkingOut")
       .well.well-lg(style="padding-bottom: 30px; color:black")
+        md-button.md-raised(ng-click="changeAddress()")
+          | Change Shipping Information
         h4
           | Order Details
 
@@ -57,7 +62,7 @@ navbar
 
             label(for="countryDisabled")
               | Country:
-            input#countryDisabled.form-control(disabled)
+            input#countryDisabled.form-control(value="United States" disabled)
 
 
         button.btn.btn-xs.btn-success.pull-right(ng-click="checkout()")
@@ -110,24 +115,36 @@ navbar
           | checkout
 
     div(ng-show="checkingOut")
-      label(for="cardNumber")
-        | Card Number:
-      input#cardNumber.form-control(ng-model="card.number")
+      .well.well-lg(style="padding-bottom: 30px; color:black")
+        label(style="color:red; font-weight: 400")
+          | *Please verify that your shipping address is correct before clicking "Make Order"
+        br
 
-      label(for="expMonth")
-        | Expiration Month:
-      input#expMonth.form-control(ng-model="card.exp_month")
+        h3
+          | Credit/Debit Card Information
 
-      label(for="expYear")
-        | Expiration Year:
-      input#expYear.form-control(ng-model="card.exp_year")
+        label(for="cardNumber")
+          | Card Number:
+        input#cardNumber.form-control(ng-model="card.number")
 
-      label(for="cvv")
-        | CVV:
-      input#cvv.form-control(ng-model="card.cvv")
+        label(for="expMonth")
+          | Expiration Month:
+        input#expMonth.form-control(ng-model="card.exp_month")
 
-      button.btn.btn-xs.btn-success.pull-right(ng-click="submitPayment()")
-        | Make Order
+        label(for="expYear")
+          | Expiration Year:
+        input#expYear.form-control(ng-model="card.exp_year")
+
+        label(for="cvv")
+          | CVV:
+        input#cvv.form-control(ng-model="card.cvv")
+
+        br
+        label
+          | Transactions powered by Stripe, Inc.
+
+        button.btn.btn-xs.btn-success.pull-right(ng-click="submitPayment()" style="margin-top:10px")
+          | Make Order
 
 
 
