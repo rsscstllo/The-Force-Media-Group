@@ -16,6 +16,10 @@ angular.module('fmgApp')
         },
         editPost: function(blogpost) {
             return $http.put(baseUrl + '/' + blogpost._id, blogpost);
+        },
+        togglePublished: function(blogpost) {
+            blogpost.published = !blogpost.published;
+            return $http.put(baseUrl + '/' + blogpost._id, blogpost);
         }
       };
 
