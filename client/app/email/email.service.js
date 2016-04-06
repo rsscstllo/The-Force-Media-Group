@@ -5,11 +5,8 @@ angular.module('fmgApp')
 
     var baseUrl = "api/emails";
     var methods = {
-      sendBookingEmail: function(bookingStuff){
-        return $http.post(baseUrl, bookingStuff);
-      },
-      sendOrderEmail: function(orderInfo) {
-        return $http.post(baseUrl, orderInfo);
+      sendEmail: function(emailObj){
+        return $http.post(baseUrl, emailObj);
       }
     };
 

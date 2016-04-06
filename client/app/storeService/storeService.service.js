@@ -13,13 +13,16 @@ angular.module('fmgApp')
         return $http.get(baseUrl);
       },
       updateItem: function(item) {
-        return $http.put(baseUrl + item._id, item);
+        return $http.put(baseUrl + "updateStoreItem/" + item._id, item);
       },
       deleteItem: function(item) {
         return $http.delete(baseUrl + item._id);
       },
       createCharge: function(transactionDetails) {
         return $http.put(baseUrl, transactionDetails);
+      },
+      validateAddress: function(address) {
+        return $http.put(baseUrl + 'validateAddress/', address);
       }
     };
 

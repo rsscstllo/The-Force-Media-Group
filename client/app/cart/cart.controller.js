@@ -17,8 +17,6 @@ angular.module('fmgApp')
       zip: undefined
     };
 
-    if($scope.items.length === 0)
-      $state.go('store');
 
     $scope.card = {
       number: undefined,
@@ -27,9 +25,21 @@ angular.module('fmgApp')
       cvv: undefined
     };
 
-    $scope.items.forEach(function(item) {
-      $scope.orderTotal += item.Price;
-    });
+    $scope.$watch('items', function(items) {
+      if(items.length === 0) {
+        toaster.pop("error", "There are no items in your cart.", "Add items to your cart from the store.");
+        $state.go('store');
+      }
+
+      var total = 0;
+      items.forEach(function(item) {
+
+        total += item.Price * item.Quantity;
+      });
+
+      $scope.orderTotal = total;
+    }, true);
+
 
     $scope.confirmRemoveItem = function(index) {
       $scope.currentItem = index;
@@ -42,8 +52,6 @@ angular.module('fmgApp')
     };
 
     $scope.removeItem = function() {
-      console.log("current user");
-      console.log($scope.currentUser);
       $scope.items.splice($scope.currentItem, 1);
       toaster.pop('success', 'Item removed from cart');
 
@@ -60,8 +68,32 @@ angular.module('fmgApp')
     };
 
     $scope.checkout = function() {
-      $scope.checkingOut = true;
-      console.log($scope.shippingInfo);
+      var addressObj = {
+        fullName: $scope.shippingInfo.fullName,
+        address1: $scope.shippingInfo.address1,
+        address2: $scope.shippingInfo.address2,
+        city: $scope.shippingInfo.city,
+        state: $scope.shippingInfo.state,
+        zip: $scope.shippingInfo.zip
+      };
+      storeService.validateAddress(addressObj).success(function(data) {
+        if(data.object_state === "VALID") {
+          $scope.checkingOut = true;
+
+          $scope.shippingInfo.fullName = data.name;
+          $scope.shippingInfo.address1 = data.street1;
+          $scope.shippingInfo.address2 = data.street2;
+          $scope.shippingInfo.city = data.city;
+          $scope.shippingInfo.state = data.state;
+          $scope.shippingInfo.zip = data.zip;
+        } else {
+          toaster.pop("error", "Invalid Address", data.messages[0].text);
+        }
+      });
+    };
+
+    $scope.changeAddress = function() {
+      $scope.checkingOut = false;
     };
 
     $scope.submitPayment = function() {
@@ -74,78 +106,84 @@ angular.module('fmgApp')
 
       storeService.createCharge(stripeObj).then(function(data) {
 
-        var emailString = "<table>" +
-          "<thead>" +
-          "<tr><td>Shipping Information</td></tr>" +
-          "</thead>" +
+        var emailString = "<head><style>#productsTable td { padding-left:5px; padding-right:5px;}</style></head>" +
+          "<h3>Shipping Information</h3>" +
+          "<table>" +
           "<tr>" +
-          "<td>Full Name</td>" +
+          "<td style='text-align:right'>Full Name:</td>" +
+          "<td style='width:5px'></td>" +
           "<td>" + $scope.shippingInfo.fullName +
           "</td>" +
           "</tr>" +
           "<tr>" +
-          "<td>Address 1</td>" +
+          "<td style='text-align:right'>Address 1:</td>" +
+          "<td style='width:5px'></td>" +
           "<td>" + $scope.shippingInfo.address1 +
           "</td>" +
-          "</tr>" +
-          "<tr>" +
-          "<td>Address 2</td>" +
-          "<td>" + $scope.shippingInfo.address2 +
-          "</td>" +
-          "</tr>" +
-          "<tr>" +
-          "<td>City</td>" +
+          "</tr>";
+          if($scope.shippingInfo.address2 !== undefined) {
+            emailString += "<tr>" +
+            "<td style='text-align:right'>Address 2:</td>" +
+            "<td style='width:5px'></td>" +
+            "<td>" + $scope.shippingInfo.address2 +
+            "</td>" +
+            "</tr>";
+          }
+
+          emailString += "<tr>" +
+          "<td style='text-align:right'>City:</td>" +
+          "<td style='width:5px'></td>" +
           "<td>" + $scope.shippingInfo.city +
           "</td>" +
           "</tr>" +
           "<tr>" +
-          "<td>State</td>" +
+          "<td style='text-align:right'>State:</td>" +
+          "<td style='width:5px'></td>" +
           "<td>" + $scope.shippingInfo.state +
           "</td></tr>" +
           "<tr>" +
-          "<td>Zip Code</td>" +
+          "<td style='text-align:right'>Zip Code:</td>" +
+          "<td style='width:5px'></td>" +
           "<td>" + $scope.shippingInfo.zip +
           "</td></tr>" +
           "</table><br />" +
           "<h3>Products Ordered</h3>" +
-          "<table>" +
+          "<table id='productsTable' border='solid 1px black'>" +
           "<thead>" +
           "<tr>" +
           "<td>Name</td>" +
           "<td>Price</td>" +
           "<td>Quantity Ordered</td>" +
-          "</tr></thead>";
+          "</tr></thead>" +
+          "<tbody style='border-top:solid 1px black'>";
 
 
         $scope.items.forEach(function(item) {
           emailString += "<tr>" +
             "<td>" + item.Name +
             "</td>" +
-            "<td>" + item.Price +
+            "<td style='text-align:center;'>" + item.Price +
+            "</td>" +
+            "<td style='text-align:center;'>" + item.Quantity +
             "</td>" +
             "</tr>"
         });
 
-        emailString += "</table>";
+        emailString += "</tbody></table>";
 
-        //FIX ME
         //send a copy of email to jarmone and to the logged in user
-        console.log(data);
         if(data.data.status === "succeeded") {
           var emailObj = {
-            sendTo: "fmgMerchandise@gmail.com",
+            sendTo: ["fmgMerchandise@gmail.com", $scope.currentUser.email],
             subject: 'New Merchandise Order',
             emailBody: emailString
           };
-          console.log(emailObj);
 
-          emailService.sendOrderEmail(emailObj).then(function (email) {
-            console.log(email);
+          emailService.sendEmail(emailObj).then(function (email) {
             toaster.pop("success", "Order Placed.", "An email has been sent to confirm your order details.");
             $state.go('store');
           });
         } else {
-          console.log("payment error");
           toaster.pop("error", "Payment Error!", data.data.message);
         }
       });
