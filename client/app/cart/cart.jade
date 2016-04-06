@@ -12,6 +12,7 @@ navbar
                 | {{item.Description}}
               .itemPrice
                 | {{item.Price}}
+              input.form-control(ng-model="item.Quantity")
             td
               .itemPicture
                 img.img-responsive.center-block(ng-src="{{item.Picture}}")
