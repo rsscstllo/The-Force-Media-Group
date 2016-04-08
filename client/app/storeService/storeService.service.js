@@ -2,7 +2,7 @@
 
 angular.module('fmgApp')
   .service('storeService', function ($http) {
-    // AngularJS will instantiate a singleton by calling "new" on this function
+    // AngularJS will instantiate a singleton by calling 'new' on this function
     var baseUrl = '/api/storeItems/';
 
     var methods = {
@@ -13,7 +13,7 @@ angular.module('fmgApp')
         return $http.get(baseUrl);
       },
       updateItem: function(item) {
-        return $http.put(baseUrl + "updateStoreItem/" + item._id, item);
+        return $http.put(baseUrl + 'updateStoreItem/' + item._id, item);
       },
       deleteItem: function(item) {
         return $http.delete(baseUrl + item._id);
