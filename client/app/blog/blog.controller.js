@@ -86,7 +86,7 @@ angular.module('fmgApp')
             console.log(response);
             $scope.updateBlogs();
         });
-    }
+    };
 
     commentService.getAllComments()
       .then(function(response){
@@ -144,12 +144,12 @@ angular.module('fmgApp')
             }
         }
         return numComments;
-    }
+    };
 
     $scope.togglePublished = function(blogpost) {
-        blogService.togglePublished(blogpost).then(function(res) {
-            console.log("published toggled");
+        blogService.togglePublished(blogpost).then(function() {
+            console.log('published toggled');
             $scope.updateBlogs();
-        })
-    }
+        });
+    };
   });

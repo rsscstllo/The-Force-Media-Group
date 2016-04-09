@@ -27,7 +27,7 @@ angular.module('fmgApp')
 
     $scope.$watch('items', function(items) {
       if(items.length === 0) {
-        toaster.pop("error", "There are no items in your cart.", "Add items to your cart from the store.");
+        toaster.pop('error', 'There are no items in your cart.', 'Add items to your cart from the store.');
         $state.go('store');
       }
 
@@ -77,7 +77,7 @@ angular.module('fmgApp')
         zip: $scope.shippingInfo.zip
       };
       storeService.validateAddress(addressObj).success(function(data) {
-        if(data.object_state === "VALID") {
+        if(data.object_state === 'VALID') {
           $scope.checkingOut = true;
 
           $scope.shippingInfo.fullName = data.name;
@@ -87,7 +87,7 @@ angular.module('fmgApp')
           $scope.shippingInfo.state = data.state;
           $scope.shippingInfo.zip = data.zip;
         } else {
-          toaster.pop("error", "Invalid Address", data.messages[0].text);
+          toaster.pop('error', 'Invalid Address', data.messages[0].text);
         }
       });
     };
@@ -101,93 +101,93 @@ angular.module('fmgApp')
       var stripeObj = {
         amount: priceInCents,
         card: $scope.card,
-        description: "Charge for " + $scope.currentUser.email
+        description: 'Charge for ' + $scope.currentUser.email
       };
 
       storeService.createCharge(stripeObj).then(function(data) {
 
-        var emailString = "<head><style>#productsTable td { padding-left:5px; padding-right:5px;}</style></head>" +
-          "<h3>Shipping Information</h3>" +
-          "<table>" +
-          "<tr>" +
-          "<td style='text-align:right'>Full Name:</td>" +
-          "<td style='width:5px'></td>" +
-          "<td>" + $scope.shippingInfo.fullName +
-          "</td>" +
-          "</tr>" +
-          "<tr>" +
-          "<td style='text-align:right'>Address 1:</td>" +
-          "<td style='width:5px'></td>" +
-          "<td>" + $scope.shippingInfo.address1 +
-          "</td>" +
-          "</tr>";
+        var emailString = '<head><style>#productsTable td { padding-left:5px; padding-right:5px;}</style></head>' +
+          '<h3>Shipping Information</h3>' +
+          '<table>' +
+          '<tr>' +
+          '<td style=\'text-align:right\'>Full Name:</td>' +
+          '<td style=\'width:5px\'></td>' +
+          '<td>' + $scope.shippingInfo.fullName +
+          '</td>' +
+          '</tr>' +
+          '<tr>' +
+          '<td style=\'text-align:right\'>Address 1:</td>' +
+          '<td style=\'width:5px\'></td>' +
+          '<td>' + $scope.shippingInfo.address1 +
+          '</td>' +
+          '</tr>';
           if($scope.shippingInfo.address2 !== undefined) {
-            emailString += "<tr>" +
-            "<td style='text-align:right'>Address 2:</td>" +
-            "<td style='width:5px'></td>" +
-            "<td>" + $scope.shippingInfo.address2 +
-            "</td>" +
-            "</tr>";
+            emailString += '<tr>' +
+            '<td style=\'text-align:right\'>Address 2:</td>' +
+            '<td style=\'width:5px\'></td>' +
+            '<td>' + $scope.shippingInfo.address2 +
+            '</td>' +
+            '</tr>';
           }
 
-          emailString += "<tr>" +
-          "<td style='text-align:right'>City:</td>" +
-          "<td style='width:5px'></td>" +
-          "<td>" + $scope.shippingInfo.city +
-          "</td>" +
-          "</tr>" +
-          "<tr>" +
-          "<td style='text-align:right'>State:</td>" +
-          "<td style='width:5px'></td>" +
-          "<td>" + $scope.shippingInfo.state +
-          "</td></tr>" +
-          "<tr>" +
-          "<td style='text-align:right'>Zip Code:</td>" +
-          "<td style='width:5px'></td>" +
-          "<td>" + $scope.shippingInfo.zip +
-          "</td></tr>" +
-          "</table><br />" +
-          "<h3>Products Ordered</h3>" +
-          "<table id='productsTable' border='solid 1px black'>" +
-          "<thead>" +
-          "<tr>" +
-          "<td>Name</td>" +
-          "<td>Price</td>" +
-          "<td>Quantity Ordered</td>" +
-          "</tr></thead>" +
-          "<tbody style='border-top:solid 1px black'>";
+          emailString += '<tr>' +
+          '<td style=\'text-align:right\'>City:</td>' +
+          '<td style=\'width:5px\'></td>' +
+          '<td>' + $scope.shippingInfo.city +
+          '</td>' +
+          '</tr>' +
+          '<tr>' +
+          '<td style=\'text-align:right\'>State:</td>' +
+          '<td style=\'width:5px\'></td>' +
+          '<td>' + $scope.shippingInfo.state +
+          '</td></tr>' +
+          '<tr>' +
+          '<td style=\'text-align:right\'>Zip Code:</td>' +
+          '<td style=\'width:5px\'></td>' +
+          '<td>' + $scope.shippingInfo.zip +
+          '</td></tr>' +
+          '</table><br />' +
+          '<h3>Products Ordered</h3>' +
+          '<table id=\'productsTable\' border=\'solid 1px black\'>' +
+          '<thead>' +
+          '<tr>' +
+          '<td>Name</td>' +
+          '<td>Price</td>' +
+          '<td>Quantity Ordered</td>' +
+          '</tr></thead>' +
+          '<tbody style=\'border-top:solid 1px black\'>';
 
 
         $scope.items.forEach(function(item) {
-          emailString += "<tr>" +
-            "<td>" + item.Name +
-            "</td>" +
-            "<td style='text-align:center;'>" + item.Price +
-            "</td>" +
-            "<td style='text-align:center;'>" + item.Quantity +
-            "</td>" +
-            "</tr>"
+          emailString += '<tr>' +
+            '<td>' + item.Name +
+            '</td>' +
+            '<td style=\'text-align:center;\'>' + item.Price +
+            '</td>' +
+            '<td style=\'text-align:center;\'>' + item.Quantity +
+            '</td>' +
+            '</tr>';
         });
 
-        emailString += "</tbody></table>";
+        emailString += '</tbody></table>';
 
         //send a copy of email to jarmone and to the logged in user
-        if(data.data.status === "succeeded") {
+        if(data.data.status === 'succeeded') {
           var emailObj = {
-            sendTo: ["fmgMerchandise@gmail.com", $scope.currentUser.email],
+            sendTo: ['fmgMerchandise@gmail.com', $scope.currentUser.email],
             subject: 'New Merchandise Order',
             emailBody: emailString
           };
 
-          emailService.sendEmail(emailObj).then(function (email) {
-            toaster.pop("success", "Order Placed.", "An email has been sent to confirm your order details.");
+          emailService.sendEmail(emailObj).then(function () {
+            toaster.pop('success', 'Order Placed.', 'An email has been sent to confirm your order details.');
             $state.go('store');
           });
         } else {
-          toaster.pop("error", "Payment Error!", data.data.message);
+          toaster.pop('error', 'Payment Error!', data.data.message);
         }
       });
-    }
+    };
 
 
   });

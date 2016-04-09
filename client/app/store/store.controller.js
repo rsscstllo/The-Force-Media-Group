@@ -10,19 +10,20 @@ angular.module('fmgApp')
 
     $scope.newStoreItem = {
       Name: undefined,
-      Picture: "https://drive.google.com/uc?id=0B-viYPCddrMLN29HdEFObjNhRXc",
+      Picture: 'https://drive.google.com/uc?id=0B-viYPCddrMLN29HdEFObjNhRXc',
       Price: undefined,
       Description: undefined
     };
 
     $scope.$watch('newStoreItem.Picture', function(value) {
       if(value) {
-        $scope.newStoreItem.Picture = $scope.newStoreItem.Picture.replace("open", "uc");
+        $scope.newStoreItem.Picture = $scope.newStoreItem.Picture.replace('open', 'uc');
       }
     });
 
-    if($scope.isAdmin)
-      $('.ng-modal-dialog').css({"height":"85%"});
+    if($scope.isAdmin) {
+      $('.ng-modal-dialog').css({'height': '85%'});
+    }
 
     storeService.getAllStoreItems().success(function(data) {
       $scope.items = data;
@@ -57,7 +58,7 @@ angular.module('fmgApp')
           $scope.addedItems.push(newItem);
         }
       } else {
-        toaster.pop("error", "You must log in to add items to your cart.");
+        toaster.pop('error', 'You must log in to add items to your cart.');
       }
     };
 
@@ -71,7 +72,7 @@ angular.module('fmgApp')
 
     $scope.saveStoreItem = function() {
       console.log($scope.newStoreItem);
-      storeService.createStoreItem($scope.newStoreItem).success(function(data) {
+      storeService.createStoreItem($scope.newStoreItem).success(function() {
         $scope.newStoreItem = {
           Name: undefined,
           Picture: 'https://drive.google.com/uc?id=0B-viYPCddrMLN29HdEFObjNhRXc',
@@ -95,7 +96,7 @@ angular.module('fmgApp')
 
     $scope.saveEdit = function() {
       $scope.selectedItem = $scope.tmpItem;
-      storeService.updateItem($scope.tmpItem).success(function(data) {
+      storeService.updateItem($scope.tmpItem).success(function() {
         storeService.getAllStoreItems().success(function(data) {
           $scope.items = data;
           $scope.editingItem = false;
