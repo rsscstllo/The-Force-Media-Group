@@ -93,9 +93,6 @@ export function create(req, res) {
 
 // Updates an existing StoreItem in the DB
 export function update(req, res) {
-  if (req.body._id) {
-    delete req.body._id;
-  }
   return StoreItem.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
     .then(saveUpdates(req.body))

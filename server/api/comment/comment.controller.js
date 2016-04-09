@@ -83,9 +83,6 @@ export function create(req, res) {
 
 // Updates an existing Comment in the DB
 export function update(req, res) {
-  if (req.body._id) {
-    delete req.body._id;
-  }
   Comment.findByIdAsync(req.params.id)
     .then(handleEntityNotFound(res))
     .then(saveUpdates(req.body))
