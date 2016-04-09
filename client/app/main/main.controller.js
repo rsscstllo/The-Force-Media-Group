@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('fmgApp')
-  .controller('MainController', function ($scope, toaster, colorService) {
+  .controller('MainController', function () {
 
     /*
     colorService.getAllColors()
