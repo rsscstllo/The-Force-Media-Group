@@ -23,7 +23,6 @@ class SignupController {
       })
       .then( () => {
         // Account created, redirect to home
-        console.log('ATTEMPTING TO GO TO MAIN!')
         this.$state.go('main');
       })
       .catch( err => {
