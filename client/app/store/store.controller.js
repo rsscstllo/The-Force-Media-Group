@@ -7,6 +7,7 @@ angular.module('fmgApp')
     $scope.showAddItemDialog = false;
     $scope.editingItem = false;
     $scope.tmpItem = undefined;
+    $scope.items = [];
 
     $scope.newStoreItem = {
       Name: undefined,

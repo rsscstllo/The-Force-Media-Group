@@ -21,7 +21,7 @@
     "AngularJS-Toaster": "angularjs-toaster#^1.2.0",
     "ngModal": "^1.2.2",
     "moment": "^2.12.0",
-    "angular-material": "^1.0.6",
+    "angular-material": "^1.1.0",
     "angular-material-icons": "^0.7.0"
   },
   "devDependencies": {
