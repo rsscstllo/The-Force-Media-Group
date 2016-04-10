@@ -21,11 +21,13 @@ class SignupController {
         email: this.user.email,
         password: this.user.password
       })
-      .then(() => {
+      .then( () => {
         // Account created, redirect to home
+        console.log('ATTEMPTING TO GO TO MAIN!')
         this.$state.go('main');
       })
-      .catch(err => {
+      .catch( err => {
+        console.error(err);
         err = err.data;
         this.errors = {};
 

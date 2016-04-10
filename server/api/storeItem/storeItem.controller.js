@@ -25,8 +25,8 @@ function respondWithResult(res, statusCode) {
 function saveUpdates(updates) {
   return function(entity) {
     var updated = _.merge(entity, updates);
-    return updated.saveAsync()
-      .spread(updated => {
+    return updated.save()
+      .then(updated => {
         return updated;
       });
   };
@@ -35,7 +35,7 @@ function saveUpdates(updates) {
 function removeEntity(res) {
   return function(entity) {
     if (entity) {
-      return entity.removeAsync()
+      return entity.remove()
         .then(() => {
           res.status(204).end();
         });
@@ -62,7 +62,7 @@ function handleError(res, statusCode) {
 
 // Gets a list of StoreItems
 export function index(req, res) {
-  StoreItem.find(req.params)
+  StoreItem.find(req.params).exec()
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
@@ -78,7 +78,7 @@ export function index(req, res) {
 
 // Gets a single StoreItem from the DB
 export function show(req, res) {
-  StoreItem.findByIdAsync(req.params.id)
+  StoreItem.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
@@ -93,9 +93,6 @@ export function create(req, res) {
 
 // Updates an existing StoreItem in the DB
 export function update(req, res) {
-  if (req.body._id) {
-    delete req.body._id;
-  }
   return StoreItem.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
     .then(saveUpdates(req.body))
