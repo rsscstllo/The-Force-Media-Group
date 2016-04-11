@@ -10,7 +10,7 @@
   "dependencies": {
     "babel-polyfill": "^6.7.2",
     "babel-runtime": "^6.6.1",
-    "bluebird": "^2.9.34",
+    "bluebird": "^3.3.3",
     "body-parser": "^1.13.3",
     "composable-middleware": "^0.3.0",
     "compression": "^1.5.2",
@@ -38,6 +38,7 @@
     "passport-twitter": "^1.0.4",
     "request": "^2.69.0",
     "serve-favicon": "^2.3.0",
+    "shippo": "^1.1.1",
     "stripe": "^4.5.0",
     "xoauth2": "^1.1.0"
   },

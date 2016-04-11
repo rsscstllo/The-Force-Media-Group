@@ -10,10 +10,20 @@ angular.module('fmgApp')
 
     $scope.newStoreItem = {
       Name: undefined,
-      Picture: undefined,
+      Picture: 'https://drive.google.com/uc?id=0B-viYPCddrMLN29HdEFObjNhRXc',
       Price: undefined,
       Description: undefined
     };
+
+    $scope.$watch('newStoreItem.Picture', function(value) {
+      if(value) {
+        $scope.newStoreItem.Picture = $scope.newStoreItem.Picture.replace('open', 'uc');
+      }
+    });
+
+    if($scope.isAdmin) {
+      $('.ng-modal-dialog').css({'height':'85%'});
+    }
 
     storeService.getAllStoreItems().success(function(data) {
       $scope.items = data;
@@ -31,10 +41,25 @@ angular.module('fmgApp')
       $scope.showDialog = false;
     };
 
-    $scope.addToCart= function(item){
-      toaster.pop('success', 'Added ' + item.Name);
-      $scope.addedItems.push(item);
-      console.log($scope.addedItems);
+    $scope.addToCart= function(newItem){
+      if(Auth.isLoggedIn()) {
+        var found = false;
+
+        $scope.addedItems.forEach(function (oldItem) {
+          if (oldItem._id === newItem._id) {
+            found = true;
+          }
+        });
+        if (found) {
+          toaster.pop('error', 'This item is already in your cart.', 'Go to your cart to remove the item or to change the quantity desired.');
+        } else {
+          toaster.pop('success', 'Added ' + newItem.Name + ' to the cart!');
+          newItem.Quantity = 1;
+          $scope.addedItems.push(newItem);
+        }
+      } else {
+        toaster.pop('error', 'You must log in to add items to your cart.');
+      }
     };
 
     $scope.addStoreItem = function() {
@@ -47,8 +72,20 @@ angular.module('fmgApp')
 
     $scope.saveStoreItem = function() {
       console.log($scope.newStoreItem);
-      storeService.createStoreItem($scope.newStoreItem).success(function(data) {
+      storeService.createStoreItem($scope.newStoreItem).success(function() {
+        $scope.newStoreItem = {
+          Name: undefined,
+          Picture: 'https://drive.google.com/uc?id=0B-viYPCddrMLN29HdEFObjNhRXc',
+          Price: undefined,
+          Description: undefined
+        };
+
+        toaster.pop('success', 'New Item Added!');
+
         $scope.closeAddStoreItem();
+        storeService.getAllStoreItems().success(function(data) {
+          $scope.items = data;
+        });
       });
     };
 
@@ -59,7 +96,7 @@ angular.module('fmgApp')
 
     $scope.saveEdit = function() {
       $scope.selectedItem = $scope.tmpItem;
-      storeService.updateItem($scope.tmpItem).success(function(data) {
+      storeService.updateItem($scope.tmpItem).success(function() {
         storeService.getAllStoreItems().success(function(data) {
           $scope.items = data;
           $scope.editingItem = false;

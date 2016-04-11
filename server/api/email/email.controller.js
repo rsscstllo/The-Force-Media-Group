@@ -52,7 +52,7 @@ export function sendEmail(req, res){
     from: 'forcemediagroupdb@gmail.com', // sender address
     to: req.body.sendTo, // list of receivers
     subject: req.body.subject, // Subject line
-    text: req.body.emailBody
+    html: req.body.emailBody
   }, function(error, response) {
     if (error) {
       console.log(error);

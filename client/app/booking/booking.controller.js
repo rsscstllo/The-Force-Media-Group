@@ -27,14 +27,14 @@ angular.module('fmgApp')
           console.log('Calling sendBookingEmail');
 
           var emailObj = {
-            sendTo: "gdscheele@ufl.edu",
-            subject: "New Booking Request",
+            sendTo: 'gdscheele@ufl.edu',
+            subject: 'New Booking Request',
             emailBody: 'Requester Name: ' + $scope.propName + '\nRequester Email: ' + $scope.email + '\nRequester Phone: ' + $scope.phoneNum + '\nEvent Type: ' + $scope.eventType + '\nEvent Description: ' + $scope.descript + '\nEvent Date/Time: ' + $scope.eventDate
           };
 
-          emailService.sendBookingEmail(emailObj).success(function(data) {
+          emailService.sendEmail(emailObj).success(function(data) {
             console.log(data);
-          })
+          });
 
       }
     };
