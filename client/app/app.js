@@ -13,7 +13,9 @@ angular.module('fmgApp', [
   'ui.mask',
   'toaster',
   'ngModal',
-  'ngMaterial'
+  'ngMaterial',
+  'ngMdIcons',
+  'ui.utils.masks'
 ])
   .config(function($urlRouterProvider, $locationProvider, $mdThemingProvider) {
     $urlRouterProvider

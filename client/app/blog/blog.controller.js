@@ -76,6 +76,18 @@ angular.module('fmgApp')
         });
     };
 
+    $scope.saveDraft = function() {
+        $scope.blogpost.published = false;
+        $scope.blogpost.createdAt = moment().format('MMMM Do YYYY h:mm:ss a');
+        $scope.blogpost.updatedAt = moment().format('MMMM Do YYYY h:mm:ss a');
+        blogService.createPost($scope.blogpost).then(function(response) {
+            $scope.blogpost.title='';
+            $scope.blogpost.body='';
+            console.log(response);
+            $scope.updateBlogs();
+        });
+    };
+
     commentService.getAllComments()
       .then(function(response){
         $scope.comments = response.data;
@@ -121,6 +133,23 @@ angular.module('fmgApp')
     $scope.deleteComment = function(comment) {
         commentService.deleteComment(comment).then(function() {
             $scope.updateComments();
+        });
+    };
+
+    $scope.numComments = function(blogpost) {
+        var numComments = 0;
+        for(var i = 0; i < $scope.comments.length; i++) {
+            if($scope.comments[i].blogId === blogpost._id) {
+                numComments++;
+            }
+        }
+        return numComments;
+    };
+
+    $scope.togglePublished = function(blogpost) {
+        blogService.togglePublished(blogpost).then(function(res) {
+            console.log('published toggled');
+            $scope.updateBlogs();
         });
     };
   });
