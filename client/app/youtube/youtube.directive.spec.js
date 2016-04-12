@@ -12,10 +12,11 @@ describe('Directive: youtube', function () {
     scope = $rootScope.$new();
   }));
 
-  xit('Should have the proper id for YouTube to consume', inject(function ($compile) {
+  it('Should have the proper id for YouTube Player to consume', inject(function ($compile) {
     element = angular.element('<youtube></youtube>');
     element = $compile(element)(scope);
     scope.$apply();
-    expect(element.attr('id')).toBe('youtube-player');
+    var iframeElement = angular.element(angular.element(element.children()[0]).children()[0]);
+    expect( iframeElement.attr('id') ).toBe('youtube-player');
   }));
 });
