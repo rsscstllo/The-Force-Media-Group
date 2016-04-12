@@ -47,7 +47,7 @@ function respondWithResult(res, statusCode) {
 
 // send mail
 
-//Takes values from the booking.controller.js
+//Takes values from the booking controller
 export function sendEmail(req, res){
   console.log(req.body);
   transporter.sendMail({
