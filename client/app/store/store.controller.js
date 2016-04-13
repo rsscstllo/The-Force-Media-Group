@@ -78,6 +78,11 @@ angular.module('fmgApp')
       $scope.showAddItemDialog = false;
     };
 
+    $scope.closeEditItem = function() {
+      $scope.editingItem = false;
+      $scope.tmpItem = undefined;
+    };
+
     //save new store item to database, then get all store items.
     $scope.saveStoreItem = function() {
       console.log($scope.newStoreItem);
