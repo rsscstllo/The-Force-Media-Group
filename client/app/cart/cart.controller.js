@@ -4,8 +4,7 @@ angular.module('fmgApp')
   .controller('CartCtrl', function ($scope, toaster, $stateParams, Auth, $state, storeService, emailService) {
     $scope.showDialog = false;
     $scope.currentItem = undefined;
-    $scope.items = [];
-    //$scope.items = $stateParams.items;
+    $scope.items = $stateParams.items;
     $scope.orderTotal = 0;
     $scope.currentUser = Auth.getCurrentUser();
     $scope.checkingOut = false;
@@ -26,6 +25,17 @@ angular.module('fmgApp')
       cvv: undefined
     };
 
+    $scope.validate = function (evt) {
+      var theEvent = evt || window.event;
+      var key = theEvent.keyCode || theEvent.which;
+      key = String.fromCharCode( key );
+      var regex = /^[0-9]*$/;
+      if( !regex.test(key) ) {
+        theEvent.returnValue = false;
+        if(theEvent.preventDefault) theEvent.preventDefault();
+      }
+    };
+
     //deep watch items array. If quantity changes on any item, update the order total.
     $scope.$watch('items', function(items) {
       if(items.length === 0) {
@@ -35,11 +45,11 @@ angular.module('fmgApp')
 
       var total = 0;
       items.forEach(function(item) {
-
         total += item.Price * item.Quantity;
       });
 
       $scope.orderTotal = total;
+      console.log('updated total');
     }, true);
 
 

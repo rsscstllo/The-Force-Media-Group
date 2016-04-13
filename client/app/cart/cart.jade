@@ -18,7 +18,7 @@ navbar
 
               label(for="quantity")
                 | Quantity
-              input#quantity.form-control(ng-model="item.Quantity" type="number" ui-mask="999")
+              input#quantity.form-control(ng-model="item.Quantity" type="text" ng-keypress="validate(event)")
             td.removeButtontd
               .removeButton.glyphicon.glyphicon-trash(title="remove item from cart" ng-click="confirmRemoveItem($index)")
 
