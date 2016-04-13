@@ -99,7 +99,7 @@ navbar
 
             label(for="state")
               | State:
-            input#state.form-control(ng-model="shippingInfo.state")
+            input#state.form-control(limit-to="2" ng-model="shippingInfo.state")
 
             label(for="zip")
               | Zip Code:

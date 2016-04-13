@@ -15,6 +15,7 @@ var nodemailer = require('nodemailer');
 var xoauth2 = require('xoauth2');
 var smtpTransport = require('nodemailer-smtp-transport');
 
+//OAuth generator with google credentials
 var generator = xoauth2.createXOAuth2Generator({
   user: 'forcemediagroupdb@gmail.com',
   clientId: '1049619144734-pqo3hkf4dr5eomguc3c69opnsbcaasd4.apps.googleusercontent.com',
@@ -22,6 +23,8 @@ var generator = xoauth2.createXOAuth2Generator({
   refreshToken: '1/i_43lVYBgH_BFeIJfnZ_b8KJbva39ZZbsKoTHymqXNoMEudVrK5jSpoR30zcRFq6',
   access_type: 'offline'
 });
+
+//generate new access token when one expires.
 generator.on('token', function(token){
   console.log('New token for %s: %s', token.user, token.accessToken);
 });

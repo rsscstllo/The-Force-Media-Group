@@ -109,6 +109,7 @@ export function destroy(req, res) {
 }
 
 
+//use stripe to create a credit card charge
 export function createCharge(req, res) {
   // setup stripe with test API key
   var stripe = require("stripe")(
@@ -140,6 +141,7 @@ export function createCharge(req, res) {
 
 }
 
+//use shippo to validate shipping address
 export function validateAddress(req, res) {
   if(req.body.address2 !== null) {
     shippo.address.create({
