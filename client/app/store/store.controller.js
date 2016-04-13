@@ -7,7 +7,9 @@ angular.module('fmgApp')
     $scope.showAddItemDialog = false;
     $scope.editingItem = false;
     $scope.tmpItem = undefined;
+    $scope.items = [];
 
+    //default new store item with a default picture.
     $scope.newStoreItem = {
       Name: undefined,
       Picture: 'https://drive.google.com/uc?id=0B-viYPCddrMLN29HdEFObjNhRXc',
@@ -15,6 +17,7 @@ angular.module('fmgApp')
       Description: undefined
     };
 
+    //watch picture url to replace param in url to allow image to show up from google drive.
     $scope.$watch('newStoreItem.Picture', function(value) {
       if(value) {
         $scope.newStoreItem.Picture = $scope.newStoreItem.Picture.replace('open', 'uc');
@@ -22,17 +25,19 @@ angular.module('fmgApp')
     });
 
     if($scope.isAdmin) {
-      $('.ng-modal-dialog').css({'height':'85%'});
+      $('.ng-modal-dialog').css({'height': '85%'});
     }
 
+    //get all items when controller loads
     storeService.getAllStoreItems().success(function(data) {
       $scope.items = data;
     });
 
+    //copy item to selected item, show modal view
     $scope.seeItem = function(index) {
       //shallow copy selected item
       $scope.selectedItem = $.extend( {}, $scope.items[index]);
-      console.log($scope.selectedItem);
+      console.info($scope.selectedItem);
       $scope.showDialog = true;
     };
 
@@ -41,7 +46,10 @@ angular.module('fmgApp')
       $scope.showDialog = false;
     };
 
+    //add an item to the cart. User must be logged in to do so.
     $scope.addToCart= function(newItem){
+      console.info('is logged in');
+      console.info(Auth.isLoggedIn());
       if(Auth.isLoggedIn()) {
         var found = false;
 
@@ -70,6 +78,12 @@ angular.module('fmgApp')
       $scope.showAddItemDialog = false;
     };
 
+    $scope.closeEditItem = function() {
+      $scope.editingItem = false;
+      $scope.tmpItem = undefined;
+    };
+
+    //save new store item to database, then get all store items.
     $scope.saveStoreItem = function() {
       console.log($scope.newStoreItem);
       storeService.createStoreItem($scope.newStoreItem).success(function() {
