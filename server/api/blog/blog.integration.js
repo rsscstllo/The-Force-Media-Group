@@ -1,7 +1,7 @@
 'use strict';
 
-import app from '../..';
-import User from '../user/user.model';
+import app from '../../../server/app';
+import User from '../../api/user/user.model';
 import request from 'supertest';
 
 var newBlog;

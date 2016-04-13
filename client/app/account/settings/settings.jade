@@ -5,25 +5,25 @@ navbar
       h1 Change Password
     .col-sm-12
       form.form(name='form', ng-submit='vm.changePassword(form)', novalidate='')
-        .form-group
+        md-input-container.stretch
           label Current Password
-          input.form-control(type='password'
+          input(type='password'
             name='password'
             ng-model='vm.user.oldPassword'
             mongoose-error='')
           p.help-block(ng-show='form.password.$error.mongoose')
             | {{ vm.errors.other }}
-        .form-group
+        md-input-container.stretch
           label New Password
-          input.form-control(type='password'
+          input(type='password'
             name='newPassword'
             ng-model='vm.user.newPassword'
             ng-minlength='3', required='')
           p.help-block(ng-show='(form.newPassword.$error.minlength || form.newPassword.$error.required) && (form.newPassword.$dirty || vm.submitted)')
             | Password must be at least 3 characters.
-        .form-group
+        md-input-container.stretch
           label Confirm New Password
-          input.form-control(type='password'
+          input(type='password'
             name='confirmPassword'
             ng-model='vm.user.confirmPassword'
             match="vm.user.newPassword"
@@ -33,4 +33,6 @@ navbar
 
         p.help-block  {{ vm.message }}
 
-        button.btn.btn-lg.btn-primary(type='submit') Save changes
+        md-button.md-raised.md-primary(type='submit') Save changes
+
+footer

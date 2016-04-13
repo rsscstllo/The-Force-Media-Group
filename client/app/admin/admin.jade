@@ -1,12 +1,9 @@
 navbar
 
 .container
-  button.btn.btn-xs.btn-default(ng-click="showDialog()")
-    | Send text
-  p
-    | The delete user and user index api routes are restricted to users with the 'admin' role.
-  ul.list-group
-    li.list-group-item(ng-repeat='user in users')
+  md-button.md-raised.md-primary(type="button" ng-click="showDialog()") Send text
+  p.text-white The delete user and user index api routes are restricted to users with the 'admin' role.
+    p.text-white(ng-repeat='user in users')
       strong {{user.name}}
       br
       span.text-muted {{user.email}}
@@ -74,12 +71,11 @@ navbar
   //-     | Save
   //-   br
   //-   br
-
+  //- 
 footer
 
-  modal-dialog(show="dialogVisible" dialog-title="Send text message to users" height="250px" width="30%")
-    textarea(placeholder="Hey everyone! Check out the new video." ng-model="textBody" style="margin-top:20px;height:100px;").form-control
-
+modal-dialog(show="dialogVisible" dialog-title="Send text message to users" height="250px" width="30%")
+  textarea(placeholder="Hey everyone! Check out the new video." ng-model="textBody" style="margin-top:20px;height:100px;").form-control
     div(style="margin-top:10px")
       button.btn.btn-xs.btn-default(ng-click="hideDialog()")
         | Cancel

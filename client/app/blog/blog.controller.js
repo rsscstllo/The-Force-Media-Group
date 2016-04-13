@@ -147,7 +147,7 @@ angular.module('fmgApp')
     };
 
     $scope.togglePublished = function(blogpost) {
-        blogService.togglePublished(blogpost).then(function(res) {
+        blogService.togglePublished(blogpost).then(function() {
             console.log('published toggled');
             $scope.updateBlogs();
         });

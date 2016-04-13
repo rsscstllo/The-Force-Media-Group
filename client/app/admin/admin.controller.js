@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('fmgApp.admin')
-  .controller('AdminController', function ($scope, toaster, colorService, signUpService, pictureService) {
+  .controller('AdminController', function ($scope, toaster, signUpService, pictureService, User) {
 
     $scope.aboutMeUrl = "";
+    $scope.users = User.query();
     $scope.dialogVisible = false;
     // $scope.themeColors = [];
     // $scope.customColors = [];
@@ -35,6 +36,7 @@ angular.module('fmgApp.admin')
     };
 
     $scope.showDialog = function() {
+      console.log('boom');
       $scope.dialogVisible = true;
     };
 
