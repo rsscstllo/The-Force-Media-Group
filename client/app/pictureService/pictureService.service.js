@@ -6,6 +6,8 @@ angular.module('fmgApp')
     // AngularJS will instantiate a singleton by calling "new" on this function
     var baseUrl = "api/adminPictures/";
 
+    // Methods to be used throughout the application for setting, updating, and
+    // retrieving images on the site.
     var methods = {
       getPicture: function(name){
         return $http.get(baseUrl + name);
@@ -19,5 +21,5 @@ angular.module('fmgApp')
     };
 
     return methods;
-    
+
   });
