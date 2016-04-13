@@ -31,5 +31,4 @@ angular.module('fmgApp')
           console.log(err);
       });
       */
-
   });

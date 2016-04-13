@@ -117,6 +117,4 @@ angular.module('fmgApp.admin')
       $scope.dialogVisible = false;
     };
 
-
-
   });
