@@ -189,7 +189,7 @@ angular.module('fmgApp')
         if(data.data.status === 'succeeded') {
           var merchObj = {
             sendTo: 'fmgMerchandise@gmail.com',
-            subject: 'New Merchandise Order from ' + $scope.currentUser.fullName,
+            subject: 'New Merchandise Order from ' + $scope.currentUser.email,
             emailBody: emailString
           };
 
