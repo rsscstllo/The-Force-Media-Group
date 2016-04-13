@@ -2,8 +2,8 @@
 
 angular.module('fmgApp')
   .service('colorService', function ($http) {
-    // AngularJS will instantiate a singleton by calling 'new' on this function
 
+    // AngularJS will instantiate a singleton by calling 'new' on this function
     var baseUrl = '/api/themeColors';
 
     var methods = {

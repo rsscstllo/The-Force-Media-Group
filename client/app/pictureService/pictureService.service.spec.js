@@ -2,10 +2,10 @@
 
 describe('Service: pictureService', function () {
 
-  // load the service's module
+  // Load the service's module
   beforeEach(module('fmgApp'));
 
-  // instantiate service
+  // Instantiate service
   var pictureService;
   beforeEach(inject(function (_pictureService_) {
     pictureService = _pictureService_;

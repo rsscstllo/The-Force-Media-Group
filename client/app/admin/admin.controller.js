@@ -3,10 +3,10 @@
 angular.module('fmgApp.admin')
   .controller('AdminController', function ($scope, toaster, colorService, signUpService, pictureService) {
 
-    $scope.themeColors = [];
-    $scope.customColors = [];
-    $scope.dialogVisible = false;
     $scope.aboutMeUrl = "";
+    $scope.dialogVisible = false;
+    // $scope.themeColors = [];
+    // $scope.customColors = [];
 
     // pictureService.createPicture({url:"https://drive.google.com/open?id=0B-viYPCddrMLLTFramFTdmN5eTA", name: "aboutMe"});
 
@@ -28,6 +28,19 @@ angular.module('fmgApp.admin')
         $scope.aboutMeUrl = data.url;
       });
     }
+
+    $scope.delete = function() {
+      $scope.user.$remove();
+      $scope.users.splice($scope.users.indexOf($scope.user), 1);
+    };
+
+    $scope.showDialog = function() {
+      $scope.dialogVisible = true;
+    };
+
+    $scope.hideDialog = function() {
+      $scope.dialogVisible = false;
+    };
 
     // colorService.getAllColors()
     //   .then(function(response) {
@@ -78,12 +91,7 @@ angular.module('fmgApp.admin')
     //   });
     //
     // };
-
-    $scope.delete = function() {
-      $scope.user.$remove();
-      $scope.users.splice($scope.users.indexOf($scope.user), 1);
-    };
-
+    //
     // $scope.createColor = function() {
     //
     //   var hexCode = $scope.color.text;
@@ -108,13 +116,5 @@ angular.module('fmgApp.admin')
     //       console.log(err);
     //     });
     // };
-
-    $scope.showDialog = function() {
-      $scope.dialogVisible = true;
-    };
-
-    $scope.hideDialog = function() {
-      $scope.dialogVisible = false;
-    };
 
   });

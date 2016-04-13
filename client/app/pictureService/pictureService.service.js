@@ -2,6 +2,7 @@
 
 angular.module('fmgApp')
   .service('pictureService', function ($http) {
+
     // AngularJS will instantiate a singleton by calling "new" on this function
     var baseUrl = "api/adminPictures/";
 
@@ -18,4 +19,5 @@ angular.module('fmgApp')
     };
 
     return methods;
+    
   });
