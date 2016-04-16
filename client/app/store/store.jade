@@ -12,21 +12,21 @@ navbar
   .row
     div(ng-repeat="item in items")
       .col-lg-4.col-md-4.col-sm-5.col-xs-6
-        md-card.color-gray
-          .img(ng-src="{{item.Picture}}" class="md-card-image" ng-click="seeItem($index)")
-            md-card-actions(layout="row" layout-align="center")
-              md-button.md-raised(ng-click="addToCart()")
+        md-card.card
+          img(src="{{item.Picture}}" ng-click="seeItem($index)")
+          md-card-actions(layout="row" layout-align="center")
+            md-button.md-raised(ng-click="addToCart()")
                 |Add to Cart
 
 footer
 <!--pop up to show more details about a specific item--> 
 modal-dialog#viewItem(show="showDialog" height="65%" width="50%" style="color:black;")
-  div(ng-show="isAdmin").col-xs-12
+  div#adminButtons(ng-show="isAdmin").col-xs-12
     md-button.md-raised(ng-click="editItem()")
       | Edit Item
     md-button.md-raised(ng-click="deleteStoreItem()" style="margin-left: 8px")
       | Delete Item
-  div(ng-hide="editingItem" style="margin-top:20px").col-xs-12
+  div#itemCloseUp(ng-hide="editingItem" style="margin-top:20px").col-xs-12
     img.img-responsive.center-block(ng-src="{{selectedItem.Picture}}" style="max-height:256px; max-width:256px; margin-top:10px;")
     h4.row.text-center
       | {{selectedItem.Name}}
@@ -61,7 +61,7 @@ modal-dialog#viewItem(show="showDialog" height="65%" width="50%" style="color:bl
         | Save Item
 
 modal-dialog(show="showAddItemDialog" height="65%" width="40%" style="color:black;")
-  .container.col-xs-12(style="margin-top:20px")
+  .container.col-xs-12(style="margin-top:20px;")
     .form-group.col-xs-12
       label(for="addName")
         | Name

@@ -18,11 +18,12 @@ angular.module('fmgApp', [
   'ui.utils.masks'
 ])
   .config(function($urlRouterProvider, $locationProvider, $mdThemingProvider) {
-    $urlRouterProvider
-      .otherwise('/');
 
+    // configuration for client-side routing.
+    $urlRouterProvider.otherwise('/');
     $locationProvider.html5Mode(true);
 
+    // Configuring the theming for Material Angular.
     $mdThemingProvider.theme('default')
       .dark();
   });
