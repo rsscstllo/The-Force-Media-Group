@@ -8,22 +8,18 @@ navbar
           | Add New Item
       .text-right
           ng-md-icon(icon="add_shopping_cart" ui-sref="cart({items: addedItems})" title="Go to Cart").clickable.text-white
+  <!--how items are displayed--> 
   .row
     div(ng-repeat="item in items")
       .col-lg-4.col-md-4.col-sm-5.col-xs-6
-        .panel.panel-default
-          .panel-body.text-center
-            div(ng-click="seeItem($index)")
-              img.img-responsive.center-block(ng-src="{{item.Picture}}" style="max-height:256px; max-width:256px")
-              h4.row.text-center(style="color:black")
-                | {{item.Name}}
-              h5.row.text-center.crestColor
-                |${{item.Price}}
-            .row.text-center
-              md-button.md-raised(ng-click="addToCart(item)")
+        md-card.color-gray
+          .img(ng-src="{{item.Picture}}" class="md-card-image" ng-click="seeItem($index)")
+            md-card-actions(layout="row" layout-align="center")
+              md-button.md-raised(ng-click="addToCart()")
                 |Add to Cart
-footer
 
+footer
+<!--pop up to show more details about a specific item--> 
 modal-dialog#viewItem(show="showDialog" height="65%" width="50%" style="color:black;")
   div(ng-show="isAdmin").col-xs-12
     md-button.md-raised(ng-click="editItem()")
@@ -87,7 +83,3 @@ modal-dialog(show="showAddItemDialog" height="65%" width="40%" style="color:blac
       br
       md-button.md-raised(ng-click="saveStoreItem()")
         | Save Item
-
-
-
-

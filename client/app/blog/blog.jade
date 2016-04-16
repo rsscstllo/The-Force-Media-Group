@@ -60,17 +60,24 @@ div(ng-show="!viewAll")
                 button.btn.btn-default(type="submit" data-toggle="tooltip" title="Publish" ng-click="submitEdit()")
                     span(class="glyphicon glyphicon-plus")
 div(ng-show="!viewAll")
-    div
-        .container
-            ul.list-group
-                li.list-group-item(ng-repeat="comment in comments" ng-if="comment.blogId == currentBlog._id")
-                    p {{comment.body}}
-                    button.btn.btn-default(data-toggle="tooltip" title="Delete" ng-show="isAdmin" ng-click="deleteComment(comment)")
-                        span(class="glyphicon glyphicon-trash")
-            .form-group
-                label New Comment
-                textarea.form-control(rows="5" ng-disabled="!isLoggedIn" ng-model="comment.text" placeholder="comment")
-            button.btn.btn-default(type="submit" data-toggle="tooltip" title="Submit comment" ng-disabled="!isLoggedIn" ng-click="createComment()")
-                span(class="glyphicon glyphicon-comment")
+  .container<!--lists comments for a specific blog and options for admin--> 
+    md-toolbar.md-scroll-shrink(class="md-theme-light")
+      |Comments
+    div(class="md-toolbar-tools")
+    md-content(style="height: 600px;" md-theme="altTheme")
+      section
+            md-list.layout-padding
+              md-list-item(class="md-3-line" ng-repeat="comment in comments" ng-if="comment.blogId == currentBlog._id")
+                  div(class="md-list-item-text")
+                    <!--<h3>{{message.what}}</h3>
+                    <h4>{{message.who}}</h4>-->
+                    p{{comment.body}}
+                    md-button(class="md-warn md-raised md-hue-2" ng-show="isAdmin" data-toggle="tooltip" ng-click="deleteComment(comment)" title="Delete") Delete 
+                    md-divider(ng-if="!$last")
+    .form-group <!--form for adding a new comment--> 
+        label New Comment
+        textarea.form-control(rows="5" ng-disabled="!isLoggedIn" ng-model="comment.text" placeholder="comment")
+    button.btn.btn-default(type="submit" data-toggle="tooltip" title="Submit comment" ng-disabled="!isLoggedIn" ng-click="createComment()")
+        span(class="glyphicon glyphicon-comment")
 
 footer

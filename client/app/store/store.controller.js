@@ -28,7 +28,7 @@ angular.module('fmgApp')
     storeService.getAllStoreItems().success(function(data) {
       $scope.items = data;
     });
-
+    //to see a more detailed description of selected item
     $scope.seeItem = function(index) {
       //shallow copy selected item
       $scope.selectedItem = $.extend( {}, $scope.items[index]);
