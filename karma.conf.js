@@ -43,7 +43,8 @@ module.exports = function(config) {
     preprocessors: {
       '**/*.html': 'ng-html2js',
       '**/*.jade': 'ng-jade2js',
-      'client/{app,components}/**/*.js': ['babel', 'coverage']
+      'client/{app,components}/**/*.js': 'babel',
+      'client/{app,components}/**/!(*.spec|*.mock).js': 'coverage'
     },
 
     ngHtml2JsPreprocessor: {
