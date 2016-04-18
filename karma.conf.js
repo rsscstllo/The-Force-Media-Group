@@ -43,7 +43,7 @@ module.exports = function(config) {
     preprocessors: {
       '**/*.html': 'ng-html2js',
       '**/*.jade': 'ng-jade2js',
-      'client/{app,components}/**/*.js': 'babel'
+      'client/{app,components}/**/*.js': ['babel', 'coverage']
     },
 
     ngHtml2JsPreprocessor: {
@@ -83,7 +83,13 @@ module.exports = function(config) {
     // - junit
     // - growl
     // - coverage
-    reporters: ['spec'],
+    reporters: ['spec', 'coverage'],
+
+    // optionally, configure the reporter
+    coverageReporter: {
+      type : 'html',
+      dir : 'coverage/client/'
+    },
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: false,
