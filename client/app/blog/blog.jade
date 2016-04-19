@@ -48,8 +48,9 @@ div(ng-show="!viewAll")
             h1 {{currentBlog.title}}
         h6 {{currentBlog.updatedAt}}
         .container
-            div(class="well" ng-show="!edit")
-                p {{currentBlog.body}}
+            div( ng-show="!edit")
+                md-content.flex.layout-padding
+                  p{{currentBlog.body}}
             div(ng-show="edit")
                 .form-group
                     label Title
@@ -69,8 +70,7 @@ div(ng-show="!viewAll")
             md-list.layout-padding
               md-list-item(class="md-3-line" ng-repeat="comment in comments" ng-if="comment.blogId == currentBlog._id")
                   div(class="md-list-item-text")
-                    <!--<h3>{{message.what}}</h3>
-                    <h4>{{message.who}}</h4>-->
+                    h4{{BlogCtrl.getcurrentUser().name}}
                     p{{comment.body}}
                     md-button(class="md-warn md-raised md-hue-2" ng-show="isAdmin" data-toggle="tooltip" ng-click="deleteComment(comment)" title="Delete") Delete 
                     md-divider(ng-if="!$last")

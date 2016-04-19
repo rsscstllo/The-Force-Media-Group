@@ -12,10 +12,10 @@ navbar
   .row
     div(ng-repeat="item in items")
       .col-lg-4.col-md-4.col-sm-5.col-xs-6
-        md-card.card
+        md-card.color-white
           img(src="{{item.Picture}}" ng-click="seeItem($index)")
           md-card-actions(layout="row" layout-align="center")
-            md-button.md-raised(ng-click="addToCart()")
+            md-button.md-raised(class="md-primary" ng-click="addToCart()")
                 |Add to Cart
 
 footer
