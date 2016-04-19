@@ -2,7 +2,7 @@
 
 angular.module('fmgApp')
   .service('blogService', function ($http) {
-      var baseUrl = 'api/blogs';
+      var baseUrl = '/api/blogs';
 
       var methods = {
         getAllPosts: function() {
