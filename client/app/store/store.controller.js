@@ -32,6 +32,7 @@ angular.module('fmgApp')
     storeService.getAllStoreItems().then(function(response) {
       $scope.items = response.data;
     });
+    //to see a more detailed description of selected item
 
     $scope.updateItems = function() {
       storeService.getAllStoreItems().then(function(response) {
