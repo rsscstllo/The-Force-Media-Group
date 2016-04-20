@@ -57,7 +57,7 @@ describe('Controller: StoreCtrl', function () {
       AuthMock.isLoggedIn.and.returnValue(false);
       AuthMock.isAdmin.and.returnValue(false);
       AuthMock.getCurrentUser.and.returnValue(null);
-      storeServiceMock.getAllStoreItems.and.returnValue($q.when(sampleStoreResponse.data));
+      storeServiceMock.getAllStoreItems.and.returnValue($q.when(sampleStoreResponse));
 
       toaster = _toaster_;
       spyOn(toaster, 'pop');
@@ -257,6 +257,8 @@ describe('Controller: StoreCtrl', function () {
 
   it('should not allow you to create a store item if not logged in as admin', function() {
     expect(AuthMock.isLoggedIn()).toBe(false);
+    storeServiceMock.createStoreItem.and.returnValue(q.when(true));
+
     $scope.saveStoreItem();
     expect(toaster.pop).toHaveBeenCalledWith('error', 'You must be logged in as admin to do this.');
   });
@@ -314,6 +316,7 @@ describe('Controller: StoreCtrl', function () {
   });
 
   it('should not allow item to be updated if not logged in as admin', function() {
+    storeServiceMock.updateItem.and.returnValue(q.when(true));
     $scope.saveEdit();
     expect(toaster.pop).toHaveBeenCalledWith('error', 'You must be logged in as admin to do this.');
 
@@ -357,6 +360,7 @@ describe('Controller: StoreCtrl', function () {
   });
 
   it('should not allow a non-admin to delete an item', function() {
+    storeServiceMock.deleteItem.and.returnValue(q.when(true));
     $scope.deleteStoreItem();
     expect(toaster.pop).toHaveBeenCalledWith('error', 'You must be logged in as admin to do this.');
   });

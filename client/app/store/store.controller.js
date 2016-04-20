@@ -29,20 +29,23 @@ angular.module('fmgApp')
     }
 
     //get all items when controller loads
-    storeService.getAllStoreItems().then(function(data) {
-      $scope.items = data;
+    storeService.getAllStoreItems().then(function(response) {
+      $scope.items = response.data;
     });
 
     $scope.updateItems = function() {
-      storeService.getAllStoreItems().then(function(data) {
-        $scope.items = data;
+      storeService.getAllStoreItems().then(function(response) {
+        $scope.items = response.data;
       });
     };
+
+
 
     //copy item to selected item, show modal view
     $scope.seeItem = function(index) {
       //shallow copy selected item
       $scope.selectedItem = $.extend( {}, $scope.items[index]);
+      console.info($scope.selectedItem);
       $scope.showDialog = true;
     };
 
@@ -53,6 +56,8 @@ angular.module('fmgApp')
 
     //add an item to the cart. User must be logged in to do so.
     $scope.addToCart= function(newItem){
+      console.info('is logged in');
+      console.info(Auth.isLoggedIn());
       if(Auth.isLoggedIn()) {
         var found = false;
 
@@ -89,6 +94,7 @@ angular.module('fmgApp')
     //save new store item to database, then get all store items.
     $scope.saveStoreItem = function() {
       if(Auth.isAdmin()) {
+        console.log($scope.newStoreItem);
         storeService.createStoreItem($scope.newStoreItem).then(function () {
           $scope.newStoreItem = {
             Name: undefined,
@@ -100,8 +106,8 @@ angular.module('fmgApp')
           toaster.pop('success', 'New Item Added!');
 
           $scope.closeAddStoreItem();
-          storeService.getAllStoreItems().then(function (data) {
-            $scope.items = data;
+          storeService.getAllStoreItems().then(function (response) {
+            $scope.items = response.data;
           });
         });
       } else {
@@ -118,8 +124,8 @@ angular.module('fmgApp')
       if(Auth.isAdmin()) {
         $scope.selectedItem = $scope.tmpItem;
         storeService.updateItem($scope.tmpItem).then(function () {
-          storeService.getAllStoreItems().then(function (data) {
-            $scope.items = data;
+          storeService.getAllStoreItems().then(function (response) {
+            $scope.items = response.data;
             $scope.editingItem = false;
           });
 
@@ -137,8 +143,8 @@ angular.module('fmgApp')
     $scope.deleteStoreItem = function() {
       if(Auth.isAdmin()) {
         storeService.deleteItem($scope.selectedItem).then(function () {
-          storeService.getAllStoreItems().then(function (data) {
-            $scope.items = data;
+          storeService.getAllStoreItems().then(function (response) {
+            $scope.items = response.data;
             $scope.closeDialog();
           });
         });
