@@ -1,8 +1,8 @@
+
 navbar
 
 div(ng-show="viewAll")
     .container
-
         div(ng-show="isAdmin")
             h3(class="list-group-item-heading") New post
             md-input-container.md-block
@@ -22,7 +22,7 @@ div(ng-show="viewAll")
             li(class="list-group-item" ng-show="blog.published || isAdmin")
                 div
                     div(class="btn-group" style="float:right")
-                        md-button.md-fab.md-mini.md-primary(aria-label="comments" ng-click="toggleView(blog)")<!--{{numComments(blog)}} omitting - may cause space issues with > 10 comments-->
+                        md-button.md-fab.md-mini.md-primary(aria-label="comments" ng-click="toggleView(blog)")
                             span(class="glyphicon glyphicon-comment")
                         md-button.md-fab.md-mini(ng-show="isAdmin" ng-click="deletePost(blog)" data-toggle="tooltip" title="Delete")
                             span(class="glyphicon glyphicon-trash")
