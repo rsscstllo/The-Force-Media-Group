@@ -124,7 +124,7 @@ angular.module('fmgApp')
       };
 
       //create stripe charge, and then send email to logged in user and merchandise store.
-      storeService.createCharge(stripeObj).then(function(data) {
+      storeService.createCharge(stripeObj).then(function(response) {
 
         var emailString = '<head><style>#productsTable td { padding-left:5px; padding-right:5px;}</style></head>' +
           '<h3>Shipping Information</h3>' +
@@ -195,7 +195,7 @@ angular.module('fmgApp')
           '</h3>'
 
         //send a copy of email to jarmone and to the logged in user
-        if(data.data.status === 'succeeded') {
+        if(response.data.status === 'succeeded') {
           var merchObj = {
             sendTo: 'fmgMerchandise@gmail.com',
             subject: 'New Merchandise Order from ' + $scope.currentUser.email,
