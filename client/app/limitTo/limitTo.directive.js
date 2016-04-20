@@ -9,8 +9,13 @@ angular.module('fmgApp')
       link: function(scope, elem, attrs) {
         var limit = parseInt(attrs.limitTo);
         angular.element(elem).on("keypress", function(e) {
-          if (this.value.length == limit) e.preventDefault();
+          if (this.value.length === limit) e.preventDefault();
+          else if(this.value.length >= limit) {
+            this.value = this.value.substr(0, limit);
+            e.preventDefault();
+          }
         });
+
       }
     }
   });
