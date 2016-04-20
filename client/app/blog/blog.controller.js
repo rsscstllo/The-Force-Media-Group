@@ -5,6 +5,7 @@ angular.module('fmgApp')
   .controller('BlogCtrl', function ($scope, blogService, commentService, Auth, toaster) {
     $scope.blogs = [];
     $scope.comments = [];
+    $scope.numPublished = 0;
     $scope.limit = 5;
     $scope.viewAll = true;
     $scope.edit = false;
@@ -13,9 +14,21 @@ angular.module('fmgApp')
     $scope.currentUser = Auth.getCurrentUser();
     //console.log($scope.isAdmin);
 
+    $scope.getNumPublishedBlogs = function() {
+        var count = 0;
+        for(var i = 0; i < $scope.blogs.length; i++) {
+            if($scope.blogs[i].published) {
+                count++;
+            }
+        }
+        console.log(count);
+        $scope.numPublished = count;
+    };
+
     blogService.getAllPosts().then(function(response) {
       //console.log(response);
       $scope.blogs = response.data;
+      $scope.getNumPublishedBlogs();
     });
 
     commentService.getAllComments()
@@ -29,6 +42,7 @@ angular.module('fmgApp')
       blogService.getAllPosts().then(function(response) {
           //console.log(response);
           $scope.blogs = response.data;
+          $scope.getNumPublishedBlogs();
       });
     };
 
