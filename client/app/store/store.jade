@@ -15,7 +15,7 @@ navbar
         md-card.color-white
           img(src="{{item.Picture}}" ng-click="seeItem($index)")
           md-card-actions(layout="row" layout-align="center")
-            md-button.md-raised(class="md-primary" ng-click="addToCart()")
+            md-button.md-raised(class="md-primary" ng-click="addToCart(item)")
                 |Add to Cart
 
 footer
