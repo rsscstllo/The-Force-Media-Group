@@ -5,7 +5,7 @@ angular.module('fmgApp')
     // AngularJS will instantiate a singleton by calling 'new' on this function
     var baseUrl = '/api/storeItems';
 
-    var methods = {
+    var methods ={
       createStoreItem: function(StoreItem) {
         return $http.post(baseUrl, StoreItem);
       },

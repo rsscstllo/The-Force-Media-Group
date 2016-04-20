@@ -29,9 +29,17 @@ angular.module('fmgApp')
     }
 
     //get all items when controller loads
-    storeService.getAllStoreItems().success(function(data) {
-      $scope.items = data;
+    storeService.getAllStoreItems().then(function(response) {
+      $scope.items = response.data;
     });
+
+    $scope.updateItems = function() {
+      storeService.getAllStoreItems().then(function(response) {
+        $scope.items = response.data;
+      });
+    };
+
+
 
     //copy item to selected item, show modal view
     $scope.seeItem = function(index) {
@@ -85,22 +93,26 @@ angular.module('fmgApp')
 
     //save new store item to database, then get all store items.
     $scope.saveStoreItem = function() {
-      console.log($scope.newStoreItem);
-      storeService.createStoreItem($scope.newStoreItem).success(function() {
-        $scope.newStoreItem = {
-          Name: undefined,
-          Picture: 'https://drive.google.com/uc?id=0B-viYPCddrMLN29HdEFObjNhRXc',
-          Price: undefined,
-          Description: undefined
-        };
+      if(Auth.isAdmin()) {
+        console.log($scope.newStoreItem);
+        storeService.createStoreItem($scope.newStoreItem).then(function () {
+          $scope.newStoreItem = {
+            Name: undefined,
+            Picture: 'https://drive.google.com/uc?id=0B-viYPCddrMLN29HdEFObjNhRXc',
+            Price: undefined,
+            Description: undefined
+          };
 
-        toaster.pop('success', 'New Item Added!');
+          toaster.pop('success', 'New Item Added!');
 
-        $scope.closeAddStoreItem();
-        storeService.getAllStoreItems().success(function(data) {
-          $scope.items = data;
+          $scope.closeAddStoreItem();
+          storeService.getAllStoreItems().then(function (response) {
+            $scope.items = response.data;
+          });
         });
-      });
+      } else {
+        toaster.pop('error', 'You must be logged in as admin to do this.');
+      }
     };
 
     $scope.editItem = function() {
@@ -109,14 +121,18 @@ angular.module('fmgApp')
     };
 
     $scope.saveEdit = function() {
-      $scope.selectedItem = $scope.tmpItem;
-      storeService.updateItem($scope.tmpItem).success(function() {
-        storeService.getAllStoreItems().success(function(data) {
-          $scope.items = data;
-          $scope.editingItem = false;
-        });
+      if(Auth.isAdmin()) {
+        $scope.selectedItem = $scope.tmpItem;
+        storeService.updateItem($scope.tmpItem).then(function () {
+          storeService.getAllStoreItems().then(function (response) {
+            $scope.items = response.data;
+            $scope.editingItem = false;
+          });
 
-      });
+        });
+      } else {
+        toaster.pop('error', 'You must be logged in as admin to do this.');
+      }
     };
 
     $scope.undoEdit = function() {
@@ -125,12 +141,16 @@ angular.module('fmgApp')
     };
 
     $scope.deleteStoreItem = function() {
-      storeService.deleteItem($scope.selectedItem).success(function() {
-        storeService.getAllStoreItems().success(function(data) {
-          $scope.items = data;
-          $scope.closeDialog();
+      if(Auth.isAdmin()) {
+        storeService.deleteItem($scope.selectedItem).then(function () {
+          storeService.getAllStoreItems().then(function (response) {
+            $scope.items = response.data;
+            $scope.closeDialog();
+          });
         });
-      });
+      } else {
+        toaster.pop('error', 'You must be logged in as admin to do this.');
+      }
     };
 
 

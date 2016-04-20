@@ -21,7 +21,7 @@ div(ng-show="viewAll")
             li(class="list-group-item" ng-show="blog.published || isAdmin")
                 div
                     div(class="btn-group" style="float:right")
-                        button.btn.btn-default(ng-click="toggleView(blog)") {{numComments(blog)}} 
+                        button.btn.btn-default(ng-click="toggleView(blog)") {{numComments(blog)}}
                             span(class="glyphicon glyphicon-comment")
                         button.btn.btn-default(ng-show="isAdmin" ng-click="deletePost(blog)" data-toggle="tooltip" title="Delete")
                             span(class="glyphicon glyphicon-trash")
@@ -49,7 +49,7 @@ div(ng-show="!viewAll")
         h6 {{currentBlog.updatedAt}}
         .container
             div(class="well" ng-show="!edit")
-                p {{currentBlog.body}}
+                p(style="color:black") {{currentBlog.body}}
             div(ng-show="edit")
                 .form-group
                     label Title
@@ -64,7 +64,7 @@ div(ng-show="!viewAll")
         .container
             ul.list-group
                 li.list-group-item(ng-repeat="comment in comments" ng-if="comment.blogId == currentBlog._id")
-                    p {{comment.body}}
+                    p(style="color:black") {{comment.body}}
                     button.btn.btn-default(data-toggle="tooltip" title="Delete" ng-show="isAdmin" ng-click="deleteComment(comment)")
                         span(class="glyphicon glyphicon-trash")
             .form-group
