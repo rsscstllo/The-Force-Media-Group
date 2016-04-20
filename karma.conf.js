@@ -21,14 +21,16 @@ module.exports = function(config) {
       'client/bower_components/lodash/lodash.js',
       'client/bower_components/angular-ui-router/release/angular-ui-router.js',
       'client/bower_components/angular-validation-match/dist/angular-validation-match.min.js',
-      'client/bower_components/br-validations/releases/br-validations.js',
-      'client/bower_components/string-mask/src/string-mask.js',
-      'client/bower_components/angular-input-masks/angular-input-masks-standalone.min.js',
+      'client/bower_components/angular-input-masks/angular-input-masks-standalone.js',
       'client/bower_components/angular-ui-mask/dist/mask.js',
       'client/bower_components/angular-animate/angular-animate.js',
       'client/bower_components/AngularJS-Toaster/toaster.js',
       'client/bower_components/ngModal/dist/ng-modal.js',
       'client/bower_components/moment/moment.js',
+      'client/bower_components/angular-aria/angular-aria.js',
+      'client/bower_components/angular-messages/angular-messages.js',
+      'client/bower_components/angular-material/angular-material.js',
+      'client/bower_components/angular-material-icons/angular-material-icons.min.js',
       'client/bower_components/angular-mocks/angular-mocks.js',
       'client/bower_components/livereload-js/dist/livereload.js',
       // endbower
@@ -41,7 +43,8 @@ module.exports = function(config) {
     preprocessors: {
       '**/*.html': 'ng-html2js',
       '**/*.jade': 'ng-jade2js',
-      'client/{app,components}/**/*.js': 'babel'
+      'client/{app,components}/**/*.js': ['babel', 'sourcemap'],
+      'client/{app,components}/**/!(*.spec|*.mock).js': 'coverage'
     },
 
     ngHtml2JsPreprocessor: {
@@ -81,7 +84,13 @@ module.exports = function(config) {
     // - junit
     // - growl
     // - coverage
-    reporters: ['spec'],
+    reporters: ['spec', 'coverage'],
+
+    // optionally, configure the reporter
+    coverageReporter: {
+      type : 'html',
+      dir : 'coverage/client/'
+    },
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: false,

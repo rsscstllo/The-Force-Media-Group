@@ -5,69 +5,31 @@ angular.module('fmgApp')
   .controller('BlogCtrl', function ($scope, blogService, commentService, Auth, toaster) {
     $scope.blogs = [];
     $scope.comments = [];
+    $scope.numPublished = 0;
     $scope.limit = 5;
-    $scope.message = 'Hello';
     $scope.viewAll = true;
     $scope.edit = false;
     $scope.isLoggedIn = Auth.isLoggedIn();
     $scope.isAdmin = Auth.isAdmin();
     $scope.currentUser = Auth.getCurrentUser();
-    console.log($scope.isAdmin);
+    //console.log($scope.isAdmin);
+
+    $scope.getNumPublishedBlogs = function() {
+        var count = 0;
+        for(var i = 0; i < $scope.blogs.length; i++) {
+            if($scope.blogs[i].published) {
+                count++;
+            }
+        }
+        console.log(count);
+        $scope.numPublished = count;
+    };
 
     blogService.getAllPosts().then(function(response) {
-        console.log(response);
-        $scope.blogs = response.data;
+      //console.log(response);
+      $scope.blogs = response.data;
+      $scope.getNumPublishedBlogs();
     });
-
-    $scope.updateBlogs = function() {
-        blogService.getAllPosts().then(function(response) {
-            console.log(response);
-            $scope.blogs = response.data;
-        });
-    }
-    $scope.incrementLimit = function() {
-        $scope.limit+=5;
-    }
-    $scope.editPost = function() {
-        $scope.edit = !$scope.edit;
-    };
-    $scope.submitEdit= function() {
-        $scope.currentBlog.updatedAt = moment().format('MMMM Do YYYY h:mm:ss a');
-
-        blogService.editPost($scope.currentBlog).then(function(response) {
-            console.log(response);
-            $scope.updateBlogs();
-            $scope.edit = false;
-        });
-    }
-    $scope.deletePost = function(blog) {
-        blogService.deletePost(blog).then(function(response) {
-            console.log(response);
-            $scope.updateBlogs();
-        });
-    };
-    $scope.toggleView = function(blog) {
-        $scope.currentBlog = blog;
-        $scope.viewAll = ! $scope.viewAll;
-    }
-    $scope.resetView = function() {
-        $scope.viewAll = true;
-        $scope.edit = false;
-    }
-    $scope.saveDraft = function() {
-        console.log("save draft")
-    }
-    $scope.createPost = function() {
-        $scope.blogpost.published = true;
-        $scope.blogpost.createdAt = moment().format('MMMM Do YYYY h:mm:ss a');
-        $scope.blogpost.updatedAt = moment().format('MMMM Do YYYY h:mm:ss a');
-        blogService.createPost($scope.blogpost).then(function(response) {
-            $scope.blogpost.title="";
-            $scope.blogpost.body="";
-            console.log(response);
-            $scope.updateBlogs();
-        });
-    }
 
     commentService.getAllComments()
       .then(function(response){
@@ -76,21 +38,87 @@ angular.module('fmgApp')
         console.log(err);
     });
 
-    $scope.updateComments = function() {
-        commentService.getAllComments()
-          .then(function(response){
-            $scope.comments = response.data;
-          }).catch(function(err){
-            console.log(err);
-        });
-    }
+    $scope.updateBlogs = function() {
+      blogService.getAllPosts().then(function(response) {
+          //console.log(response);
+          $scope.blogs = response.data;
+          $scope.getNumPublishedBlogs();
+      });
+    };
 
-    $scope.createComment= function (){
+    $scope.incrementLimit = function() {
+      $scope.limit += 5;
+    };
+
+    $scope.editPost = function() {
+      $scope.edit = !$scope.edit;
+    };
+
+    $scope.submitEdit = function() {
+      $scope.currentBlog.updatedAt = moment().format('MMMM Do YYYY h:mm:ss a');
+      blogService.editPost($scope.currentBlog).then(function(response) {
+        //console.log(response);
+        $scope.updateBlogs();
+        $scope.edit = false;
+      });
+    };
+
+    $scope.deletePost = function(blog) {
+      blogService.deletePost(blog).then(function(response) {
+        //console.log(response);
+        $scope.updateBlogs();
+      });
+    };
+
+    $scope.toggleView = function(blog) {
+      $scope.currentBlog = blog;
+      $scope.viewAll = !$scope.viewAll;
+    };
+
+    $scope.resetView = function() {
+      $scope.viewAll = true;
+      $scope.edit = false;
+    };
+
+    $scope.createPost = function() {
+      $scope.blogpost.published = true;
+      $scope.blogpost.createdAt = moment().format('MMMM Do YYYY h:mm:ss a');
+      $scope.blogpost.updatedAt = moment().format('MMMM Do YYYY h:mm:ss a');
+      blogService.createPost($scope.blogpost).then(function(response) {
+        $scope.blogpost.title = '';
+        $scope.blogpost.body = '';
+        // console.log(response);
+        $scope.updateBlogs();
+      });
+    };
+
+    $scope.saveDraft = function() {
+      $scope.blogpost.published = false;
+      $scope.blogpost.createdAt = moment().format('MMMM Do YYYY h:mm:ss a');
+      $scope.blogpost.updatedAt = moment().format('MMMM Do YYYY h:mm:ss a');
+      blogService.createPost($scope.blogpost).then(function(response) {
+        $scope.blogpost.title = '';
+        $scope.blogpost.body = '';
+        //console.log(response);
+        $scope.updateBlogs();
+      });
+    };
+
+    $scope.updateComments = function() {
+      commentService.getAllComments()
+        .then(function(response){
+          $scope.comments = response.data;
+        }).catch(function(err){
+          console.log(err);
+        });
+    };
+
+    $scope.createComment = function (){
       var text = $scope.comment.text;
 
-      if (text === ""){
-         toaster.pop("error","Please enter text.");
-         return;
+      if (text === '') {
+       toaster.pop('error','Please enter text.');
+       return;
       }
 
       var commentToCreate = {
@@ -98,12 +126,13 @@ angular.module('fmgApp')
         userId: $scope.currentUser._id,
         body: text
       };
+
       commentService.createComment(commentToCreate)
         .then(function (response){
           var comment = response.data;
-          //toaster.pop("success","Comment submitted");
-          $scope.comment.text = "";
-          console.log(comment);
+          //toaster.pop('success','Comment submitted');
+          $scope.comment.text = '';
+          // console.log(comment);
           $scope.comments.push(comment);
         }).catch(function(err){
           console.log(err);
@@ -111,8 +140,26 @@ angular.module('fmgApp')
     };
 
     $scope.deleteComment = function(comment) {
-        commentService.deleteComment(comment).then(function(response) {
-            $scope.updateComments();
-        })
-    }
+      commentService.deleteComment(comment).then(function() {
+        $scope.updateComments();
+      });
+    };
+
+    $scope.numComments = function(blogpost) {
+      var numComments = 0;
+      for(var i = 0; i < $scope.comments.length; i++) {
+        if($scope.comments[i].blogId === blogpost._id) {
+          numComments++;
+        }
+      }
+      return numComments;
+    };
+
+    $scope.togglePublished = function(blogpost) {
+      blogService.togglePublished(blogpost).then(function() {
+        // console.log('published toggled');
+        $scope.updateBlogs();
+      });
+    };
+
   });

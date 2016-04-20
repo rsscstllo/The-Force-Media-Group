@@ -1,3 +1,34 @@
 navbar
-
+h1.text-center Book Jarmone Davis
+h5.text-center Fill out the form below to invite Jarmone to your upcoming event 
+.container
+  form
+  .row
+    .col-xs-12.col-lg-6.col-md-6 
+      md-input-container.booking-stretch
+        label(for="Name") Name/Organization *
+        input(type="text", name="Name", ng-model="propName")
+    .col-xs-12.col-lg-6.col-md-6
+      md-input-container.booking-stretch
+        label(for="Email") Contact Email *
+        input(type="email", name="Email", ng-model="email")
+    .col-xs-12.col-lg-6.col-md-6
+      md-input-container.booking-stretch
+        label(for="Phone") Contact Phone *
+        input(type="tel", name="Phone", ng-model="phoneNum")
+    .col-xs-12.col-lg-6.col-md-6
+      md-input-container.booking-stretch
+        label(for="Type") Type of Event *
+        md-select(name="Type", ng-model="eventType")
+          md-option(value="Speaking") Speaking
+          md-option(value="Music") Music
+    .col-xs-12.col-lg-6.col-md-6
+      label(for="datepicker") Event Date *
+      md-datepicker#datepicker(ng-model="eventDate" md-placeholder="Enter date")
+    .col-xs-12.col-lg-6.col-md-6
+      md-input-container.booking-stretch
+        label(for="Description") Event Description/Time *
+        textarea(name="Description", ng-model="descript")
+    .col-xs-12.col-lg-12.col-md-12.text-center
+      md-button.md-raised(ng-click="submit()") Submit
 footer

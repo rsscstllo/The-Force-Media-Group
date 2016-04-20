@@ -6,7 +6,7 @@
 
 import express from 'express';
 import mongoose from 'mongoose';
-mongoose.Promise = require('bluebird');
+mongoose.Promise = require('bluebird'); // Setting Mongoose's Promise implementation to Bluebird promises.
 import config from './config/environment';
 import http from 'http';
 
@@ -21,20 +21,19 @@ mongoose.connection.on('error', function(err) {
 if (config.seedDB) { require('./config/seed'); }
 
 // Setup server
-var app = express();
-var server = http.createServer(app);
-require('./config/express').default(app);
-require('./routes').default(app);
+var app = express(); // Create Express App.
+var server = http.createServer(app); // pass it to node core http lib.
+require('./config/express').default(app); // configure express
+require('./routes').default(app); // configure routes.
 
 // Start server
 function startServer() {
   app.angularFullstack = server.listen(config.port, config.ip, function() {
     console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
-    console.log('\nPROCESS.ENV:');
-    console.log(process.env);
   });
 }
 
+// like setTimeout of 0, but faster
 setImmediate(startServer);
 
 // Expose app
