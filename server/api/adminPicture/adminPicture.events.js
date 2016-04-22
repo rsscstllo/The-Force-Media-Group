@@ -5,7 +5,7 @@
 'use strict';
 
 import {EventEmitter} from 'events';
-var AdminPicture = require('./adminPicture.model');
+import AdminPicture from './adminPicture.model';
 var AdminPictureEvents = new EventEmitter();
 
 // Set max event listeners (0 == unlimited)
