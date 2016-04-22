@@ -39,11 +39,11 @@ angular.module('fmgApp.admin')
     // test_1.png    –– https://drive.google.com/uc?id=0B-viYPCddrMLUmF2S3lXRlBGVTg
     //
     $scope.updatePicture = function() {
-      // $scope.aboutMeUrl = $scope.aboutMeUrl.replace('open', 'uc');
-      // pictureService.updatePicture({name: "aboutMe", url: $scope.aboutMeUrl}).then(function(data) {
-      //   console.log(data.url);
-      //   toaster.pop('success', 'Image Updated!');
-      // });
+      $scope.aboutMeUrl = $scope.aboutMeUrl.replace('open', 'uc');
+      pictureService.updatePicture({name: "aboutMe", url: $scope.aboutMeUrl}).then(function(data) {
+        console.log(data.url);
+        toaster.pop('success', 'Image Updated!');
+      });
       // Toaster not working because 500 error
       //
       // if ($scope.aboutMeUrl) {
