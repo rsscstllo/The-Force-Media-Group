@@ -1,14 +1,18 @@
 div(ng-controller='NavbarController')  
   md-toolbar#navbar
     div(layout="row" layout-padding layout-align="space-between center")
-      div#navbar-links
+      div.hide-gt-sm.flex#navbar-links
+        md-sidenav(class="md-sidenav-left" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')" md-disable-backdrop md-whiteframe="4")
+        md-button(class="md-icon-button md-button md-ink-ripple")
+          img(ng-src="../assets/images/menu.svg")
+      div.hide-sm.hide-xs.flex#navbar-links
         md-button(ng-repeat='item in nav.menu', ui-sref-active='active' ui-sref='{{item.state}}' aria-label="menu link") {{item.title}}
         md-button(ng-show='nav.isAdmin()', ui-sref-active='active' ui-sref='admin' aria-label="menu admin link") Admin
         
       div#navbar-user
         md-button(ng-hide='nav.isLoggedIn()', ui-sref-active='active' ui-sref='signup' aria-label="sign up button") Sign up
         md-button(ng-hide='nav.isLoggedIn()', ui-sref-active='active' ui-sref='login'  aria-label="login button") Login
-        span(ng-show='nav.isLoggedIn()') Hello {{ nav.getCurrentUser().name }}
+        span.name(ng-show='nav.isLoggedIn()' color="#E6E8F6" layout-align="center center") Hello {{ nav.getCurrentUser().name }}
         md-button(ng-show='nav.isLoggedIn()', ui-sref-active='active' ui-sref='settings'  aria-label="settings")
           span.glyphicon.glyphicon-cog
         md-button(ng-show='nav.isLoggedIn()' ui-sref='logout' aria-label="logout") Logout 

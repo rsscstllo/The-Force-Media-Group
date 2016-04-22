@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('fmgApp')
-  .controller('BookingCtrl', ['$scope', '$http', 'emailService', function($scope, $http, emailService) {
+  .controller('BookingCtrl', ['$scope', '$http', 'emailService', 'toaster', function($scope, $http, emailService, toaster) {
      //reset Form to default empty values
      function resetForm() {
         $scope.propName = '';
@@ -36,6 +36,7 @@ angular.module('fmgApp')
           };
 
           emailService.sendEmail(emailObj).success(function(data) {
+            toaster.pop('success', 'Booking Request Sent', 'Jarmone should receive your request and get in touch with you soon.');
             console.log(data);
           });
 

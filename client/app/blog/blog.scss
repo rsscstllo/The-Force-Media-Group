@@ -1,4 +1,5 @@
-p {
+p,
+.blackp {
     text-align: justify;
     //margin-right: 25px;
     padding-top: 12px;
@@ -13,7 +14,23 @@ p {
 }
 .list-group-item {
     margin-bottom: 5px;
+
+}
+.list-group-item-text {
+    color: black;
+}
+h6 {
+    color: gray;
 }
 #submitButton {
   margin-top: 6px;
+}
+md-checkbox {
+    padding-left: 8px;
+    background: red;
+}
+.nothing-here {
+    color:gray;
+    text-align: center;
+    font-style: italic;
 }

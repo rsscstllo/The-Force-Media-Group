@@ -65,8 +65,6 @@ navbar
             input#countryDisabled.form-control(value="United States" disabled)
 
 
-        button.btn.btn-xs.btn-success.pull-right(ng-click="checkout()")
-          | checkout
 
   .col-xs-6
     div(ng-show="!checkingOut")
@@ -125,19 +123,19 @@ navbar
 
         label(for="cardNumber")
           | Card Number:
-        input#cardNumber.form-control(ng-model="card.number")
+        input#cardNumber.form-control(ng-model="card.number" ui-mask="9999-9999-9999-9999")
 
         label(for="expMonth")
           | Expiration Month:
-        input#expMonth.form-control(ng-model="card.exp_month")
+        input#expMonth.form-control(ng-model="card.exp_month" ui-mask="99")
 
         label(for="expYear")
           | Expiration Year:
-        input#expYear.form-control(ng-model="card.exp_year")
+        input#expYear.form-control(ng-model="card.exp_year" ui-mask="9999")
 
         label(for="cvv")
           | CVV:
-        input#cvv.form-control(ng-model="card.cvv")
+        input#cvv.form-control(ng-model="card.cvv" ui-mask="999")
 
         br
         label
