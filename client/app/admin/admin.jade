@@ -7,12 +7,12 @@ navbar
       strong {{user.name}}
       br
       span.text-muted {{user.email}}
-      a.trash(ng-click='delete(user)')
-        span.glyphicon.glyphicon-trash.pull-right
+      md-button#deleteUserButton.md-fab.md-mini(type="submit" title="delete" data-toggle="tooltip" ng-click='delete(user)' aria-label="deleteUser")
+        span.glyphicon.glyphicon-trash
           
   form.col-xs-6(style="padding-left:0px")
-    label(for="aboutMeInput")
-      | About Me Image
+    label(for="aboutMeInput" style="margin-bottom:10px")
+      | Profile Picture
     input#aboutMeInput(type="text" ng-model="aboutMeUrl").form-control
     md-button#update-picture(ng-click="updatePicture()") Update Picture  
 

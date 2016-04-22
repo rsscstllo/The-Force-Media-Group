@@ -22,7 +22,8 @@ angular.module('fmgApp.admin')
     };
 
     // Making post request to save/initially populate the url to the database
-    // Only needed to be run once
+    // Only needed to be ran once
+    //
     // pictureService.createPicture({url:"https://drive.google.com/open?id=0B-viYPCddrMLLTFramFTdmN5eTA", name: "aboutMe"});
 
     // Making get request to set the aboutMeUrl to the url of the photo saved
@@ -31,15 +32,27 @@ angular.module('fmgApp.admin')
       $scope.aboutMeUrl = data.url;
     });
 
-    // Making put request to update the picture's url and aboutMeUrl scope
-    // variable
+    // Making put request to update picture's url and aboutMeUrl scope variable
+    //
+    // Google Drive Test Images
+    // jarmon_fb.jpg –– https://drive.google.com/uc?id=0B-viYPCddrMLLTFramFTdmN5eTA
+    // test_1.png    –– https://drive.google.com/uc?id=0B-viYPCddrMLUmF2S3lXRlBGVTg
+    //
     $scope.updatePicture = function() {
-      if ($scope.aboutMeUrl) {
-        pictureService.updatePicture({name: "aboutMe", url: $scope.aboutMeUrl}).success(function(data) {
-          $scope.aboutMeUrl = data.url;
-          toaster.pop('success', 'Image Updated!');
-        });
-      }
+      // $scope.aboutMeUrl = $scope.aboutMeUrl.replace('open', 'uc');
+      // pictureService.updatePicture({name: "aboutMe", url: $scope.aboutMeUrl}).then(function(data) {
+      //   console.log(data.url);
+      //   toaster.pop('success', 'Image Updated!');
+      // });
+      // Toaster not working because 500 error
+      //
+      // if ($scope.aboutMeUrl) {
+      //   $scope.aboutMeUrl = $scope.aboutMeUrl.replace('open', 'uc');
+      //   pictureService.updatePicture({name: "aboutMe", url: $scope.aboutMeUrl}).then(function(data) {
+      //     console.log(data.url);
+      //     toaster.pop('success', 'Image Updated!');
+      //   });
+      // }
     }
 
     // Removing a user from the list of users
@@ -58,80 +71,5 @@ angular.module('fmgApp.admin')
     $scope.hideDialog = function() {
       $scope.dialogVisible = false;
     };
-
-    // colorService.getAllColors()
-    //   .then(function(response) {
-    //     $scope.themeColors = response.data;
-    //     $scope.customColors = response.data;
-    //     console.log(response.data);
-    //   }).catch(function(err) {
-    //       console.log(err);
-    //   });
-    //
-    // $scope.saveCustomColorTheme = function() {
-    //   console.log('save button clicked');
-    //   console.log($scope.customColors);
-    //
-    //   $scope.customColors.forEach(function(item) {
-    //     colorService.updateColor(item)
-    //       .then(function(response) {
-    //         console.log(response.data);
-    //         colorService.getAllColors()
-    //           .then(function(response) {
-    //             $scope.themeColors = response.data;
-    //             $scope.customColors = response.data;
-    //             var colors = response.data;
-    //
-    //             $('.deepSeaBackground').css({'background-color': colors[0].colorCode});
-    //             $('.deepSeaColor').css({'color': colors[0].colorCode});
-    //
-    //             $('.skyBlueBackground').css({'background-color': colors[1].colorCode});
-    //             $('.skyBlueColor').css({'color': colors[1].colorCode});
-    //
-    //             $('.crestBackground').css({'background-color': colors[2].colorCode});
-    //             $('.crestColor').css({'color': colors[2].colorCode});
-    //
-    //             $('.sadDayBackground').css({'background-color': colors[3].colorCode});
-    //             $('.sadDayColor').css({'color': colors[3].colorCode});
-    //
-    //             $('.cloudyBackground').css({'background-color': colors[4].colorCode});
-    //             $('.cloudyColor').css({'color': colors[4].colorCode});
-    //
-    //             console.log(response.data);
-    //           }).catch(function(err) {
-    //               console.log(err);
-    //           });
-    //
-    //       }).catch(function(err) {
-    //         console.log(err);
-    //       });
-    //   });
-    //
-    // };
-    //
-    // $scope.createColor = function() {
-    //
-    //   var hexCode = $scope.color.text;
-    //
-    //   if (hexCode === '') {
-    //     toaster.pop('error','Please enter text.');
-    //     return;
-    //   }
-    //
-    //   var colorToCreate = {
-    //     hexCode: hexCode
-    //   };
-    //
-    //   colorService.createColor(colorToCreate)
-    //     .then(function (response) {
-    //       var color = response.data;
-    //       toaster.pop('success','Color submitted');
-    //       $scope.color.text = '';
-    //       console.log(color);
-    //       $scope.themeColors.push(color);
-    //     }).catch(function(err){
-    //       console.log(err);
-    //     });
-    // };
 
   });

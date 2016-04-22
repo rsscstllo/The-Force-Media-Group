@@ -82,11 +82,16 @@ export function create(req, res) {
 }
 
 // Updates an existing AdminPicture in the DB
+//
+// Working on fixing 500 error
+//
 export function update(req, res) {
-  if (req.body._id) {
-    delete req.body._id;
-  }
-  AdminPicture.findOne({"name": req.params.name})
+  // if (req.body.name) {
+  //   delete req.body.name;
+  // }
+  // console.log(req.body);
+  // console.log(req.params);
+  return AdminPicture.findOne({"name": req.params.name}).exec()
     .then(handleEntityNotFound(res))
     .then(saveUpdates(req.body))
     .then(respondWithResult(res))
