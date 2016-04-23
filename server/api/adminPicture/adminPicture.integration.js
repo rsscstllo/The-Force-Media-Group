@@ -35,8 +35,8 @@ describe('AdminPicture API:', function() {
       request(app)
         .post('/api/adminPictures')
         .send({
-          name: 'New AdminPicture',
-          url: 'http://www.google.com/'
+          url: 'google.com',
+          name: 'picture1'
         })
         .expect(201)
         .expect('Content-Type', /json/)
@@ -50,8 +50,8 @@ describe('AdminPicture API:', function() {
     });
 
     it('should respond with the newly created adminPicture', function() {
-      newAdminPicture.name.should.equal('New AdminPicture');
-      newAdminPicture.url.should.equal('http://www.google.com/');
+      newAdminPicture.url.should.equal('google.com');
+      newAdminPicture.name.should.equal('picture1');
     });
 
   });
@@ -78,8 +78,8 @@ describe('AdminPicture API:', function() {
     });
 
     it('should respond with the requested adminPicture', function() {
-      adminPicture.name.should.equal('New AdminPicture');
-      adminPicture.url.should.equal('http://www.google.com/');
+      adminPicture.url.should.equal('google.com');
+      adminPicture.name.should.equal('picture1');
     });
 
   });
@@ -91,8 +91,8 @@ describe('AdminPicture API:', function() {
       request(app)
         .put('/api/adminPictures/' + newAdminPicture._id)
         .send({
-          name: 'Updated AdminPicture',
-          url: 'http://www.yahoo.com/'
+          url: 'bing.com',
+          name: 'This is bing'
         })
         .expect(200)
         .expect('Content-Type', /json/)
@@ -110,8 +110,8 @@ describe('AdminPicture API:', function() {
     });
 
     it('should respond with the updated adminPicture', function() {
-      updatedAdminPicture.name.should.equal('Updated AdminPicture');
-      updatedAdminPicture.url.should.equal('http://www.yahoo.com/');
+      updatedAdminPicture.url.should.equal('bing.com');
+      updatedAdminPicture.name.should.equal('This is bing');
     });
 
   });
