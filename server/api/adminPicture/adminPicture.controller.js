@@ -24,8 +24,8 @@ function respondWithResult(res, statusCode) {
 function saveUpdates(updates) {
   return function(entity) {
     var updated = _.merge(entity, updates);
-    return updated.saveAsync()
-      .spread(updated => {
+    return updated.save()
+      .then(updated => {
         return updated;
       });
   };
@@ -34,7 +34,7 @@ function saveUpdates(updates) {
 function removeEntity(res) {
   return function(entity) {
     if (entity) {
-      return entity.removeAsync()
+      return entity.remove()
         .then(() => {
           res.status(204).end();
         });
@@ -61,14 +61,14 @@ function handleError(res, statusCode) {
 
 // Gets a list of AdminPictures
 export function index(req, res) {
-  AdminPicture.findAsync()
+  return AdminPicture.find().exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
 // Gets a single AdminPicture from the DB
 export function show(req, res) {
-  AdminPicture.findOne({"name": req.params.name})
+  return AdminPicture.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
@@ -76,22 +76,17 @@ export function show(req, res) {
 
 // Creates a new AdminPicture in the DB
 export function create(req, res) {
-  AdminPicture.createAsync(req.body)
+  return AdminPicture.create(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
 
 // Updates an existing AdminPicture in the DB
-//
-// Working on fixing 500 error
-//
 export function update(req, res) {
-  // if (req.body.name) {
-  //   delete req.body.name;
-  // }
-  // console.log(req.body);
-  // console.log(req.params);
-  return AdminPicture.findOne({"name": req.params.name}).exec()
+  if (req.body._id) {
+    delete req.body._id;
+  }
+  return AdminPicture.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
     .then(saveUpdates(req.body))
     .then(respondWithResult(res))
@@ -100,7 +95,7 @@ export function update(req, res) {
 
 // Deletes a AdminPicture from the DB
 export function destroy(req, res) {
-  AdminPicture.findByIdAsync(req.params.id)
+  return AdminPicture.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
     .catch(handleError(res));

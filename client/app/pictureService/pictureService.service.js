@@ -9,11 +9,23 @@ angular.module('fmgApp')
     // Methods to be used throughout the application for setting, updating, and
     // retrieving images on the site.
     var methods = {
-      getPicture: function(name){
-        return $http.get(baseUrl + name);
+      getPictureByName: function(name) {
+        return $http.get(baseUrl).then(function(response) {
+          var pictureToReturn;
+          response.data.forEach(function(picture) {
+            if(picture.name === name) {
+              pictureToReturn = picture;
+            }
+          });
+
+          return Promise.resolve(pictureToReturn);
+        });
+      },
+      getAllPictures: function() {
+        return $http.get(baseUrl);
       },
       updatePicture: function(picture) {
-        return $http.put(baseUrl + picture.name, picture);
+        return $http.put(baseUrl + picture._id, picture);
       },
       createPicture: function(picture) {
         return $http.post(baseUrl, picture);

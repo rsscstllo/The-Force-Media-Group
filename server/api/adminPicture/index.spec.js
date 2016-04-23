@@ -44,15 +44,15 @@ describe('AdminPicture API Router:', function() {
 
   });
 
-  // describe('GET /api/adminPictures/:id', function() {
-  //
-  //   it('should route to adminPicture.controller.show', function() {
-  //     routerStub.get
-  //       .withArgs('/:id', 'adminPictureCtrl.show')
-  //       .should.have.been.calledOnce;
-  //   });
-  //
-  // });
+  describe('GET /api/adminPictures/:id', function() {
+
+    it('should route to adminPicture.controller.show', function() {
+      routerStub.get
+        .withArgs('/:id', 'adminPictureCtrl.show')
+        .should.have.been.calledOnce;
+    });
+
+  });
 
   describe('POST /api/adminPictures', function() {
 
@@ -64,15 +64,15 @@ describe('AdminPicture API Router:', function() {
 
   });
 
-  // describe('PUT /api/adminPictures/:id', function() {
-  //
-  //   it('should route to adminPicture.controller.update', function() {
-  //     routerStub.put
-  //       .withArgs('/:id', 'adminPictureCtrl.update')
-  //       .should.have.been.calledOnce;
-  //   });
-  //
-  // });
+  describe('PUT /api/adminPictures/:id', function() {
+
+    it('should route to adminPicture.controller.update', function() {
+      routerStub.put
+        .withArgs('/:id', 'adminPictureCtrl.update')
+        .should.have.been.calledOnce;
+    });
+
+  });
 
   describe('PATCH /api/adminPictures/:id', function() {
 
