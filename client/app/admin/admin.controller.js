@@ -29,6 +29,8 @@ angular.module('fmgApp.admin')
     // jarmon_fb.jpg –– https://drive.google.com/uc?id=0B-viYPCddrMLLTFramFTdmN5eTA
     // test_1.png    –– https://drive.google.com/uc?id=0B-viYPCddrMLUmF2S3lXRlBGVTg
     $scope.updatePicture = function(adminPictureIndex) {
+      //replace part of url for proper image showing
+      $scope.pictures[adminPictureIndex].url = $scope.pictures[adminPictureIndex].url.replace('open', 'uc');
       pictureService.updatePicture($scope.pictures[adminPictureIndex]).then(function(response) {
         console.log(response.data);
         toaster.pop('success', 'Image Updated!');
