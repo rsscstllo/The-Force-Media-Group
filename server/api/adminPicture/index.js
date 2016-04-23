@@ -6,9 +6,9 @@ var controller = require('./adminPicture.controller');
 var router = express.Router();
 
 router.get('/', controller.index);
-router.get('/:name', controller.show);
+router.get('/:id', controller.show);
 router.post('/', controller.create);
-router.put('/:name', controller.update);
+router.put('/:id', controller.update);
 router.patch('/:id', controller.update);
 router.delete('/:id', controller.destroy);
 
